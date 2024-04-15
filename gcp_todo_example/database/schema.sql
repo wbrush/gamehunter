@@ -18,13 +18,12 @@ USE todo;
 
 DROP TABLE IF EXISTS `todo`;
 
-CREATE TABLE `todo` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(512) DEFAULT NULL,
-  `updated` datetime DEFAULT NULL,
-  `completed` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE todo (
+  id serial primary key,
+  title varchar(512) DEFAULT NULL,
+  updated timestamp DEFAULT NULL,
+  completed timestamp DEFAULT NULL
+);
 
 LOCK TABLES `todo` WRITE;
 /*!40000 ALTER TABLE `todo` DISABLE KEYS */;
