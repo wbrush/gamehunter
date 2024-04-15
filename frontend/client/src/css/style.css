@@ -1,0 +1,139 @@
+h2 {
+  margin: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(0, 0, 175);
+  padding: 1rem;
+}
+
+header a {
+  text-decoration: none;
+  color: white;
+}
+
+body {
+  margin: 0;
+}
+
+#header-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+}
+
+nav a {
+  padding: 1rem;
+  font-size: 18px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 1rem;
+}
+
+.search p {
+  font-size: 18px;
+  margin: 0;
+}
+
+#search-btn {
+  height: fit-content;
+  padding: 7px;
+  font-size: 16px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.sport-selector {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sport-selector select {
+  height: min-content;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.date input {
+  height: min-content;
+  font-size: 16px;
+  padding: 5px;
+}
+
+#datepicker {
+  display: flex;
+  max-width: fit-content;
+}
+
+.ui-datepicker {
+  background-color: rgb(241, 241, 241);
+}
+
+.ui-datepicker-inline {
+  margin: 1rem;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+  color: blue;
+}
+
+.ui-datepicker-next {
+  float: inline-end;
+}
+
+.ui-datepicker-title {
+  text-align: center;
+}
+
+td a {
+  text-decoration: none;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.location input {
+  font-size: 16px;
+  padding: 5px;
+}
+
+.container {
+  margin: 1rem 3rem;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgb(96, 0, 0);
+  overflow: hidden;
+}
+
+.container-title {
+  background-color: rgb(173, 2, 2);
+  padding: .5rem;
+  color: white;
+}
+
+.content {
+  padding: .5rem;
+}

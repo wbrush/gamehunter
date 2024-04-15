@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="./src/css/style.css"> <!-- !Comment out when using webpack -->
+  <title>Game Hunters</title>
+</head>
+<body>
+  <header>
+    <a href="/" id="header-title">GameHunter</a>
+    <nav>
+      <a href="/login">Login</a>
+      <a href="/signup">Signup</a>
+    </nav>
+  </header>
+  
+  <div class="search">
+    <div class="date">
+      <p>Date:</p>
+      <input id="datepicker">
+    </div>
+  
+    <div class="sport-selector">
+      <p>Sport: </p>
+      <select id="selection">
+        <option>Volleyball</option>
+        <option>Basketball</option>
+        <option>Racquetball</option>
+        <option>Pickleball</option>
+      </select>
+    </div>
+    <div class="location">
+      <p>Location:</p>
+      <input id="location" placeholder="ex. Austin, TX">
+    </div>
+    <button id="search-btn">Search</button>
+  </div>
+  <script>
+    $(function() {
+      $('#datepicker').datepicker()
+    })
+  </script>
+
+  <div class="container">
+    <h2 class="container-title">Volleyball Signup for <span id="date">4/21</span></h2>
+    <div class="content">
+      <p>Content</p>
+    </div>
+  </div>
+
+  <script src="./src/js/index.js"></script>
+</body>
+</html>
