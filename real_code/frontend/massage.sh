@@ -12,14 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-steps:
-   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-     entrypoint: bash
-     args: [ './massage.sh', '$_REGION' ]
-   - name: 'gcr.io/cloud-builders/docker'
-     args: [ 'build', '-t', '$_REGION-docker.pkg.dev/$PROJECT_ID/$_BASENAME-app/fe', '.' ]
-   - name: 'gcr.io/cloud-builders/docker'
-     args: ['push', '$_REGION-docker.pkg.dev/$PROJECT_ID/$_BASENAME-app/fe']
-substitutions:
-  _REGION: us-central1
-  _BASENAME: gamehunter
+API=$(gcloud run services describe three-tier-app-api --region=$1 --format="value(status.url)")
+stripped=$(echo ${API/https:\/\//})
+sed -i"" -e "s/127.0.0.1:9000/$stripped/" www/js/main.js
+
