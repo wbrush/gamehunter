@@ -14,69 +14,142 @@
  * limitations under the License.
  */
 
-body{
-    width: 800px;
-    margin: 10px auto;
-    font-family: 'Lato', sans-serif;
-    font-weight: 100;
+h2 {
+    margin: 0;
 }
 
-h1{
-    font-weight: 900;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(0, 0, 175);
+    padding: 1rem;
 }
 
-.todo h1{
-    font-weight: 400;
-    font-size: 14px;
-    vertical-align: middle;
+header a {
+    text-decoration: none;
+    color: white;
 }
 
-.todo p{
-    display: none;
+body {
+    margin: 0;
 }
 
-.todo input[type=checkbox]{
-    display: inline;
+#header-title {
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.complete{
-    text-decoration:line-through;
-    font-style: italic;
-    color: #444;
+nav {
+    display: flex;
 }
 
-.delete{
-    line-height: 0%;
-    vertical-align: middle;
-    color: #ddd;
-    display: inline-block;
-    margin-left: 10px;
+nav a {
+    padding: 1rem;
+    font-size: 18px;
 }
 
-.delete:hover{
-    color: #f00;
-    cursor: pointer;
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 1rem;
 }
 
-.editor {
-    padding: 5px 10px;
-    margin: 5px 10px;
+.search p {
+    font-size: 18px;
+    margin: 0;
 }
 
-.editor-new{
-    display: inline-block;
-    padding-left: 10px;
-    min-width: 100px;
+#search-btn {
+    height: fit-content;
+    padding: 7px;
+    font-size: 16px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 10px;
 }
 
-.list{
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
+.sport-selector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-[contentEditable=true]:empty:not(:focus):before{
-    content:attr(data-placeholder);
-    font-style: italic;
-    color: #444;
+.sport-selector select {
+    height: min-content;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.date input {
+    height: min-content;
+    font-size: 16px;
+    padding: 5px;
+}
+
+#datepicker {
+    display: flex;
+    max-width: fit-content;
+}
+
+.ui-datepicker {
+    background-color: rgb(241, 241, 241);
+}
+
+.ui-datepicker-inline {
+    margin: 1rem;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+    color: blue;
+}
+
+.ui-datepicker-next {
+    float: inline-end;
+}
+
+.ui-datepicker-title {
+    text-align: center;
+}
+
+td a {
+    text-decoration: none;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.location input {
+    font-size: 16px;
+    padding: 5px;
+}
+
+.container {
+    margin: 1rem 3rem;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgb(96, 0, 0);
+    overflow: hidden;
+}
+
+.container-title {
+    background-color: rgb(173, 2, 2);
+    padding: .5rem;
+    color: white;
+}
+
+.content {
+    padding: .5rem;
 }
