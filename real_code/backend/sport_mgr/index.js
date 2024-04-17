@@ -1,13 +1,18 @@
-const express = require('express');
+const express = require("express")
+require("dotenv").config();
+
 const app = express();
+const port = process.env.PORT || 8080;
 
-app.get('/', (req, res) => {
-  const name = process.env.NAME || 'World';
-  res.send(`Hello ${name}!`);
+app.listen(port,()=>{
+    console.log(`server listening on port ${port}`)
 });
 
-const port = parseInt(process.env.PORT) || 8080;
+app.get("/",(req,res)=>{
+    return res.status(200).json({message : "Cloud Run and Cloud Build Demo - CI CD Pipeline"})
+})
 
-app.listen(port, () => {
-  console.log(`Hello World: listening on port ${port}`);
-});
+app.get("/echo/:text",(req,res)=>{
+    const {text}  = req.params;
+    return res.status(200).json({message : "Echo Route",data : text})
+})
