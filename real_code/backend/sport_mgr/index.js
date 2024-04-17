@@ -1,7 +1,13 @@
-const http = require('http')
-const server = http.createServer((req,res) => {
-  console.log("New Connection")
-  res.end('Hello Awesome')
-})
-const PORT = process.env.PORT || 8080
-server.listen(PORT, () => console.log('Listening'))
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  const name = process.env.NAME || 'World';
+  res.send(`Hello ${name}!`);
+});
+
+const port = parseInt(process.env.PORT) || 8080;
+
+app.listen(port, () => {
+  console.log(`Hello World: listening on port ${port}`);
+});
