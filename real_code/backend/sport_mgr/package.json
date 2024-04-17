@@ -1,19 +1,9 @@
 {
-    "name": "helloworld",
-    "description": "Simple hello world sample in Node",
-    "version": "1.0.0",
-    "private": true,
-    "main": "index.js",
-    "type": "module",
     "scripts": {
-      "start": "node index.js"
+      "start": "node build/index.js",
+      "build": "tsc"
     },
-    "engines": {
-      "node": ">=16.0.0"
-    },
-    "author": "Google LLC",
-    "license": "Apache-2.0",
-    "dependencies": {
-      "express": "^4.17.1"
+    "devDependencies": {
+      "typescript": "4.6.3"
     }
   }
