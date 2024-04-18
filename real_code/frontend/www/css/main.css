@@ -114,6 +114,11 @@ nav a {
     color: blue;
 }
 
+.ui-datepicker-prev:hover,
+.ui-datepicker-next:hover {
+    cursor: pointer;;
+}
+
 .ui-datepicker-next {
     float: inline-end;
 }
