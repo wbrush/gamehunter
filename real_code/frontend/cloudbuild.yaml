@@ -17,9 +17,6 @@ steps:
      entrypoint: bash
      args: [ './massage.sh', '$_DEPLOY_REGION' ]
    - name: 'gcr.io/cloud-builders/docker'
-     args: [ 'build', '-t', '$_AR_HOSTNAME/$PROJECT_ID/$_BASENAME-app/fe', '.' ]
+     args: [ 'build', '-t', '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME-app/fe', '.' ]
    - name: 'gcr.io/cloud-builders/docker'
-     args: ['push', '$_AR_HOSTNAME/$PROJECT_ID/$_BASENAME-app/fe']
-substitutions:
-  _REGION: us-central1
-  _BASENAME: gamehunter
+     args: ['push', '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME-app/fe']
