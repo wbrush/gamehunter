@@ -15,11 +15,11 @@
 steps:
    - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
      entrypoint: bash
-     args: [ './massage.sh', '$_REGION' ]
+     args: [ './massage.sh', '$_DEPLOY_REGION' ]
    - name: 'gcr.io/cloud-builders/docker'
-     args: [ 'build', '-t', '$_REGION-docker.pkg.dev/$PROJECT_ID/$_BASENAME-app/fe', '.' ]
+     args: [ 'build', '-t', '$_AR_HOSTNAME/$PROJECT_ID/$_BASENAME-app/fe', '.' ]
    - name: 'gcr.io/cloud-builders/docker'
-     args: ['push', '$_REGION-docker.pkg.dev/$PROJECT_ID/$_BASENAME-app/fe']
+     args: ['push', '$_AR_HOSTNAME/$PROJECT_ID/$_BASENAME-app/fe']
 substitutions:
   _REGION: us-central1
   _BASENAME: gamehunter
