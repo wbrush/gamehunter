@@ -9,7 +9,7 @@ app.listen(port,()=>{
 });
 
 app.get("/",(req,res)=>{
-    return res.status(200).json({message : "Cloud Run and Cloud Build Demo - CI CD Pipeline"})
+    return res.status(200).json({service : "gh-sport-mgr"})
 })
 
 app.get("/api/v1/healthz",(req,res)=>{
@@ -23,9 +23,4 @@ app.get("/api/v1/healthz",(req,res)=>{
         res.status(412).json({error : "Invalid Accept Header"})
     }
     return
-})
-
-app.get("/echo/:text",(req,res)=>{
-    const {text}  = req.params;
-    return res.status(200).json({message : "Echo Route",data : text})
 })
