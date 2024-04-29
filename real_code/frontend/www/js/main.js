@@ -17,21 +17,25 @@
 var basepath = "http://localhost/api/v1/db"
 var sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
 
-document.addEventListener('DOMContentLoaded', function(){
-    listTodos()
-})
+// const searchBtn = document.getElementById('search-btn')
+// window.addEventListener('load', function(){
+//     searchBtn.addEventListener('click', function(){
+//         listTodos()
+//     })
+// })
 
 function listTodos() {
     console.log("sending request to gh-sport-mgr")
     try {
         fetch('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/db', {
             method: 'GET',
+            mode: 'no-cors',
             headers: {
                 'Accept': 'application/json'
             }
         })
-        // .then((res) = res.json())
-        // .then((data) => console.log(data))
+        .then((res) => res.json())
+        .then((data) => console.log(data))
     } catch (error) {
         console.log(error)
     }
