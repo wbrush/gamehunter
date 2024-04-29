@@ -41,7 +41,7 @@ const databaseSeeds = [
 ]
 
 // Api request to receive all events
-app.get("/api/v1/db",(req,res)=>{
+app.get("/api/v1/db", (req,res) => {
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
         res.status(200).json(databaseSeeds)
