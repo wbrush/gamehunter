@@ -29,7 +29,6 @@ function listTodos() {
     try {
         fetch('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/db', {
             method: 'GET',
-            mode: 'no-cors',
             headers: {
                 'Accept': 'application/json'
             }
