@@ -1,0 +1,63 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "this service manages the sport database by providing an API to the sport Postgres DB",
+      "title": "gh-sport-mgr",
+      "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api",
+            "description": "currently running server deployed on GCP"
+        }
+    ],
+    "paths": {
+      "/v1/info": {
+        "get": {
+          "description": "returns information useful in debugging problems in deployed service.",
+          "summary": "Get basic service information to aid in debugging.",
+          "parameters": [
+            {
+              "description": "standard {Accept} header values",
+              "name": "Accept",
+              "in": "header",
+              "required": true,
+              "schema":{
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                    "schema": {
+                        "type":"object",
+                        "$ref": "#/components/schemas/BasicInfoStruct"
+                    }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "components": {
+        "schemas":{
+            "BasicInfoStruct": {
+                "properties": {
+                    "build_date": {
+                        "type": "string",
+                        "x-go-name": "BuiltOn"
+                    },
+                    "version": {
+                        "type": "string",
+                        "x-go-name": "Version"
+                    }
+                }
+            }
+        }
+    }
+}
