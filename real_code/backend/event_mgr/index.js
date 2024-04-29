@@ -9,7 +9,7 @@ app.listen(port,()=>{
 });
 
 app.get("/",(req,res)=>{
-    return res.status(200).json({service : "gh-sport-mgr"})
+    return res.status(200).json({service : "gh-event-mgr"})
 })
 
 app.get("/api/v1/healthz",(req,res)=>{

@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-var basepath = "//127.0.0.1:9000/api/v1/db"
+var basepath = "http://localhost/api/v1/db"
+var sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
 
 document.addEventListener('DOMContentLoaded', function(){
     listTodos()
 })
 
 function listTodos() {
+    console.log("sending request to gh-sport-mgr")
     try {
-        fetch('http://localhost:9000/api/v1/db', {
+        fetch('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/db', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'

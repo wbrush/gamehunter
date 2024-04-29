@@ -42,6 +42,7 @@ const databaseSeeds = [
 
 // Api request to receive all events
 app.get("/api/v1/db", (req,res) => {
+    console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
         res.status(200).json(databaseSeeds)
