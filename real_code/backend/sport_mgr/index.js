@@ -33,15 +33,15 @@ app.get("/api/v1/healthz",(req,res)=>{
 
 const databaseSeeds = [
     {
-        sport: 'volleyball',
+        sport: 'Volleyball',
         location: 'CMRC'
     },
     {
-        sport: 'basketball',
+        sport: 'Basketball',
         location: 'CRMC'
     },
     {
-        sport: 'soccer',
+        sport: 'Soccer',
         location: 'YMCA'
     }
 ]
