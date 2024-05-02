@@ -5,6 +5,9 @@ function Open() {
     const projectId = 'GameHunter';
     const instanceId = 'game-hunter-db-5d65';
     const databaseId = '';
+    
+    // Imports the Google Cloud client library
+    const {Spanner} = require('@google-cloud/spanner');
 
     // Creates a client
     const spanner = new Spanner({
@@ -13,7 +16,7 @@ function Open() {
 
     // Gets a reference to a Cloud Spanner instance and database
     const instance = spanner.instance(instanceId);
-    database = instance.database(databaseId);
+    const database = instance.database(databaseId);
 
     return database
 }
@@ -25,7 +28,7 @@ async function Read(database) {
 
     // Queries rows from the Albums table
     try {
-        numrows = 0
+        var numrows = 0
         const [rows] = await database.run(query);
 
         rows.forEach(row => {
