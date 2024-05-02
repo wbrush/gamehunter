@@ -51,6 +51,7 @@ app.get("/api/v1/db", (req,res) => {
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
+        db_Handler()
         res.status(200).json(databaseSeeds)
     } else if (acceptHeader.includes('plain')) {
         res.set('Content-Type', 'text/html')
@@ -60,3 +61,65 @@ app.get("/api/v1/db", (req,res) => {
     }
     return
 })
+
+function db_Handler(){
+    // let dbHandler = require ("./db/db")
+
+    console.log("opening DB connection")
+    // database = dbHandler.Open()
+    const database = Open()
+
+    console.log("Reading from DB")
+    // dbHandler.Read(database)
+    Read(database)
+
+    console.log("closing DB")
+    // dbHandler.Close(database)
+    Close(database)
+}
+
+function Open() {
+
+    const projectId = 'GameHunter';
+    const instanceId = 'game-hunter-db-5d65';
+    const databaseId = '';
+
+    // Creates a client
+    const spanner = new Spanner({
+        projectId: projectId,
+    });
+
+    // Gets a reference to a Cloud Spanner instance and database
+    const instance = spanner.instance(instanceId);
+    const database = instance.database(databaseId);
+
+    return database
+}
+
+async function Read(database) {
+    const query = {
+        sql: 'SELECT SingerId, AlbumId, AlbumTitle FROM Albums',
+    };
+
+    // Queries rows from the Albums table
+    try {
+        var numrows = 0
+        const [rows] = await database.run(query);
+
+        rows.forEach(row => {
+            const json = row.toJSON();
+            console.log(
+            `test: ${json.test}`
+            );
+            numrows = numrows+1
+        });
+
+        console.log("read ${numrows} of data")
+    } catch (err) {
+        console.error('ERROR:', err);
+    }
+}
+
+async function Close(database) {
+    await database.close()
+}
