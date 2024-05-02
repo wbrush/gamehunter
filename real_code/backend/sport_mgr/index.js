@@ -82,7 +82,7 @@ function Open() {
 
     const projectId = 'GameHunter';
     const instanceId = 'game-hunter-db-5d65';
-    const databaseId = '';
+    const databaseId = 'test';
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
