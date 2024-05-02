@@ -41,6 +41,36 @@
             }
           }
         }
+      },
+      "/v1/sport": {
+        "get": {
+          "description": "returns a list of valid sports fitting any given filtering criteria.",
+          "summary": "Get list of valid sports",
+          "parameters": [
+            {
+              "description": "standard {Accept} header values",
+              "name": "Accept",
+              "in": "header",
+              "required": true,
+              "schema":{
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                    "schema": {
+                        "type":"object",
+                        "$ref": "#/components/schemas/SportListStruct"
+                    }
+                }
+              }
+            }
+          }
+        }
       }
     },
 
@@ -57,7 +87,23 @@
                         "x-go-name": "Version"
                     }
                 }
-            }
-        }
+            },
+            "SportStruct": {
+              "properties": {
+                  "id": {
+                      "type": "integer"
+                  },
+                  "sport": {
+                      "type": "string"
+                  }
+                }
+             },
+            "SportListStruct": {
+              "type": "array",
+              "items": {
+                "$ref":"#/components/schemas/SportStruct"
+              }
+           }
+      }
     }
 }
