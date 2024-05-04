@@ -101,6 +101,7 @@ function db_Handler(){
         console.table(rows); // prints the last 5 records
         pool.end();
         connector.close();
+        console.log("finished!!!!!")
         return true
     } catch (e) {
         return false
