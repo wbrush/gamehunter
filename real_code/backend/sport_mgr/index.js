@@ -68,27 +68,27 @@ import {Connector} from '@google-cloud/cloud-sql-connector';
 function db_Handler(){
     console.log("opening DB connection")
     
-    const {Pool} = pg;
+    // const {Pool} = pg;
     
-    const connector = new Connector();
-    const clientOpts = connector.getOptions({
-        // instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
-        instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
-        authType: 'IAM'
-    });
+    // const connector = new Connector();
+    // const clientOpts = connector.getOptions({
+    //     // instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
+    //     instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
+    //     authType: 'IAM'
+    // });
     
-    const pool = new Pool({
-        ...clientOpts,
-        // user: process.env.DB_USER,
-        // database: process.env.DB_NAME
-        user: 'game-hunter-run-sa@gamehunter-417801.iam',
-        database: 'postgres'
-    });
+    // const pool = new Pool({
+    //     ...clientOpts,
+    //     // user: process.env.DB_USER,
+    //     // database: process.env.DB_NAME
+    //     user: 'game-hunter-run-sa@gamehunter-417801.iam',
+    //     database: 'postgres'
+    // });
     
-    const app = express();
+    // const app = express();
     
-    const {rows} = pool.query('SELECT test FROM test');
-    console.table(rows); // prints the last 5 records
+    // const {rows} = pool.query('SELECT test FROM test');
+    // console.table(rows); // prints the last 5 records
 }
 
 function db_Handler_spanner(){
