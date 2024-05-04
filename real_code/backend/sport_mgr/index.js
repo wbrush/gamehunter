@@ -51,8 +51,12 @@ app.get("/api/v1/sport", (req,res) => {
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
-        db_Handler()
-        res.status(200).json(databaseSeeds)
+        e = db_Handler()
+        if (e) {
+            res.status(200).json(databaseSeeds)
+        } else {
+            res.status(500).json(e)
+        }
     } else if (acceptHeader.includes('plain')) {
         res.set('Content-Type', 'text/html')
         res.status(200).send(databaseSeeds)
@@ -69,27 +73,32 @@ const {Connector} = require("@google-cloud/cloud-sql-connector")
 function db_Handler(){
     console.log("opening DB connection")
     
-    const {Pool} = pg;
-    
-    const connector = new Connector();
-    const clientOpts = connector.getOptions({
-        // instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
-        instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
-        authType: 'IAM'
-    });
-    
-    const pool = new Pool({
-        ...clientOpts,
-        // user: process.env.DB_USER,
-        // database: process.env.DB_NAME
-        user: 'g.wayne.brush@gmail.com',
-        database: 'postgres'
-    });
-    
-    const app = express();
-    
-    const {rows} = pool.query('SELECT test FROM test');
-    console.table(rows); // prints the last 5 records
+    try {
+        const {Pool} = pg;
+        
+        const connector = new Connector();
+        const clientOpts = connector.getOptions({
+            // instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
+            instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
+            authType: 'IAM'
+        });
+        
+        const pool = new Pool({
+            ...clientOpts,
+            // user: process.env.DB_USER,
+            // database: process.env.DB_NAME
+            user: 'gamehunter-dev@gamehunter-417801.iam',
+            database: 'postgres'
+        });
+        
+        const app = express();
+        
+        const {rows} = pool.query('SELECT test FROM test');
+        console.table(rows); // prints the last 5 records
+        return true
+    } catch (e) {
+        return false
+    }
 }
 
 function db_Handler_spanner(){
