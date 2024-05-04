@@ -81,7 +81,8 @@ function db_Handler(){
             // instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
             instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
             // authType: 'IAM'
-            ipType: 'PUBLIC'
+            // ipType: 'PUBLIC'
+            ipType: 'PRIVATE'
         });
         
         const pool = new Pool({
@@ -89,9 +90,9 @@ function db_Handler(){
             // user: process.env.DB_USER,
             // database: process.env.DB_NAME
             user: 'postgres',
-            // host: '10.87.0.3',
+            host: '10.87.0.3',
             password: 'postgres',
-            user: 'game-hunter-run-sa@gamehunter-417801.iam',
+            // user: 'game-hunter-run-sa@gamehunter-417801.iam',
             max: 5,
             database: 'postgres'
         });
