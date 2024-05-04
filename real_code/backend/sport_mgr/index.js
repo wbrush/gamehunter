@@ -97,8 +97,8 @@ function db_Handler(){
             database: 'postgres'
         });
         
-        const {rows} = pool.query('SELECT test FROM test');
-        console.table(rows); // prints the last 5 records
+        // const {rows} = pool.query('SELECT test FROM test');
+        // console.table(rows); // prints the last 5 records
         pool.end();
         connector.close();
         console.log("finished!!!!!")
