@@ -80,7 +80,7 @@ function db_Handler(){
         const clientOpts = connector.getOptions({
             // instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
             instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
-            // authType: 'IAM'
+            authType: 'IAM',
             // ipType: 'PUBLIC'
             ipType: 'PRIVATE'
         });
@@ -89,10 +89,10 @@ function db_Handler(){
             ...clientOpts,
             // user: process.env.DB_USER,
             // database: process.env.DB_NAME
-            user: 'postgres',
+            // user: 'postgres',
             host: '10.87.0.3',
-            password: 'postgres',
-            // user: 'game-hunter-run-sa@gamehunter-417801.iam',
+            // password: 'postgres',
+            user: 'game-hunter-run-sa@gamehunter-417801.iam',
             max: 5,
             database: 'postgres'
         });
