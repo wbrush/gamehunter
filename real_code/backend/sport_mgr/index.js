@@ -62,7 +62,33 @@ app.get("/api/v1/db", (req,res) => {
     return
 })
 
+import express from 'express';
+import pg from 'pg';
+import {Connector} from '@google-cloud/cloud-sql-connector';
 function db_Handler(){
+    console.log("opening DB connection")
+    
+    const {Pool} = pg;
+    
+    const connector = new Connector();
+    const clientOpts = connector.getOptions({
+        instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
+        authType: 'IAM'
+    });
+    
+    const pool = new Pool({
+        ...clientOpts,
+        user: process.env.DB_USER,
+        database: process.env.DB_NAME
+    });
+    
+    const app = express();
+    
+    const {rows} = pool.query('SELECT test FROM test');
+    console.table(rows); // prints the last 5 visits
+}
+
+function db_Handler_spanner(){
     // let dbHandler = require ("./db/db")
 
     console.log("opening DB connection")
