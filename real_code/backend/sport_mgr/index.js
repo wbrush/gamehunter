@@ -82,7 +82,7 @@ function db_Handler(){
         ...clientOpts,
         // user: process.env.DB_USER,
         // database: process.env.DB_NAME
-        user: 'gamehunter-dev@gamehunter-417801.iam.gserviceaccount.com',
+        user: 'g.wayne.brush@gmail.com',
         database: 'postgres'
     });
     
