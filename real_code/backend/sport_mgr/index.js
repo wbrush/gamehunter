@@ -62,9 +62,10 @@ app.get("/api/v1/db", (req,res) => {
     return
 })
 
-import express from 'express';
-import pg from 'pg';
-import {Connector} from '@google-cloud/cloud-sql-connector';
+const pg = require("pg")
+const {Connector} = require("@google-cloud/cloud-sql-connector")
+// import pg from 'pg';
+// import {Connector} from '@google-cloud/cloud-sql-connector';
 function db_Handler(){
     console.log("opening DB connection")
     
