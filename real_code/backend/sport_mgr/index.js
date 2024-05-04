@@ -89,6 +89,7 @@ function db_Handler(){
             // user: process.env.DB_USER,
             // database: process.env.DB_NAME
             user: 'postgres',
+            host: '10.87.0.3',
             database: 'postgres',
             password: 'postgres'
         });
