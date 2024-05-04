@@ -80,21 +80,23 @@ function db_Handler(){
         const clientOpts = connector.getOptions({
             // instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
             instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
-            authType: 'IAM'
+            // authType: 'IAM'
+            authType: 'PASSWORD'
         });
         
         const pool = new Pool({
             ...clientOpts,
             // user: process.env.DB_USER,
             // database: process.env.DB_NAME
-            user: 'gamehunter-dev@gamehunter-417801.iam',
-            database: 'postgres'
+            user: 'postgres',
+            database: 'postgres',
+            password: 'postgres'
         });
         
         const app = express();
         
-        const {rows} = pool.query('SELECT test FROM test');
-        console.table(rows); // prints the last 5 records
+        // const {rows} = pool.query('SELECT test FROM test');
+        // console.table(rows); // prints the last 5 records
         return true
     } catch (e) {
         return false
