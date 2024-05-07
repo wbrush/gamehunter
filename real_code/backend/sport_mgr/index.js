@@ -47,12 +47,16 @@ const databaseSeeds = [
 ]
 
 // Api request to receive all events
-app.get("/api/v1/db", (req,res) => {
+app.get("/api/v1/sport", (req,res) => {
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
-        db_Handler()
-        res.status(200).json(databaseSeeds)
+        e = db_Handler()
+        if (e) {
+            res.status(200).json(databaseSeeds)
+        } else {
+            res.status(500).json(e)
+        }
     } else if (acceptHeader.includes('plain')) {
         res.set('Content-Type', 'text/html')
         res.status(200).send(databaseSeeds)
@@ -62,7 +66,49 @@ app.get("/api/v1/db", (req,res) => {
     return
 })
 
+const pg = require("pg")
+const {Connector} = require("@google-cloud/cloud-sql-connector")
+// import pg from 'pg';
+// import {Connector} from '@google-cloud/cloud-sql-connector';
 function db_Handler(){
+    console.log("opening DB connection")
+    
+    try {
+        const {Pool} = pg;
+     
+        const connector = new Connector();
+        const clientOpts = connector.getOptions({
+            // instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
+            instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
+            authType: 'IAM',
+            // ipType: 'PUBLIC'
+            ipType: 'PRIVATE'
+        });
+        
+        const pool = new Pool({
+            ...clientOpts,
+            // user: process.env.DB_USER,
+            // database: process.env.DB_NAME
+            // user: 'postgres',
+            host: '10.87.0.3',
+            // password: 'postgres',
+            user: 'game-hunter-run-sa@gamehunter-417801.iam',
+            max: 5,
+            database: 'postgres'
+        });
+        
+        // const {rows} = pool.query('SELECT test FROM test');
+        // console.table(rows); // prints the last 5 records
+        pool.end();
+        connector.close();
+        console.log("finished!!!!!")
+        return true
+    } catch (e) {
+        return false
+    }
+}
+
+function db_Handler_spanner(){
     // let dbHandler = require ("./db/db")
 
     console.log("opening DB connection")
