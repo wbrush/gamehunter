@@ -47,11 +47,11 @@ const databaseSeeds = [
 ]
 
 // Api request to receive all events
-app.get("/api/v1/sport", (req,res) => {
+app.get("/api/v1/sport", async (req,res) => {
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
-        e = db_Handler()
+        e = await db_Handler()
         if (e) {
             res.status(200).json(databaseSeeds)
         } else {
@@ -68,23 +68,21 @@ app.get("/api/v1/sport", (req,res) => {
 
 const pg = require("pg")
 const {Connector} = require("@google-cloud/cloud-sql-connector")
-// import pg from 'pg';
-// import {Connector} from '@google-cloud/cloud-sql-connector';
-function db_Handler(){
+
+async function db_Handler(){
     console.log("opening DB connection")
-    
+
     try {
         const {Pool} = pg;
-     
+
         const connector = new Connector();
-        const clientOpts = connector.getOptions({
+        const clientOpts = await connector.getOptions({
             // instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
             instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
             authType: 'IAM',
-            // ipType: 'PUBLIC'
             ipType: 'PRIVATE'
         });
-        
+
         const pool = new Pool({
             ...clientOpts,
             // user: process.env.DB_USER,
@@ -97,78 +95,15 @@ function db_Handler(){
             database: 'postgres'
         });
         
-        // const {rows} = pool.query('SELECT test FROM test');
-        // console.table(rows); // prints the last 5 records
+        console.log('sending query')
+        const {rows} = await pool.query('SELECT * FROM test');
+        console.table(rows);
+
         pool.end();
         connector.close();
-        console.log("finished!!!!!")
+        console.log("finished!")
         return true
     } catch (e) {
-        return false
+        return e
     }
-}
-
-function db_Handler_spanner(){
-    // let dbHandler = require ("./db/db")
-
-    console.log("opening DB connection")
-    // database = dbHandler.Open()
-    const database = Open()
-
-    console.log("Reading from DB")
-    // dbHandler.Read(database)
-    Read(database)
-
-    console.log("closing DB")
-    // dbHandler.Close(database)
-    Close(database)
-}
-
-function Open() {
-
-    const projectId = 'GameHunter';
-    const instanceId = 'game-hunter-db-5d65';
-    const databaseId = 'test';
-
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-
-    // Creates a client
-    const spanner = new Spanner({
-        projectId: projectId,
-    });
-
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-
-    return database
-}
-
-async function Read(database) {
-    const query = {
-        sql: 'SELECT SingerId, AlbumId, AlbumTitle FROM Albums',
-    };
-
-    // Queries rows from the Albums table
-    try {
-        var numrows = 0
-        const [rows] = await database.run(query);
-
-        rows.forEach(row => {
-            const json = row.toJSON();
-            console.log(
-            `test: ${json.test}`
-            );
-            numrows = numrows+1
-        });
-
-        console.log("read ${numrows} of data")
-    } catch (err) {
-        console.error('ERROR:', err);
-    }
-}
-
-async function Close(database) {
-    await database.close()
 }
