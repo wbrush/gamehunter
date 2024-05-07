@@ -20,7 +20,7 @@ var sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
 function listData() {
     console.log("sending request to gh-sport-mgr")
     try {
-        fetch(sports_mgr_hostname + '/api/v1/sport', {
+        fetch(sports_mgr_hostname + '/api/v1/db', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
