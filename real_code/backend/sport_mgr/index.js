@@ -74,31 +74,28 @@ function db_Handler(){
     console.log("opening DB connection")
     
     try {
+        //  connect to postgres DB here
         const {Pool} = pg;
-     
         const connector = new Connector();
         const clientOpts = connector.getOptions({
-            // instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME,
             instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
             authType: 'IAM',
-            // ipType: 'PUBLIC'
             ipType: 'PRIVATE'
         });
         
         const pool = new Pool({
             ...clientOpts,
-            // user: process.env.DB_USER,
-            // database: process.env.DB_NAME
-            // user: 'postgres',
             host: '10.87.0.3',
-            // password: 'postgres',
+            database: 'postgres',
             user: 'game-hunter-run-sa@gamehunter-417801.iam',
-            max: 5,
-            database: 'postgres'
+            max: 5
         });
-        
+ 
+        //  perform operation here - not sure what I'm doing so I'll comment it out. this gives an "undefined" message and a ETIMEDOUT error
         // const {rows} = pool.query('SELECT test FROM test');
         // console.table(rows); // prints the last 5 records
+
+        //  clean up the connection here 
         pool.end();
         connector.close();
         console.log("finished!!!!!")
