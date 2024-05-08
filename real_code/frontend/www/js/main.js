@@ -20,23 +20,21 @@ var sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
 function listData() {
     console.log("sending request to gh-sport-mgr")
     try {
-        fetch('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/db', {
+        fetch(sports_mgr_hostname + '/api/v1/db', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
             }
         })
         .then((res) => res.json())
-        .then((data) => {
-            renderListData(data)
-        })
+        .then((data) => renderListData(data))
     } catch (error) {
         console.log(error)
     }
 }
 
 function renderListData(data) {
-    console.log(data)
+    console.log('Returned data:', data)
     const container = document.querySelector('.data-container')
     container.innerHTML = ''
     

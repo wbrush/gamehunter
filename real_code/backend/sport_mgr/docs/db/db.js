@@ -1,25 +1,4 @@
-module.exports = { Open, Read, Close }
-
-function Open() {
-
-    const projectId = 'GameHunter';
-    const instanceId = 'game-hunter-db-5d65';
-    const databaseId = '';
-    
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-
-    // Creates a client
-    const spanner = new Spanner({
-        projectId: projectId,
-    });
-
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-
-    return database
-}
+module.exports = { Read }
 
 async function Read(database) {
     const query = {
@@ -43,8 +22,4 @@ async function Read(database) {
     } catch (err) {
         console.error('ERROR:', err);
     }
-}
-
-async function Close(database) {
-    await database.close()
 }
