@@ -1,5 +1,3 @@
-// For more CORS information: https://stackabuse.com/handling-cors-with-node-js/ 
-// 
 const express = require("express")
 require("dotenv").config()
 
@@ -66,39 +64,22 @@ app.get("/api/v1/db", async (req,res) => {
     return
 })
 
-const pg = require("pg")
-const {Connector} = require("@google-cloud/cloud-sql-connector")
+const { Open, Close } = require('./docs/db/connection')
+const { Read } = require('./docs/db/db')
 
 async function db_Handler(){
     console.log("opening DB connection")
-
     try {
         //  connect to postgres DB here
-        const {Pool} = pg;
-
-        const connector = new Connector();
-        const clientOpts = await connector.getOptions({
-            instanceConnectionName: 'gamehunter-417801:us-central1:game-hunter-db-5d65',
-            authType: 'IAM',
-            ipType: 'PRIVATE'
-        });
-
-        const pool = new Pool({
-            ...clientOpts,
-            host: '10.87.0.3',
-            database: 'postgres',
-            user: 'game-hunter-run-sa@gamehunter-417801.iam',
-            max: 5
-        });
+        const pool = await Open('gamehunter-417801:us-central1:game-hunter-db-5d65', '10.87.0.3', 'postgres', 'game-hunter-run-sa@gamehunter-417801.iam')
         
         console.log('sending query')
-        const {rows} = await pool.query('SELECT * FROM test');
-        console.table(rows);
+        const response = await Read(pool)
+        console.log(response)
 
-        pool.end();
-        connector.close();
+        Close(pool)
         console.log("finished!")
-        return true
+        return pool
     } catch (e) {
         return e
     }
