@@ -19,7 +19,9 @@ async function Read(database) {
         // });
 
         console.log(`read ${response} of data`)
+        return response
     } catch (err) {
         console.error('ERROR:', err);
+        return err
     }
 }

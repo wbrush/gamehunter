@@ -75,7 +75,7 @@ async function db_Handler(){
         
         console.log('sending query')
         const response = await Read(pool)
-        console.log('response:', response)
+        console.log('response of query:', response)
 
         Close(pool)
         console.log("finished!")
