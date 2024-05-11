@@ -1,4 +1,5 @@
 const express = require("express")
+require('dotenv').config()
 
 const connectWithIAM = require("./docs/db/connection")
 
@@ -26,10 +27,11 @@ app.use(async (req, res, next) => {
 const createPool = async () => {
     const config = {pool: {}}
 
-    config.pool.instance = 'gamehunter-417801:us-central1:game-hunter-db-5d65'
-    config.pool.user = 'game-hunter-run-sa@gamehunter-417801.iam'
-    config.pool.db = 'postgres'
-    config.pool.host = '10.87.0.3'
+    config.pool.instance = process.env.db_conn
+    config.pool.user = process.env.db_user
+    config.pool.password = process.env.db_pwd
+    config.pool.db = process.env.db_name
+    config.pool.host = process.env.db_host
 
     return connectWithIAM(config)
 }
