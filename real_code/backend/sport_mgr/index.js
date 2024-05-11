@@ -1,50 +1,11 @@
 const express = require("express")
-require("dotenv").config()
-const cors = require('cors');
 
-const createConnectorIAMAuthPool = require('./docs/db/connection');
-const connectWithIAM = require("./docs/db/connection");
+const connectWithIAM = require("./docs/db/connection")
 
 const app = express()
 
-// app.use(cors());
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
-
-const databaseSeeds = [
-    {
-        sport: 'Volleyball',
-        location: 'CMRC'
-    },
-    {
-        sport: 'Basketball',
-        location: 'CRMC'
-    },
-    {
-        sport: 'Soccer',
-        location: 'YMCA'
-    }
-]
-
-// Api request to receive all events
-app.get("/api/v1/db", async (req,res) => {
-    console.log("got db request - processing")
-    acceptHeader = req.header('Accept')
-    if (acceptHeader.includes('json')) {
-        e = await db_Handler()
-        if (e) {
-            res.status(200).json(databaseSeeds)
-        } else {
-            res.status(500).json(e)
-        }
-    } else if (acceptHeader.includes('plain')) {
-        res.set('Content-Type', 'text/html')
-        res.status(200).send(databaseSeeds)
-    } else {
-        res.status(412).json({error : "Invalid Accept Header"})
-    }
-    return
-})
 
 let pool
 
@@ -75,7 +36,7 @@ const createPool = async () => {
 
 const ensureSchema = async pool => {
     const hasTable = await pool.schema.hasTable('test')
-    if(!hasTable) {
+    if (!hasTable) {
         console.log('No table found, creating...')
         return pool.schema.createTable('test', table => {
             table.timestamp('created_at', 30).primary()
