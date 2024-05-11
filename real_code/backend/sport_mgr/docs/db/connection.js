@@ -18,7 +18,9 @@ async function Open(instance, hostName, databaseName, userName) {
         ...clientOpts,
         host: hostName,
         database: databaseName,
-        user: userName,
+        // user: userName,
+        user: "postgres",
+        password: "postgres",
         max: 5
     });
 
