@@ -5,7 +5,7 @@ const {Connector} = require("@google-cloud/cloud-sql-connector")
 const {Pool} = pg;
 const connector = new Connector();
 
-async function Open(instance, hostName, databaseName, userName) {
+async function Open(instance, hostName, databaseName, userName, dbPassword) {
 
     //  connect to postgres DB here
     const clientOpts = await connector.getOptions({
@@ -18,9 +18,8 @@ async function Open(instance, hostName, databaseName, userName) {
         ...clientOpts,
         host: hostName,
         database: databaseName,
-        // user: userName,
-        user: "postgres",
-        password: "postgres",
+        user: userName,
+        password: dbPassword,
         max: 5
     });
 

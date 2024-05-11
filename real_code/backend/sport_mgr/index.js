@@ -68,12 +68,16 @@ const { Open, Close } = require('./docs/db/connection')
 const { Read } = require('./docs/db/db')
 
 async function db_Handler(){
+    db_host = process.env.db_host
     db_name = process.env.db_name
+    db_conn = process.env.db_conn
+    db_user = process.env.db_user
+    db_pwd = process.env.db_pwd
 
-    console.log(`opening DB connection to ${db_name}`)
+    console.log(`opening DB connection to ${db_name} under username ${db_user}`)
     try {
         //  connect to postgres DB here
-        const pool = await Open('gamehunter-417801:us-central1:game-hunter-db-5d65', '10.87.0.3', 'postgres', 'game-hunter-run-sa@gamehunter-417801.iam.gserviceaccount.com')
+        const pool = await Open(db_conn, db_host, db_name, db_user,db_pwd)
         
         console.log('sending query')
         const response = await Read(pool)
