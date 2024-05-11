@@ -85,7 +85,7 @@ async function db_Handler(){
 
         Close(pool)
         console.log("finished!")
-        return pool
+        return response
     } catch (e) {
         return false
     }
