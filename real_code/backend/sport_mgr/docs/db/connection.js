@@ -1,31 +1,24 @@
-module.exports = { Open, Close }
+const { Connector } = require("@google-cloud/cloud-sql-connector")
+const Knex = require('knex')
 
-const pg = require("pg")
-const {Connector} = require("@google-cloud/cloud-sql-connector")
-const {Pool} = pg;
-const connector = new Connector();
-
-async function Open(instance, hostName, databaseName, userName) {
-
-    //  connect to postgres DB here
+const connectWithIAM = async config => {
+    const connector = new Connector()
     const clientOpts = await connector.getOptions({
-        instanceConnectionName: instance,
-        authType: 'IAM',
-        ipType: 'PRIVATE'
-    });
+        instanceConnectionName: config.pool.instance,
+        ipType: 'PRIVATE',
+        authType: 'IAM'
+    })
 
-    const pool = new Pool({
-        ...clientOpts,
-        host: hostName,
-        database: databaseName,
-        user: userName,
-        max: 5
-    });
+    const dbConfig = {
+        client: 'pg',
+        connection: {
+            ...clientOpts,
+            user: config.pool.user,
+            database: config.pool.db
+        }
+    }
 
-    return pool
+    return Knex(dbConfig)
 }
 
-async function Close(database) {
-    database.end();
-    // connector.close();
-}
+module.exports = connectWithIAM
