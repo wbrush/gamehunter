@@ -44,27 +44,7 @@ const databaseSeeds = [
     }
 ]
 
-// Api request to receive all events
-// app.get("/api/v1/sport", async (req,res) => {
-//     console.log("got db request - processing")
-//     acceptHeader = req.header('Accept')
-//     if (acceptHeader.includes('json')) {
-//         const response = await db_Handler()
-//         if (response) {
-//             res.status(200).json(response)
-//         } else {
-//             res.status(500).send('Failed to get data.')
-//         }
-//     } else if (acceptHeader.includes('plain')) {
-//         res.set('Content-Type', 'text/html')
-//         res.status(200).send(databaseSeeds)
-//     } else {
-//         res.status(412).json({error : "Invalid Accept Header"})
-//     }
-//     return
-// })
-
-// Api request to receive filtered events
+// Api request to receive all and filtered events
 app.get("/api/v1/sport", async (req,res) => {
     const sport= req.query.sport
     const location = req.query.location
