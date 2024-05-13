@@ -64,6 +64,27 @@ app.get("/api/v1/sport", async (req,res) => {
     return
 })
 
+// Api request to receive filtered events
+app.get("/api/v1/sport/:params", async (req,res) => {
+    const parameters = req.params.params
+    console.log("got db request - processing")
+    acceptHeader = req.header('Accept')
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler(parameters)
+        if (response) {
+            res.status(200).json(response)
+        } else {
+            res.status(500).send('Failed to get data.')
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
+    return
+})
+
 const { Open, Close } = require('./docs/db/connection')
 const { Read } = require('./docs/db/db')
 
