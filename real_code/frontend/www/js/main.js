@@ -13,14 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+const sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
 
-var basepath = "http://localhost/api/v1/db"
-var sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
-
-function listData() {
-    console.log("sending request to gh-sport-mgr")
+function listData(query) {
+    let endpoint = '/api/v1/sport'
+    
+    if (query) {
+        endpoint += query
+    }
+    
+    console.log(`sending request to ${sports_mgr_hostname, endpoint}`)
     try {
-        fetch(sports_mgr_hostname + '/api/v1/sport', {
+        fetch(sports_mgr_hostname + endpoint, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -67,4 +71,20 @@ function renderData(element) {
     div.appendChild(date)
 
     return div
+}
+
+function search() {
+    const date = $('#datepicker').val()
+    const sport = $('#selection').val()
+    const location = $('#location').val()
+    let query = {}
+
+    if (!date || !sport || !location) {
+        alert('Please fill out all search parameters')
+    } else {
+        query = `?sport=${sport}&location=${location}&date=${date}`
+    }
+    console.log(query)
+
+    listData(query)
 }
