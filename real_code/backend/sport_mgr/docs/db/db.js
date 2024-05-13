@@ -5,6 +5,8 @@ async function Read(database, sport, location, date) {
         sql: 'SELECT * FROM test',
     }
 
+    console.log(sport, location, date)
+
     if (sport, location, date) {
         query.sql += ` WHERE location = ${location} AND sport = ${sport}`
     }
@@ -13,8 +15,6 @@ async function Read(database, sport, location, date) {
     try {
         console.log(query.sql)
         const { rows } = await database.query(query.sql)
-
-        console.log(`read ${rows} of data`)
         return rows
     } catch (err) {
         console.error('ERROR:', err);

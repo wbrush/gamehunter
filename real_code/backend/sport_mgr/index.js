@@ -67,6 +67,7 @@ app.get("/api/v1/sport", async (req,res) => {
 // Api request to receive filtered events
 app.get("/api/v1/sport/:params", async (req,res) => {
     const { sport, location, date } = req.params
+    console.log(sport, location, date)
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
