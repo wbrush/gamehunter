@@ -84,7 +84,6 @@ function search() {
     } else {
         query = `?sport=${sport}&location=${location}&date=${date}`
     }
-    console.log(query)
 
     listData(query)
 }

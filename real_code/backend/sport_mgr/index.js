@@ -66,11 +66,11 @@ app.get("/api/v1/sport", async (req,res) => {
 
 // Api request to receive filtered events
 app.get("/api/v1/sport/:params", async (req,res) => {
-    const parameters = req.params.params
+    const { sport, location, date } = req.params
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
-        const response = await db_Handler(parameters)
+        const response = await db_Handler(sport, location, date)
         if (response) {
             res.status(200).json(response)
         } else {
@@ -88,7 +88,7 @@ app.get("/api/v1/sport/:params", async (req,res) => {
 const { Open, Close } = require('./docs/db/connection')
 const { Read } = require('./docs/db/db')
 
-async function db_Handler(){
+async function db_Handler(sport, location, date){
     db_host = process.env.db_host
     db_name = process.env.db_name
     db_conn = process.env.db_conn
@@ -101,7 +101,7 @@ async function db_Handler(){
         const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
         
         console.log('sending query')
-        const response = await Read(pool)
+        const response = await Read(pool, sport, location, date)
         console.log('response of query:', response)
 
         Close(pool)
