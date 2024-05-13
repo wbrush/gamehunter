@@ -43,7 +43,7 @@ function renderListData(data) {
         div.classList.add('container')
         const h2 = document.createElement('h2')
         h2.classList.add('container-title')
-        h2.innerHTML = element.sport + ' Signup for '
+        h2.innerHTML = element.sport + ' Signup for ' + element.date
         const content = renderData(element)
 
         div.appendChild(h2)
@@ -59,7 +59,9 @@ function renderData(element) {
 
     const p = document.createElement('p')
     p.innerHTML = 'Location: ' + element.location
-
+    div.appendChild(p)
+    
+    p.innerHTML = 'Time: ' + element.time
     div.appendChild(p)
 
     return div
