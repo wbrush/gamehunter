@@ -44,6 +44,7 @@ function renderListData(data) {
         const h2 = document.createElement('h2')
         h2.classList.add('container-title')
         h2.innerHTML = element.sport + ' Signup for ' + element.date
+        
         const content = renderData(element)
 
         div.appendChild(h2)
@@ -57,12 +58,13 @@ function renderData(element) {
     const div = document.createElement('div')
     div.classList.add('content')
 
-    const p = document.createElement('p')
-    p.innerHTML = 'Location: ' + element.location
-    div.appendChild(p)
+    const location = document.createElement('p')
+    location.innerHTML = 'Location: ' + element.location
+    div.appendChild(location)
     
-    p.innerHTML = 'Time: ' + element.time
-    div.appendChild(p)
+    const date = document.createElement('p')
+    date.innerHTML = 'Time: ' + element.time
+    div.appendChild(date)
 
     return div
 }
