@@ -8,7 +8,7 @@ async function Read(database, sport, location, date) {
     console.log(sport, location, date)
 
     if (sport, location, date) {
-        query.sql += ` WHERE location = ${location} AND sport = ${sport}`
+        query.sql += ` WHERE location = '${location}' AND sport = '${sport}'`
     }
 
     // Queries rows from the Albums table
