@@ -21,3 +21,4 @@ async function Read(database, sport, location, date) {
         return err
     }
 }
+ 

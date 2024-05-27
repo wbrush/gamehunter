@@ -30,3 +30,4 @@ async function Close(database) {
     database.end();
     // connector.close();
 }
+ 
