@@ -31,18 +31,40 @@ function listData(query) {
             }
         })
         .then((res) => res.json())
-        .then((data) => renderListData(data))
+        .then((data) => {
+            renderContainers()
+            renderListData(data)
+            renderSavedList(data)
+        })
     } catch (error) {
         console.log(error)
     }
 }
 
-function renderListData(data) {
-    console.log('Returned data:', data)
+function renderContainers() {
     const container = document.querySelector('.data-container')
     container.innerHTML = ''
+
+    let div = document.createElement('div')
+    div.classList.add('list-data')
+    container.appendChild(div)
+
+    div = document.createElement('div')
+    div.classList.add('saved-data')
+    container.appendChild(div)
+}
+
+function renderListData(data) {
+    console.log('Returned data:', data)
+    const listContainer = document.querySelector('.list-data')
+
+    const h1 = document.createElement('h1')
+    h1.innerHTML = 'Events'
+    h1.style.textAlign = 'center'
+    listContainer.appendChild(h1)
     
     data.forEach(element => {
+        
         const div = document.createElement('div')
         div.classList.add('container')
         const h2 = document.createElement('h2')
@@ -54,7 +76,7 @@ function renderListData(data) {
         div.appendChild(h2)
         div.appendChild(content)
 
-        container.appendChild(div)
+        listContainer.appendChild(div)
     })
 }
 
@@ -71,6 +93,30 @@ function renderData(element) {
     div.appendChild(date)
 
     return div
+}
+
+function renderSavedList(data) {
+    const savedContainer = document.querySelector('.saved-data')
+    
+    const h1 = document.createElement('h1')
+    h1.innerHTML = 'Saved Events'
+    h1.style.textAlign = 'center'
+    savedContainer.appendChild(h1)
+
+    data.forEach(element => {
+        const div = document.createElement('div')
+        div.classList.add('container')
+        const h2 = document.createElement('h2')
+        h2.classList.add('container-title')
+        h2.innerHTML = element.sport + ' Signup for ' + element.date
+        
+        const content = renderData(element)
+
+        div.appendChild(h2)
+        div.appendChild(content)
+
+        savedContainer.appendChild(div)
+    })
 }
 
 function search() {
