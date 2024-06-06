@@ -29,27 +29,12 @@ app.get("/api/v1/healthz",(req,res)=>{
     return
 })
 
-const databaseSeeds = [
-    {
-        sport: 'Volleyball',
-        location: 'CMRC'
-    },
-    {
-        sport: 'Basketball',
-        location: 'CRMC'
-    },
-    {
-        sport: 'Soccer',
-        location: 'YMCA'
-    }
-]
-
 // Api request to receive all and filtered events
 app.get("/api/v1/sport", async (req,res) => {
     const sport= req.query.sport
     const location = req.query.location
     const date = req.query.date
-    console.log(sport, location, date)
+    
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
@@ -69,7 +54,7 @@ app.get("/api/v1/sport", async (req,res) => {
 })
 
 const { Open, Close } = require('./docs/db/connection')
-const { Read } = require('./docs/db/db')
+const { Create, Read, Update, Delete } = require('./docs/db/db')
 
 async function db_Handler(sport, location, date){
     db_host = process.env.db_host

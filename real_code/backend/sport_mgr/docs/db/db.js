@@ -1,14 +1,20 @@
-module.exports = { Read }
+module.exports = { Create, Read, Update, Delete }
+
+async function Create() {
+    let query = {
+        sql: 'INSERT INTO test VALUES (), ()'
+    }
+
+    return
+}
 
 async function Read(database, sport, location, date) {
     let query = {
         sql: 'SELECT * FROM test',
     }
 
-    console.log(sport, location, date)
-
     if (sport, location, date) {
-        query.sql += ` WHERE location = '${location}' AND sport = '${sport}'`
+        query.sql += ` WHERE location ILIKE '${location}' AND sport ILIKE '${sport}'`
     }
 
     // Queries rows from the Albums table
@@ -20,4 +26,20 @@ async function Read(database, sport, location, date) {
         console.error('ERROR:', err);
         return err
     }
+}
+
+async function Update() {
+    let query = {
+        sql: 'UPDATE'
+    }
+
+    return
+}
+
+async function Delete() {
+    let query = {
+        sql: 'DELETE FROM test'
+    }
+
+    return
 }
