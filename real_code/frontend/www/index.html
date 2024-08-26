@@ -38,6 +38,7 @@
         <a href="/" id="header-title">GameHunter</a>
         <nav>
             <a href="/">Home</a>
+            <a href="/profile">Profile</a>
             <a href="/login">Login</a>
             <a href="/signup">Signup</a>
         </nav>
@@ -126,7 +127,7 @@
             <input id="location" placeholder="ex. Austin, TX">
         </div>
 
-        <button id="search-btn">Search</button>
+        <button id="search-btn" onclick=search()>Search</button>
     </div>
 
     <script>
@@ -135,45 +136,12 @@
         })
     </script>
     
-    <div class="data-container">
-        <div class="container">
-            <h2 class="container-title"><span id="container-sport">Volleyball</span> Signup for <span id="container-date">4/21</span></h2>
-            <div class="content">
-                <p>Location: <span id="container-location">Austin, TX</span></p>
-                <p>Time: 2pm</p>
-            </div>
+    <div class="data-container"></div>
 
-            <div class="container-btns">
-                <button>Save</button>
-                <button>Signup</button>
-            </div>
-        </div>
-        
-        <div class="container">
-            <h2 class="container-title"><span id="container-sport">Volleyball</span> Signup for <span id="container-date">4/21</span></h2>
-            <div class="content">
-                <p>Location: <span id="container-location">Austin, TX</span></p>
-                <p>Time: 2pm</p>
-            </div>
-
-            <div class="container-btns">
-                <button>Save</button>
-                <button>Signup</button>
-            </div>
-        </div>
-        
-        <div class="container">
-            <h2 class="container-title"><span id="container-sport">Volleyball</span> Signup for <span id="container-date">4/21</span></h2>
-            <div class="content">
-                <p>Location: <span id="container-location">Austin, TX</span></p>
-                <p>Time: 2pm</p>
-            </div>
-
-            <div class="container-btns">
-                <button>Save</button>
-                <button>Signup</button>
-            </div>
-        </div>
-    </div>
+    <script type="text/javascript">
+        window.onload = function(){
+            listData()
+        }
+    </script>
 </body>
 </html>

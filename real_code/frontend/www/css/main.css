@@ -150,6 +150,11 @@ nav a:hover {
     float: inline-end;
 }
 
+.ui-datepicker-next:hover,
+.ui-datepicker-prev:hover {
+    cursor: pointer;
+}
+
 .ui-datepicker-title {
     text-align: center;
 }
