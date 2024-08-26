@@ -32,7 +32,6 @@ function listData(query) {
         })
         .then((res) => res.json())
         .then((data) => {
-            renderContainers()
             renderListData(data)
             renderSavedList(data)
         })
@@ -41,48 +40,38 @@ function listData(query) {
     }
 }
 
-function renderContainers() {
-    const container = document.querySelector('.data-container')
-    container.innerHTML = ''
-
-    let div = document.createElement('div')
-    div.classList.add('list-data')
-    container.appendChild(div)
-
-    div = document.createElement('div')
-    div.classList.add('saved-data')
-    container.appendChild(div)
-}
-
+// !Container div
 function renderListData(data) {
     console.log('Returned data:', data)
-    const listContainer = document.querySelector('.list-data')
-
-    const h1 = document.createElement('h1')
-    h1.innerHTML = 'Events'
-    h1.style.textAlign = 'center'
-    listContainer.appendChild(h1)
+    const dataContainer = document.querySelector('.data-container')
     
     data.forEach(element => {
         
         const div = document.createElement('div')
         div.classList.add('container')
-        const h2 = document.createElement('h2')
-        h2.classList.add('container-title')
-        h2.innerHTML = element.sport + ' Signup for ' + element.date
         
         const content = renderData(element)
-
-        div.appendChild(h2)
+        const buttons = renderButtons()
+        
         div.appendChild(content)
+        div.appendChild(buttons)
 
-        listContainer.appendChild(div)
+        dataContainer.appendChild(div)
     })
 }
 
-function renderData(element) {
+// !Content div
+function renderData(element, saved) {
     const div = document.createElement('div')
     div.classList.add('content')
+
+    const h2 = document.createElement('h2')
+    h2.innerHTML = element.sport + ' Signup for ' + element.date
+    
+    if(saved != 'true') {
+        h2.classList = 'container-title'
+    }
+    div.appendChild(h2)
 
     const location = document.createElement('p')
     location.innerHTML = 'Location: ' + element.location
@@ -92,27 +81,48 @@ function renderData(element) {
     date.innerHTML = 'Time: ' + element.time
     div.appendChild(date)
 
+    if (saved == 'true') {
+        const btnDiv = document.createElement('div')
+        btnDiv.classList.add('container-btns')
+
+        const removeBtn = document.createElement('button')
+        removeBtn.innerHTML = 'Remove'
+        div.appendChild(removeBtn)
+    }
+
+
+    return div
+}
+
+// !Button div
+function renderButtons() {
+    const div = document.createElement('div')
+    div.classList.add('container-btns')
+
+    const saveBtn = document.createElement('button')
+    saveBtn.innerHTML = 'Save'
+    div.appendChild(saveBtn)
+    
+    const signupBtn = document.createElement('button')
+    signupBtn.innerHTML = 'Signup'
+    div.appendChild(signupBtn)
+
     return div
 }
 
 function renderSavedList(data) {
-    const savedContainer = document.querySelector('.saved-data')
+    const savedContainer = document.querySelector('.saved-events')
     
-    const h1 = document.createElement('h1')
-    h1.innerHTML = 'Saved Events'
-    h1.style.textAlign = 'center'
-    savedContainer.appendChild(h1)
+    const h2 = document.createElement('h2')
+    h2.innerHTML = 'Saved Events'
+    h2.id = 'header'
+    savedContainer.appendChild(h2)
 
+    const div = document.createElement('div')
+    div.classList.add('list')
+    
     data.forEach(element => {
-        const div = document.createElement('div')
-        div.classList.add('container')
-        const h2 = document.createElement('h2')
-        h2.classList.add('container-title')
-        h2.innerHTML = element.sport + ' Signup for ' + element.date
-        
-        const content = renderData(element)
-
-        div.appendChild(h2)
+        const content = renderData(element, 'true')
         div.appendChild(content)
 
         savedContainer.appendChild(div)

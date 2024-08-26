@@ -49,6 +49,35 @@ nav a {
     font-size: 18px;
 }
 
+nav a:hover {
+    text-decoration: underline;
+}
+
+.homepage-img {
+    position: relative;
+}
+
+#homepage-motto {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    color: white;
+    font-size: 42px;
+    max-width: 400px;
+}
+
+.homepage-img img {
+    height: 500px;
+    width: 100%;
+}
+
+#upcoming {
+    text-align: center;
+    background-color: rgb(173, 2, 2);
+    color: white;
+    padding: 10px 0;
+}
+
 .search {
     display: flex;
     align-items: center;
@@ -70,6 +99,11 @@ nav a {
     color: white;
     border: none;
     border-radius: 10px;
+}
+
+#search-btn:hover {
+    cursor: pointer;
+    background-color: rgb(86, 86, 248);
 }
 
 .sport-selector {
@@ -114,6 +148,11 @@ nav a {
     color: blue;
 }
 
+.ui-datepicker-prev:hover,
+.ui-datepicker-next:hover {
+    cursor: pointer;;
+}
+
 .ui-datepicker-next {
     float: inline-end;
 }
@@ -143,17 +182,16 @@ td a {
 }
 
 .data-container {
+    margin: 1rem 10%;
     display: flex;
-    justify-content: space-evenly;
-}
-
-.data-container > * {
-    width: 40%;
+    gap: 1.5rem;
 }
 
 .container {
-    margin: 1rem 0;
-    border-radius: 10px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
     box-shadow: 5px 5px 10px rgb(96, 0, 0);
     overflow: hidden;
 }
@@ -164,6 +202,90 @@ td a {
     color: white;
 }
 
+.container-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-right: 15px;
+    padding-bottom: 10px;
+}
+
+.container-btns button {
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+.container-btns button:hover {
+    cursor: pointer;
+    background-color: rgb(86, 86, 248);
+}
+
 .content {
-    padding: .5rem;
+    position: relative;
+}
+
+.content h2 {
+    padding: 5px 5px 0 5px;
+}
+
+.content p {
+    padding-left: 5px;
+}
+
+.content button {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+.content button:hover {
+    cursor: pointer;
+    background-color: rgb(86, 86, 248);
+}
+
+.user-events {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.saved-events,
+.signed-events {
+    width: 40%;
+    border: 1px solid rgb(173, 2, 2);
+    border-radius: 5px;
+}
+
+.user-events {
+    margin: 0;
+    padding: 10px;
+}
+
+#header {
+    background-color: rgb(173, 2, 2);
+    color: white;
+    padding: 5px;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 1rem;
+    margin: 5px;
+}
+
+.list .content {
+    width: 45%;
+    background-color: rgb(235, 235, 235);
+    border-radius: 5px;
 }

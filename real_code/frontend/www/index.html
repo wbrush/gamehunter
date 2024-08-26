@@ -20,14 +20,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;400;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     <script src="js/main.js"></script>
 
     <title>GameHunter</title>
@@ -36,10 +37,46 @@
     <header>
         <a href="/" id="header-title">GameHunter</a>
         <nav>
+            <a href="/">Home</a>
+            <a href="/profile">Profile</a>
             <a href="/login">Login</a>
             <a href="/signup">Signup</a>
         </nav>
     </header>
+
+    <div class="homepage-img">
+        <h2 id="homepage-motto">Helping Players Find Their Next Game.</h2>
+        <img id="homepage-img" src="./images/yuji_nishida.jpg" />
+    </div>
+
+    <div class="user-events">
+        <div class="saved-events"></div>
+        
+        <div class="signed-events">
+            <h2 id="header">Signed Up</h2>
+            <div class="list">
+                <div class="content">
+                    <h2> Signed up for <span id="container-sport">Volleyball</span> on <span id="container-date">4/21</span></h2>
+                    <div>
+                        <p>Location: <span id="container-location">Austin, TX</span></p>
+                        <p>Time: 2pm</p>
+                    </div>
+                    <button>Cancel</button>
+                </div>
+                
+                <div class="content">
+                    <h2> Signed up for <span id="container-sport">Volleyball</span> on <span id="container-date">4/21</span></h2>
+                    <div>
+                        <p>Location: <span id="container-location">Austin, TX</span></p>
+                        <p>Time: 2pm</p>
+                    </div>
+                    <button>Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1 id="upcoming">Upcoming Events</h1>
     
     <div class="search">
         <div class="date">
@@ -70,7 +107,7 @@
             $('#datepicker').datepicker()
         })
     </script>
-
+    
     <div class="data-container"></div>
 
     <script type="text/javascript">
