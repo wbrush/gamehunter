@@ -65,6 +65,4 @@ async function db_Handler(sport, location, date){
     }
 }
 
-app.get("/", httpGet)
-
 module.exports.app = app
