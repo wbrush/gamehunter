@@ -55,12 +55,15 @@ nav a:hover {
 
 .homepage-img {
     position: relative;
+    width: 80%;
+    padding: 0 10%;
+    background-color: black;
 }
 
 #homepage-motto {
     position: absolute;
     top: 25px;
-    left: 25px;
+    left: 12%;
     color: white;
     font-size: 42px;
     max-width: 400px;
