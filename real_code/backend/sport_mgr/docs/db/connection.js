@@ -1,6 +1,3 @@
-const { Connector } = require("@google-cloud/cloud-sql-connector")
-const Knex = require('knex')
-
 const pg = require("pg")
 const {Connector} = require("@google-cloud/cloud-sql-connector")
 const {Pool} = pg;
