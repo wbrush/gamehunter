@@ -143,3 +143,48 @@ function search() {
 
     listData(query)
 }
+
+function signup() {
+    let endpoint = '/signup'
+    
+    console.log(`sending request to ${sports_mgr_hostname}`)
+    try {
+        fetch(sports_mgr_hostname + endpoint, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+            console.log('finished')
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function login() {
+    let endpoint = '/login'
+    
+    console.log(`sending request to ${sports_mgr_hostname}`)
+    try {
+        fetch(sports_mgr_hostname + endpoint, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+            console.log('finished')
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+login()
+signup()

@@ -1,8 +1,6 @@
 const express = require("express")
 require('dotenv').config()
 
-const connectWithIAM = require("./docs/db/connection")
-
 const app = express()
 
 app.use(express.urlencoded({extended: false}))

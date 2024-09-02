@@ -1,8 +1,6 @@
 const express = require("express")
 require('dotenv').config()
 
-const connectWithIAM = require("./docs/db/connection")
-
 const app = express()
 
 app.use(express.urlencoded({extended: false}))
@@ -16,16 +14,12 @@ app.use(async (req, res, next) => {
     }
 })
 
-// Api request to receive all and filtered events
-app.get("/api/v1/sport", async (req,res) => {
-    const sport= req.query.sport
-    const location = req.query.location
-    const date = req.query.date
-    
-    console.log("got db request - processing")
+// Api request to signup
+app.get("/signup", async (req,res) => {    
+    console.log("signup request")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
-        const response = await db_Handler(sport, location, date)
+        const response = await db_Handler(name, email, password)
         if (response) {
             res.status(200).json(response)
         } else {
@@ -37,13 +31,35 @@ app.get("/api/v1/sport", async (req,res) => {
     } else {
         res.status(412).json({error : "Invalid Accept Header"})
     }
+
+    return
+})
+
+// Api request to login
+app.get("/login", async (req,res) => {    
+    console.log("login request")
+    acceptHeader = req.header('Accept')
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler(name, email, password)
+        if (response) {
+            res.status(200).json(response)
+        } else {
+            res.status(500).send('Failed to get data.')
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
+    
     return
 })
 
 const { Open, Close } = require('./docs/db/connection')
 const { Create, Read, Update, Delete } = require('./docs/db/db')
 
-async function db_Handler(sport, location, date){
+async function db_Handler(name, email, password){
     db_host = process.env.db_host
     db_name = process.env.db_name
     db_conn = process.env.db_conn
@@ -56,8 +72,7 @@ async function db_Handler(sport, location, date){
         const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
         
         console.log('sending query')
-        const response = await Read(pool, sport, location, date)
-        console.log('response of query:', response)
+        const response = await Create(pool, name, email, password)
 
         Close(pool)
         console.log("finished!")
