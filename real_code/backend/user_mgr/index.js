@@ -82,6 +82,4 @@ async function db_Handler(name, email, password){
     }
 }
 
-app.get("/", httpGet)
-
 module.exports.app = app
