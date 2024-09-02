@@ -1,4 +1,5 @@
 const pg = require("pg")
+const { Connector } = require("@google-cloud/cloud-sql-connector")
 const { Pool } = pg;
 const connector = new Connector();
 
