@@ -13,54 +13,133 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+const sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
 
-var basepath = "http://localhost/api/v1/db"
-var sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
-
-function listData() {
-    console.log("sending request to gh-sport-mgr")
+function listData(query) {
+    let endpoint = '/api/v1/sport'
+    
+    if (query) {
+        endpoint += query
+    }
+    
+    console.log(`sending request to ${sports_mgr_hostname, endpoint}`)
     try {
-        fetch(sports_mgr_hostname + '/api/v1/db', {
+        fetch(sports_mgr_hostname + endpoint, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
             }
         })
         .then((res) => res.json())
-        .then((data) => renderListData(data))
+        .then((data) => {
+            renderListData(data)
+            renderSavedList(data)
+        })
     } catch (error) {
         console.log(error)
     }
 }
 
+// !Container div
 function renderListData(data) {
     console.log('Returned data:', data)
-    const container = document.querySelector('.data-container')
-    container.innerHTML = ''
+    const dataContainer = document.querySelector('.data-container')
     
     data.forEach(element => {
+        
         const div = document.createElement('div')
         div.classList.add('container')
-        const h2 = document.createElement('h2')
-        h2.classList.add('container-title')
-        h2.innerHTML = element.sport + ' Signup for '
+        
         const content = renderData(element)
-
-        div.appendChild(h2)
+        const buttons = renderButtons()
+        
         div.appendChild(content)
+        div.appendChild(buttons)
 
-        container.appendChild(div)
+        dataContainer.appendChild(div)
     })
 }
 
-function renderData(element) {
+// !Content div
+function renderData(element, saved) {
     const div = document.createElement('div')
     div.classList.add('content')
 
-    const p = document.createElement('p')
-    p.innerHTML = 'Location: ' + element.location
+    const h2 = document.createElement('h2')
+    h2.innerHTML = element.sport + ' Signup for ' + element.date
+    
+    if(saved != 'true') {
+        h2.classList = 'container-title'
+    }
+    div.appendChild(h2)
 
-    div.appendChild(p)
+    const location = document.createElement('p')
+    location.innerHTML = 'Location: ' + element.location
+    div.appendChild(location)
+    
+    const date = document.createElement('p')
+    date.innerHTML = 'Time: ' + element.time
+    div.appendChild(date)
+
+    if (saved == 'true') {
+        const btnDiv = document.createElement('div')
+        btnDiv.classList.add('container-btns')
+
+        const removeBtn = document.createElement('button')
+        removeBtn.innerHTML = 'Remove'
+        div.appendChild(removeBtn)
+    }
+
 
     return div
+}
+
+// !Button div
+function renderButtons() {
+    const div = document.createElement('div')
+    div.classList.add('container-btns')
+
+    const saveBtn = document.createElement('button')
+    saveBtn.innerHTML = 'Save'
+    div.appendChild(saveBtn)
+    
+    const signupBtn = document.createElement('button')
+    signupBtn.innerHTML = 'Signup'
+    div.appendChild(signupBtn)
+
+    return div
+}
+
+function renderSavedList(data) {
+    const savedContainer = document.querySelector('.saved-events')
+    
+    const h2 = document.createElement('h2')
+    h2.innerHTML = 'Saved Events'
+    h2.id = 'header'
+    savedContainer.appendChild(h2)
+
+    const div = document.createElement('div')
+    div.classList.add('list')
+    
+    data.forEach(element => {
+        const content = renderData(element, 'true')
+        div.appendChild(content)
+
+        savedContainer.appendChild(div)
+    })
+}
+
+function search() {
+    const date = $('#datepicker').val()
+    const sport = $('#selection').val()
+    const location = $('#location').val()
+    let query = {}
+
+    if (!date || !sport || !location) {
+        alert('Please fill out all search parameters')
+    } else {
+        query = `?sport=${sport}&location=${location}&date=${date}`
+    }
+
+    listData(query)
 }

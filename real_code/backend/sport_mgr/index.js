@@ -15,61 +15,54 @@ app.use(async (req, res, next) => {
         return next()
     }
 
-    try {
-        pool = await createPoolAndEnsureSchema()
-        next()
-    } catch (err) {
-        console.error(err)
-        return next(err)
+// Api request to receive all and filtered events
+app.get("/api/v1/sport", async (req,res) => {
+    const sport= req.query.sport
+    const location = req.query.location
+    const date = req.query.date
+    
+    console.log("got db request - processing")
+    acceptHeader = req.header('Accept')
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler(sport, location, date)
+        if (response) {
+            res.status(200).json(response)
+        } else {
+            res.status(500).send('Failed to get data.')
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
     }
+    return
 })
 
-const createPool = async () => {
-    const config = {pool: {}}
+const { Open, Close } = require('./docs/db/connection')
+const { Create, Read, Update, Delete } = require('./docs/db/db')
 
-    config.pool.instance = process.env.db_conn
-    config.pool.user = process.env.db_user
-    config.pool.password = process.env.db_pwd
-    config.pool.db = process.env.db_name
-    config.pool.host = process.env.db_host
+async function db_Handler(sport, location, date){
+    db_host = process.env.db_host
+    db_name = process.env.db_name
+    db_conn = process.env.db_conn
+    db_user = process.env.db_user
+    db_pwd = process.env.db_pwd
 
-    return connectWithIAM(config)
-}
-
-const ensureSchema = async pool => {
-    const hasTable = await pool.schema.hasTable('test')
-    if (!hasTable) {
-        console.log('No table found, creating...')
-        return pool.schema.createTable('test', table => {
-            table.timestamp('created_at', 30).primary()
-        })
-    }
-    console.log('Table has been ensured')
-}
-
-const createPoolAndEnsureSchema = async () => {
-    await createPool()
-        .then(async pool => {
-            await ensureSchema(pool)
-            return pool
-        })
-        .catch(err => console.log(err))
-}
-
-const getData = async pool => {
-    return await pool.select('*').from('test')
-}
-
-const httpGet = async (req, res) => {
-    pool = pool || (await createPoolAndEnsureSchema())
-
+    console.log(`opening DB connection to ${db_name} under username ${db_user}`)
     try {
-        const data = await getData(pool)
+        //  connect to postgres DB here
+        const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
+        
+        console.log('sending query')
+        const response = await Read(pool, sport, location, date)
+        console.log('response of query:', response)
 
-        res.status(200).json(data)
-    } catch (err) {
-        console.log(err)
-        res.status(500).send('Unable to get data').end()
+        Close(pool)
+        console.log("finished!")
+        return response
+    } catch (e) {
+        return false
     }
 }
 

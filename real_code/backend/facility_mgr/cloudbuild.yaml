@@ -11,7 +11,7 @@ steps:
     args:
     - 'run'
     - 'deploy'  
-    - 'gh-sport-mgr'
+    - 'gh-facility-mgr'
     - '--image'
     - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_BASENAME-app/middleware:$COMMIT_SHA'
     - '--region'
@@ -20,9 +20,9 @@ images:
   - '$_REGION-docker.pkg.dev/$PROJECT_ID/$_BASENAME-app/middleware:$COMMIT_SHA'
 options:
   logging: CLOUD_LOGGING_ONLY
-substitutions:
+substitions:
   _REGION: us-central1
-  _BASENAME: gh-sport-mgr
+  _BASENAME: gh-facility-mgr
 
 
   steps:
@@ -35,3 +35,4 @@ substitutions:
       # Deploy container image to Cloud Run
     - name: "gcr.io/cloud-builders/gcloud"
       args: ['run', 'deploy', 'node-api-tut', '--image', 'gcr.io/${_PROJECT_ID}/node-api-tut', '--region', 'europe-west4', '--platform', 'managed', '--allow-unauthenticated']
+ 
