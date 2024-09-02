@@ -24,4 +24,9 @@ async function Open(instance, hostName, databaseName, userName, dbPassword) {
     return pool
 }
 
-module.exports = connectWithIAM
+async function Close(database) {
+    database.end();
+    // connector.close();
+}
+
+module.exports = { Open, Close }
