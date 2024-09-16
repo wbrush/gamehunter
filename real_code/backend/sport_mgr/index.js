@@ -2,19 +2,19 @@ const express = require("express")
 require('dotenv').config()
 
 const app = express()
-const port = process.env.PORT || 9000
+// const port = process.env.PORT || 9000
 
-const cors = require('cors');
+// const cors = require('cors');
 
-app.use(cors());
+// app.use(cors());
 
-app.listen(port,()=>{
-    console.log(`server listening on port ${port}`)
-})
+// app.listen(port,()=>{
+//     console.log(`server listening on port ${port}`)
+// })
 
-app.get("/",(req,res)=>{
-    return res.status(200).json({service : "gh-sport-mgr"})
-})
+// app.get("/",(req,res)=>{
+//     return res.status(200).json({service : "gh-sport-mgr"})
+// })
 
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
