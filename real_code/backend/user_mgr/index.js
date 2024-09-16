@@ -22,43 +22,43 @@ app.use(express.json())
 // Api request to signup
 app.get("/signup", async (req,res) => {    
     console.log("signup request")
-    // acceptHeader = req.header('Accept')
-    // if (acceptHeader.includes('json')) {
-    //     const response = await db_Handler(name, email, password)
-    //     if (response) {
-    //         res.status(200).json(response)
-    //     } else {
-    //         res.status(500).send('Failed to get data.')
-    //     }
-    // } else if (acceptHeader.includes('plain')) {
-    //     res.set('Content-Type', 'text/html')
-    //     res.status(200).send(databaseSeeds)
-    // } else {
-    //     res.status(412).json({error : "Invalid Accept Header"})
-    // }
+    acceptHeader = req.header('Accept')
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler(name, email, password)
+        if (response) {
+            res.status(200).json(response)
+        } else {
+            res.status(500).send('Failed to get data.')
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
 
-    // return
+    return
 })
 
 // Api request to login
 app.get("/login", async (req,res) => {    
     console.log("login request")
-    // acceptHeader = req.header('Accept')
-    // if (acceptHeader.includes('json')) {
-    //     const response = await db_Handler(name, email, password)
-    //     if (response) {
-    //         res.status(200).json(response)
-    //     } else {
-    //         res.status(500).send('Failed to get data.')
-    //     }
-    // } else if (acceptHeader.includes('plain')) {
-    //     res.set('Content-Type', 'text/html')
-    //     res.status(200).send(databaseSeeds)
-    // } else {
-    //     res.status(412).json({error : "Invalid Accept Header"})
-    // }
+    acceptHeader = req.header('Accept')
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler(name, email, password)
+        if (response) {
+            res.status(200).json(response)
+        } else {
+            res.status(500).send('Failed to get data.')
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
     
-    // return
+    return
 })
 
 const { Open, Close } = require('./docs/db/connection')
@@ -87,4 +87,4 @@ async function db_Handler(name, email, password){
     }
 }
 
-module.exports.app = app
+// module.exports.app = app
