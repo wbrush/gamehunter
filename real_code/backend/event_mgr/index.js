@@ -2,15 +2,15 @@ const express = require("express")
 require("dotenv").config();
 
 const app = express();
-const port = process.env.PORT || 9000;
+// const port = process.env.PORT || 9000;
 
-app.listen(port,()=>{
-    console.log(`server listening on port ${port}`)
-});
+// app.listen(port,()=>{
+//     console.log(`server listening on port ${port}`)
+// });
 
-app.get("/",(req,res)=>{
-    return res.status(200).json({service : "gh-event-mgr"})
-})
+// app.get("/",(req,res)=>{
+//     return res.status(200).json({service : "gh-event-mgr"})
+// })
 
 app.get("/api/v1/healthz",(req,res)=>{
     acceptHeader = req.header('Accept')
