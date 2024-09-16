@@ -19,14 +19,6 @@ app.get("/",(req,res)=>{
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
-let pool
-
-app.use(async (req, res, next) => {
-    if (pool) {
-        return next()
-    }
-})
-
 // Api request to receive all and filtered events
 app.get("/api/v1/sport", async (req,res) => {
     const sport= req.query.sport
