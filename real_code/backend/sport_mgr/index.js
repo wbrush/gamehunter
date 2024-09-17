@@ -4,17 +4,22 @@ require('dotenv').config()
 const app = express()
 const port = process.env.PORT || 9000
 
+console.log(`starting up on port ${port}`)
+
 const cors = require('cors');
 
 app.use(cors());
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
+console.log(`defining endpoints for port ${port}`)
+
 app.listen(port,()=>{
     console.log(`server listening on port ${port}`)
 })
 
 app.get("/",(req,res)=>{
+    console.log("got / request")
     return res.status(200).json({service : "gh-sport-mgr"})
 })
 
