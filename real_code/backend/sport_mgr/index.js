@@ -36,7 +36,6 @@ app.get("/api/v1/sport", async (req,res) => {
         if (response) {
             res.status(200).json(response)
         } else {
-            console.error(response)
             res.status(500).send('Failed to get data.')
         }
     } else if (acceptHeader.includes('plain')) {
@@ -62,7 +61,7 @@ async function db_Handler(sport, location, date){
     try {
         //  connect to postgres DB here
         const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
-        
+        console.log(pool)
         console.log('sending query')
         const response = await Read(pool, sport, location, date)
         console.log('response of query:', response)
