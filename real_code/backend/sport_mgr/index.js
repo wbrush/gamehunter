@@ -61,7 +61,6 @@ async function db_Handler(sport, location, date){
     try {
         //  connect to postgres DB here
         const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
-        console.log(pool)
         console.log('sending query')
         const response = await Read(pool, sport, location, date)
         console.log('response of query:', response)
