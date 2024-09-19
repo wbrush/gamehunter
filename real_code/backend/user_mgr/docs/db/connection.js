@@ -1,5 +1,3 @@
-module.exports = { Open, Close }
-
 const pg = require("pg")
 const {Connector} = require("@google-cloud/cloud-sql-connector")
 const {Pool} = pg;
@@ -9,10 +7,10 @@ async function Open(instance, hostName, databaseName, userName, dbPassword) {
 
     //  connect to postgres DB here
     const clientOpts = await connector.getOptions({
-        instanceConnectionName: instance,
-        authType: 'IAM',
-        ipType: 'PRIVATE'
-    });
+        instanceConnectionName: config.pool.instance,
+        ipType: 'PRIVATE',
+        authType: 'IAM'
+    })
 
     const pool = new Pool({
         ...clientOpts,
@@ -30,4 +28,5 @@ async function Close(database) {
     database.end();
     // connector.close();
 }
- 
+
+module.exports = { Open, Close }
