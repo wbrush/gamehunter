@@ -145,7 +145,7 @@ function search() {
 }
 
 function signup() {
-    let endpoint = '/signup'
+    let endpoint = '/api/v1/signup'
     
     console.log(`sending request to ${sports_mgr_hostname}`)
     try {
@@ -166,7 +166,7 @@ function signup() {
 }
 
 function login() {
-    let endpoint = '/login'
+    let endpoint = '/api/v1/login'
     
     console.log(`sending request to ${sports_mgr_hostname}`)
     try {
@@ -185,6 +185,3 @@ function login() {
         console.log(error)
     }
 }
-
-// login()
-// signup()
