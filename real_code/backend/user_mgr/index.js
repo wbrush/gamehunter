@@ -6,8 +6,8 @@ const port = process.env.PORT || 9000
 
 console.log(`starting up on port ${port}`)
 
-// const cors = require('cors');
-// app.use(cors());
+const cors = require('cors');
+app.use(cors());
 
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
