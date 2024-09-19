@@ -7,7 +7,7 @@ async function Open(instance, hostName, databaseName, userName, dbPassword) {
 
     //  connect to postgres DB here
     const clientOpts = await connector.getOptions({
-        instanceConnectionName: config.pool.instance,
+        instanceConnectionName: instance,
         ipType: 'PRIVATE',
         authType: 'IAM'
     })
