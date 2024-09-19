@@ -36,6 +36,7 @@ app.get("/api/v1/sport", async (req,res) => {
         if (response) {
             res.status(200).json(response)
         } else {
+            console.error(response)
             res.status(500).send('Failed to get data.')
         }
     } else if (acceptHeader.includes('plain')) {
