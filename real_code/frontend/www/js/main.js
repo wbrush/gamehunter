@@ -187,13 +187,25 @@ function login() {
 }
 
 function displayLogin() {
+    // display modal
     document.querySelector(".user-modal").id = ""
+
+    // display login info
     document.querySelector(".signup").id = "hidden"
     document.querySelector(".login").id = ""
+
+    // disable scrolling when modal is open
+    document.getElementById("scroll-body").style.overflow = "hidden"
 }
 
 function displaySignup() {
+    // display modal
     document.querySelector(".user-modal").id = ""
+
+    // display signup info
     document.querySelector(".signup").id = ""
     document.querySelector(".login").id = "hidden"
+
+    // disable scrolling when modal is open
+    document.getElementById("scroll-body").style.overflow = "hidden"
 }

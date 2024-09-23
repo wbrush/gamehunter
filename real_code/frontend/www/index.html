@@ -33,7 +33,7 @@
 
     <title>GameHunter</title>
 </head>
-<body>
+<body id="scroll-body">
     <div class="user-modal" id="hidden">
         <div class="login">
             <h2>Login</h2>
@@ -147,11 +147,16 @@
     </script>
 
     <script>
+        // close modal when clicked outside
         const modal = document.querySelector('.user-modal')
 
         window.onclick = function(e) {
             if (e.target == modal) {
+                // hide modal
                 modal.id = "hidden"
+
+                // re-enable scrolling
+                document.getElementById("scroll-body").style.overflow = ""
             }
         }
     </script>
