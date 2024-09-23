@@ -23,8 +23,8 @@ app.get("/",(req,res)=>{
     return res.status(200).json({service : "gh-sport-mgr"})
 })
 
-// Api request to receive all and filtered events
-app.get("/api/v1/signup", async (req,res) => {
+// Api request to signup
+app.post("/api/v1/signup", async (req,res) => {
     const sport= req.query.sport
     const location = req.query.location
     const date = req.query.date
@@ -47,8 +47,8 @@ app.get("/api/v1/signup", async (req,res) => {
     return
 })
 
-// Api request to receive all and filtered events
-app.get("/api/v1/login", async (req,res) => {
+// Api request to login
+app.put("/api/v1/login", async (req,res) => {
     // const sport= req.query.sport
     // const location = req.query.location
     // const date = req.query.date

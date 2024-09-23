@@ -145,15 +145,20 @@ function search() {
 }
 
 function signup() {
-    let endpoint = '/api/v1/signup'
+    const name = document.getElementById('signup-name').value
+    const email = document.getElementById('signup-email').value
+    const password = document.getElementById('signup-password').value
+
+    const endpoint = '/api/v1/signup'
     
     console.log(`sending request to ${sports_mgr_hostname}`)
     try {
         fetch(sports_mgr_hostname + endpoint, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json'
-            }
+            },
+            body: {name, email, password}
         })
         .then((res) => res.json())
         .then((data) => {
@@ -166,15 +171,20 @@ function signup() {
 }
 
 function login() {
-    let endpoint = '/api/v1/login'
+    const email = document.getElementById('login-email').value
+    const password = document.getElementById('login-password').value
+    console.log('email:', email, '. password:', password)
+
+    const endpoint = '/api/v1/login'
     
     console.log(`sending request to ${sports_mgr_hostname}`)
     try {
         fetch(sports_mgr_hostname + endpoint, {
-            method: 'GET',
+            method: 'PUT',
             headers: {
                 'Accept': 'application/json'
-            }
+            },
+            body: {email, password}
         })
         .then((res) => res.json())
         .then((data) => {
