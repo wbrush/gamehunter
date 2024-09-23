@@ -185,3 +185,15 @@ function login() {
         console.log(error)
     }
 }
+
+function displayLogin() {
+    document.querySelector(".user-modal").id = ""
+    document.querySelector(".signup").id = "hidden"
+    document.querySelector(".login").id = ""
+}
+
+function displaySignup() {
+    document.querySelector(".user-modal").id = ""
+    document.querySelector(".signup").id = ""
+    document.querySelector(".login").id = "hidden"
+}
