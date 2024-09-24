@@ -2,8 +2,8 @@ const express = require("express")
 require('dotenv').config()
 
 const app = express()
-const port = process.env.PORT || 9000
-
+const port = process.env.PORT || 9001
+// change
 console.log(`starting up on port ${port}`)
 
 const cors = require('cors');
@@ -23,11 +23,11 @@ app.get("/",(req,res)=>{
     return res.status(200).json({service : "gh-sport-mgr"})
 })
 
-// Api request to receive all and filtered events
-app.get("/api/v1/signup", async (req,res) => {
-    const sport= req.query.sport
-    const location = req.query.location
-    const date = req.query.date
+// Api request to signup
+app.post("/api/v1/signup", async (req,res) => {
+    // const name= req.query.name
+    // const email = req.query.email
+    // const password = req.query.password
     
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
@@ -47,11 +47,10 @@ app.get("/api/v1/signup", async (req,res) => {
     return
 })
 
-// Api request to receive all and filtered events
+// Api request to login
 app.get("/api/v1/login", async (req,res) => {
-    // const sport= req.query.sport
-    // const location = req.query.location
-    // const date = req.query.date
+    // const email = req.query.email
+    // const password = req.query.password
     
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')

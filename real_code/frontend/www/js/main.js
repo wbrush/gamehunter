@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 const sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
+const user_mgr_hostname = "https://gh-user-mgr-462896897923.us-central1.run.app"
 
 function listData(query) {
     let endpoint = '/api/v1/sport'
@@ -46,7 +47,6 @@ function renderListData(data) {
     const dataContainer = document.querySelector('.data-container')
     
     data.forEach(element => {
-        
         const div = document.createElement('div')
         div.classList.add('container')
         
@@ -145,11 +145,41 @@ function search() {
 }
 
 function signup() {
-    let endpoint = '/api/v1/signup'
+    const name = document.getElementById('signup-name').value
+    const email = document.getElementById('signup-email').value
+    const password = document.getElementById('signup-password').value
+
+    const endpoint = '/api/v1/signup'
     
-    console.log(`sending request to ${sports_mgr_hostname}`)
+    console.log(`sending request to ${user_mgr_hostname}`)
     try {
-        fetch(sports_mgr_hostname + endpoint, {
+        fetch(user_mgr_hostname + endpoint, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: {name, email, password}
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+            console.log('finished')
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function login() {
+    const email = document.getElementById('login-email').value
+    const password = document.getElementById('login-password').value
+    console.log('email:', email, '. password:', password)
+
+    const endpoint = '/api/v1/login'
+    
+    console.log(`sending request to ${user_mgr_hostname}`)
+    try {
+        fetch(user_mgr_hostname + endpoint, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -165,23 +195,26 @@ function signup() {
     }
 }
 
-function login() {
-    let endpoint = '/api/v1/login'
-    
-    console.log(`sending request to ${sports_mgr_hostname}`)
-    try {
-        fetch(sports_mgr_hostname + endpoint, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
-            console.log('finished')
-        })
-    } catch (error) {
-        console.log(error)
-    }
+function displayLogin() {
+    // display modal
+    document.querySelector(".user-modal").id = ""
+
+    // display login info
+    document.querySelector(".signup").id = "hidden"
+    document.querySelector(".login").id = ""
+
+    // disable scrolling when modal is open
+    document.getElementById("scroll-body").style.overflow = "hidden"
+}
+
+function displaySignup() {
+    // display modal
+    document.querySelector(".user-modal").id = ""
+
+    // display signup info
+    document.querySelector(".signup").id = ""
+    document.querySelector(".login").id = "hidden"
+
+    // disable scrolling when modal is open
+    document.getElementById("scroll-body").style.overflow = "hidden"
 }
