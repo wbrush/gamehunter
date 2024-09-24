@@ -25,9 +25,9 @@ app.get("/",(req,res)=>{
 
 // Api request to signup
 app.post("/api/v1/signup", async (req,res) => {
-    const sport= req.query.sport
-    const location = req.query.location
-    const date = req.query.date
+    // const name= req.query.name
+    // const email = req.query.email
+    // const password = req.query.password
     
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
@@ -48,10 +48,9 @@ app.post("/api/v1/signup", async (req,res) => {
 })
 
 // Api request to login
-app.put("/api/v1/login", async (req,res) => {
-    // const sport= req.query.sport
-    // const location = req.query.location
-    // const date = req.query.date
+app.get("/api/v1/login", async (req,res) => {
+    // const email = req.query.email
+    // const password = req.query.password
     
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')

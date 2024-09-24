@@ -180,11 +180,10 @@ function login() {
     console.log(`sending request to ${user_mgr_hostname}`)
     try {
         fetch(user_mgr_hostname + endpoint, {
-            method: 'PUT',
+            method: 'GET',
             headers: {
                 'Accept': 'application/json'
-            },
-            body: {email, password}
+            }
         })
         .then((res) => res.json())
         .then((data) => {
