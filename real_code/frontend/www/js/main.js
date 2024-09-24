@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 const sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
+const user_mgr_hostname = "https://gh-user-mgr-462896897923.us-central1.run.app"
 
 function listData(query) {
     let endpoint = '/api/v1/sport'
@@ -46,7 +47,6 @@ function renderListData(data) {
     const dataContainer = document.querySelector('.data-container')
     
     data.forEach(element => {
-        
         const div = document.createElement('div')
         div.classList.add('container')
         
@@ -151,9 +151,9 @@ function signup() {
 
     const endpoint = '/api/v1/signup'
     
-    console.log(`sending request to ${sports_mgr_hostname}`)
+    console.log(`sending request to ${user_mgr_hostname}`)
     try {
-        fetch(sports_mgr_hostname + endpoint, {
+        fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json'
@@ -177,9 +177,9 @@ function login() {
 
     const endpoint = '/api/v1/login'
     
-    console.log(`sending request to ${sports_mgr_hostname}`)
+    console.log(`sending request to ${user_mgr_hostname}`)
     try {
-        fetch(sports_mgr_hostname + endpoint, {
+        fetch(user_mgr_hostname + endpoint, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json'
