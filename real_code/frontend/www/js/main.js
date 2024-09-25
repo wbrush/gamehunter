@@ -145,16 +145,9 @@ function search() {
 }
 
 function signup() {
-    const user = {
-        name: '',
-        email: '',
-        password: ''
-    }
-
-    user.name = document.getElementById('signup-name').value
-    user.email = document.getElementById('signup-email').value
-    user.password = document.getElementById('signup-password').value
-    console.log(user)
+    name = document.getElementById('signup-name').value
+    email = document.getElementById('signup-email').value
+    password = document.getElementById('signup-password').value
 
     const endpoint = '/api/v1/signup'
     
@@ -165,7 +158,11 @@ function signup() {
             headers: {
                 'Accept': 'application/json'
             },
-            body: { user }
+            body: {
+                name: `${name}`,
+                email: `${email}`,
+                password: `${password}`
+            }
         })
         .then((res) => res.json())
         .then((data) => {
@@ -178,14 +175,8 @@ function signup() {
 }
 
 function login() {
-    const user = {
-        email: '',
-        password: ''
-    }
-
-    user.email = document.getElementById('login-email').value
-    user.password = document.getElementById('login-password').value
-    console.log(user)
+    email = document.getElementById('login-email').value
+    password = document.getElementById('login-password').value
 
     const endpoint = '/api/v1/login'
     
@@ -196,7 +187,10 @@ function login() {
             headers: {
                 'Accept': 'application/json'
             },
-            body: { user }
+            body: {
+                email: `${email}`,
+                password: `${password}`
+            }
         })
         .then((res) => res.json())
         .then((data) => {
