@@ -2,7 +2,7 @@ module.exports = { Create, Read, Update, Delete }
 
 async function Create(database, user) {
     let query = {
-        sql: `INSERT INTO user (name, email, password) VALUES ('${user.name}, '${user.email}', '${user.password}')`
+        sql: `INSERT INTO users (name, email, password) VALUES ('${user.name}, '${user.email}', '${user.password}')`
     }
 
     // Queries rows from the Albums table
@@ -18,7 +18,7 @@ async function Create(database, user) {
 
 async function Read(database, user) {
     let query = {
-        sql: `SELECT * FROM user WHERE email ILIKE '${user.email}' AND password ILIKE '${user.password}'`,
+        sql: `SELECT * FROM users WHERE email ILIKE '${user.email}' AND password ILIKE '${user.password}'`,
     }
 
     // Queries rows from the Albums table
