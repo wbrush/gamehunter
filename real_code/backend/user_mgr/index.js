@@ -25,7 +25,7 @@ app.get("/",(req,res)=>{
 
 // Api request to signup
 app.post("/api/v1/signup", async (req,res) => {
-    const user = req.body
+    const user = req.body.user
     
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
@@ -46,8 +46,8 @@ app.post("/api/v1/signup", async (req,res) => {
 })
 
 // Api request to login
-app.get("/api/v1/login", async (req,res) => {
-    const user = req.body
+app.post("/api/v1/login", async (req,res) => {
+    const user = req.body.user
     
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
@@ -82,6 +82,7 @@ async function db_Handler(method, user){
         //  connect to postgres DB here
         const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
         
+        console.log('incoming user', user)
         console.log('sending query')
         let response
         if (method == 'login') {

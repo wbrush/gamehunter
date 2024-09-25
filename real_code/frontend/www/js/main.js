@@ -154,6 +154,7 @@ function signup() {
     user.name = document.getElementById('signup-name').value
     user.email = document.getElementById('signup-email').value
     user.password = document.getElementById('signup-password').value
+    console.log(user)
 
     const endpoint = '/api/v1/signup'
     
@@ -184,17 +185,18 @@ function login() {
 
     user.email = document.getElementById('login-email').value
     user.password = document.getElementById('login-password').value
-    // console.log(user)
+    console.log(user)
 
     const endpoint = '/api/v1/login'
     
     console.log(`sending request to ${user_mgr_hostname}`)
     try {
         fetch(user_mgr_hostname + endpoint, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json'
-            }
+            },
+            body: { user }
         })
         .then((res) => res.json())
         .then((data) => {
