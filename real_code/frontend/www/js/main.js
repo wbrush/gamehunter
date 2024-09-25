@@ -145,9 +145,15 @@ function search() {
 }
 
 function signup() {
-    const name = document.getElementById('signup-name').value
-    const email = document.getElementById('signup-email').value
-    const password = document.getElementById('signup-password').value
+    const user = {
+        name: '',
+        email: '',
+        password: ''
+    }
+
+    user.name = document.getElementById('signup-name').value
+    user.email = document.getElementById('signup-email').value
+    user.password = document.getElementById('signup-password').value
 
     const endpoint = '/api/v1/signup'
     
@@ -158,7 +164,7 @@ function signup() {
             headers: {
                 'Accept': 'application/json'
             },
-            body: {name, email, password}
+            body: { user }
         })
         .then((res) => res.json())
         .then((data) => {
@@ -171,9 +177,14 @@ function signup() {
 }
 
 function login() {
-    const email = document.getElementById('login-email').value
-    const password = document.getElementById('login-password').value
-    console.log('email:', email, '. password:', password)
+    const user = {
+        email: '',
+        password: ''
+    }
+
+    user.email = document.getElementById('login-email').value
+    user.password = document.getElementById('login-password').value
+    // console.log(user)
 
     const endpoint = '/api/v1/login'
     
@@ -188,7 +199,9 @@ function login() {
         .then((res) => res.json())
         .then((data) => {
             console.log(data)
-            console.log('finished')
+            if (data) {
+                console.log('data returned')
+            }
         })
     } catch (error) {
         console.log(error)

@@ -1,16 +1,24 @@
 module.exports = { Create, Read, Update, Delete }
 
-async function Create() {
+async function Create(database, user) {
     let query = {
-        sql: 'INSERT INTO test VALUES (), ()'
+        sql: `INSERT INTO user (name, email, password) VALUES ('${user.name}, '${user.email}', '${user.password}')`
     }
 
-    return
+    // Queries rows from the Albums table
+    try {
+        console.log(query.sql)
+        const response = await database.query(query.sql)
+        return response
+    } catch (err) {
+        console.error('ERROR:', err);
+        return err
+    }
 }
 
-async function Read(database) {
+async function Read(database, user) {
     let query = {
-        sql: 'SELECT * FROM users',
+        sql: `SELECT * FROM user WHERE email ILIKE '${user.email}' AND password ILIKE '${user.password}'`,
     }
 
     // Queries rows from the Albums table

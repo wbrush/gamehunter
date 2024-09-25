@@ -25,14 +25,12 @@ app.get("/",(req,res)=>{
 
 // Api request to signup
 app.post("/api/v1/signup", async (req,res) => {
-    // const name= req.query.name
-    // const email = req.query.email
-    // const password = req.query.password
+    const user = req.body
     
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
-        const response = await db_Handler(sport, location, date)
+        const response = await db_Handler('signup', user)
         if (response) {
             res.status(200).json(response)
         } else {
@@ -49,13 +47,12 @@ app.post("/api/v1/signup", async (req,res) => {
 
 // Api request to login
 app.get("/api/v1/login", async (req,res) => {
-    // const email = req.query.email
-    // const password = req.query.password
+    const user = req.body
     
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
-        const response = await db_Handler()
+        const response = await db_Handler('login', user)
         if (response) {
             res.status(200).json(response)
         } else {
@@ -73,7 +70,7 @@ app.get("/api/v1/login", async (req,res) => {
 const { Open, Close } = require('./docs/db/connection')
 const { Create, Read, Update, Delete } = require('./docs/db/db')
 
-async function db_Handler(){
+async function db_Handler(method, user){
     db_host = process.env.db_host
     db_name = process.env.db_name
     db_conn = process.env.db_conn
@@ -86,8 +83,14 @@ async function db_Handler(){
         const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
         
         console.log('sending query')
-        const response = await Read(pool)
-        console.log('response of query:', response)
+        let response
+        if (method == 'login') {
+            response = await Read(pool, user)
+            console.log('response of query:', response)
+        } else if (method == 'signup') {
+            response = await Create(pool, user)
+            console.log('response of query:', response)
+        }
 
         Close(pool)
         console.log("finished!")
