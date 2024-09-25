@@ -56,6 +56,8 @@ app.post("/api/v1/login", async (req,res) => {
         password: `${req.body.password}`
     }
     
+    console.log('user', user)
+    console.log('request', req.body)
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
@@ -94,10 +96,10 @@ async function db_Handler(method, user){
         let response
         if (method == 'login') {
             response = await Read(pool, user)
-            console.log('response of query:', response)
+            console.log('response of login query:', response)
         } else if (method == 'signup') {
             response = await Create(pool, user)
-            console.log('response of query:', response)
+            console.log('response of signup query:', response)
         }
 
         Close(pool)
