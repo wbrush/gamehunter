@@ -151,18 +151,14 @@ function signup() {
 
     const endpoint = '/api/v1/signup'
     
-    console.log(`sending request to ${user_mgr_hostname}`)
+    console.log(`sending signup request to ${user_mgr_hostname} for user: ${email}`)
     try {
         fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json'
             },
-            body: {
-                name: `${name}`,
-                email: `${email}`,
-                password: `${password}`
-            }
+            body: JSON.stringify({ name, email, password })
         })
         .then((res) => res.json())
         .then((data) => {
@@ -175,25 +171,19 @@ function signup() {
 }
 
 function login() {
-    const user = {
-        email: '',
-        password: ''
-    }
-    user.email = document.getElementById('login-email').value
-    user.password = document.getElementById('login-password').value
+    const email = document.getElementById('login-email').value
+    const password = document.getElementById('login-password').value
 
     const endpoint = '/api/v1/login'
     
-    console.log(`sending request to ${user_mgr_hostname}`)
+    console.log(`sending login request to ${user_mgr_hostname} for user: ${email}`)
     try {
         fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json'
             },
-            body: {
-                'user': JSON.stringify(user)
-            }
+            body: JSON.stringify({ email, password })
         })
         .then((res) => res.json())
         .then((data) => {
