@@ -191,7 +191,9 @@ function login() {
             headers: {
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(user)
+            body: {
+                'user': JSON.stringify(user)
+            }
         })
         .then((res) => res.json())
         .then((data) => {
