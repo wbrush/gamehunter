@@ -25,11 +25,14 @@ app.get("/",(req,res)=>{
 
 // Api request to signup
 app.post("/api/v1/signup", async (req,res) => {
-    const request = JSON.parse(req.body)
+    console.log('request', req)
+    console.log('request body', req.body)
+    console.log('request email', req.body.email)
+
     const user = {
-        name: `${request.name}`,
-        email: `${request.email}`,
-        password: `${request.password}`
+        name: `${req.body.name}`,
+        email: `${req.body.email}`,
+        password: `${req.body.password}`
     }
     
     console.log("got db request - processing")
@@ -52,6 +55,10 @@ app.post("/api/v1/signup", async (req,res) => {
 
 // Api request to login
 app.post("/api/v1/login", async (req,res) => {
+    console.log('request', req)
+    console.log('request body', req.body)
+    console.log('request email', req.body.email)
+
     const user = {
         email: `${req.body.email}`,
         password: `${req.body.password}`

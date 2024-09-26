@@ -156,10 +156,13 @@ function signup() {
         fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content Type': 'text/html'
+                'Accept': 'application/json'
             },
-            body: JSON.stringify({ name, email, password })
+            body: {
+                "name": name,
+                "email": email,
+                "password": password
+            }
         })
         .then((res) => res.json())
         .then((data) => {
@@ -182,10 +185,12 @@ function login() {
         fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content Type': 'text/html'
+                'Accept': 'application/json'
             },
-            body: JSON.stringify({ email, password })
+            body: {
+                "email": email,
+                "password": password
+            }
         })
         .then((res) => res.json())
         .then((data) => {
