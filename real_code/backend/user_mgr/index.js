@@ -51,13 +51,9 @@ app.post("/api/v1/signup", async (req,res) => {
 
 // Api request to login
 app.post("/api/v1/login", async (req,res) => {
-    const user = {
-        email: `${req.body.email}`,
-        password: `${req.body.password}`
-    }
+    const user = JSON.parse(req.body.user)
     
     console.log('user', user)
-    console.log('request', req.body)
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {

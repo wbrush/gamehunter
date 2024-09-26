@@ -175,8 +175,12 @@ function signup() {
 }
 
 function login() {
-    email = document.getElementById('login-email').value
-    password = document.getElementById('login-password').value
+    const user = {
+        email: '',
+        password: ''
+    }
+    user.email = document.getElementById('login-email').value
+    user.password = document.getElementById('login-password').value
 
     const endpoint = '/api/v1/login'
     
@@ -187,10 +191,7 @@ function login() {
             headers: {
                 'Accept': 'application/json'
             },
-            body: {
-                email: `${email}`,
-                password: `${password}`
-            }
+            body: JSON.stringify(user)
         })
         .then((res) => res.json())
         .then((data) => {
