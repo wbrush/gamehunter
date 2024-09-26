@@ -25,10 +25,11 @@ app.get("/",(req,res)=>{
 
 // Api request to signup
 app.post("/api/v1/signup", async (req,res) => {
+    const request = JSON.parse(req.body)
     const user = {
-        name: `${req.body.name}`,
-        email: `${req.body.email}`,
-        password: `${req.body.password}`
+        name: `${request.name}`,
+        email: `${request.email}`,
+        password: `${request.password}`
     }
     
     console.log("got db request - processing")

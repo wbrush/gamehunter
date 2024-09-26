@@ -156,7 +156,8 @@ function signup() {
         fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Content Type': 'text/html'
             },
             body: JSON.stringify({ name, email, password })
         })
@@ -181,7 +182,8 @@ function login() {
         fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Content Type': 'text/html'
             },
             body: JSON.stringify({ email, password })
         })
