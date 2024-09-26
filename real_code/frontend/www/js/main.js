@@ -156,8 +156,7 @@ function signup() {
         fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Accept': 'application/json'
             },
             body: {
                 "name": name,
@@ -186,8 +185,7 @@ function login() {
         fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Accept': 'application/json'
             },
             body: {
                 "email": email,
