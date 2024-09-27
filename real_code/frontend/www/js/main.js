@@ -175,34 +175,49 @@ function signup() {
     }
 }
 
-function login() {
+async function login() {
     const email = document.getElementById('login-email').value
     const password = document.getElementById('login-password').value
 
     const endpoint = '/api/v1/login'
     
     console.log(`sending login request to ${user_mgr_hostname} for user: ${email}`)
-    try {
-        fetch(user_mgr_hostname + endpoint, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: {
-                "email": email,
-                "password": password
-            }
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
-            if (data) {
-                console.log('data returned')
-            }
-        })
-    } catch (error) {
-        console.log(error)
+    // try {
+    //     fetch(user_mgr_hostname + endpoint, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: {
+    //             "email": email,
+    //             "password": password
+    //         }
+    //     })
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //         console.log(data)
+    //         if (data) {
+    //             console.log('data returned')
+    //         }
+    //     })
+    // } catch (error) {
+    //     console.log(error)
+    // }
+
+    const response = await fetch(user_mgr_hostname + endpoint, {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+
+    if (response.ok) {
+        console.log(response)
+    } else {
+        console.log('error in finding user')
     }
 }
 
