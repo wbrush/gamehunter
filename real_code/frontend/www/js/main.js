@@ -152,7 +152,8 @@ async function signup() {
     const endpoint = '/api/v1/signup'
     
     console.log(`sending signup request to ${user_mgr_hostname}`)
-    const response = await fetch(user_mgr_hostname + endpoint, {
+    
+    await fetch(user_mgr_hostname + endpoint, {
         method: 'POST',
         body: JSON.stringify({ name, email, password }),
         headers: {
@@ -160,12 +161,14 @@ async function signup() {
             'Accept': 'application/json'
         }
     })
-
-    if (response.ok) {
-        console.log(response)
-    } else {
-        console.log('error in finding user')
-    }
+    .then(response => response.json())
+    .then(response => {
+        if (response.result) {
+            console.log(response.result)
+        } else {
+            alert('failed to find user')
+        }
+    })
 }
 
 async function login() {
@@ -176,7 +179,7 @@ async function login() {
     
     console.log(`sending login request to ${user_mgr_hostname}`)
 
-    const response = await fetch(user_mgr_hostname + endpoint, {
+    await fetch(user_mgr_hostname + endpoint, {
         method: 'POST',
         body: JSON.stringify({ email, password }),
         headers: {
@@ -184,12 +187,14 @@ async function login() {
             'Accept': 'application/json'
         }
     })
-
-    if (response.ok) {
-        console.log(response)
-    } else {
-        console.log('error in finding user')
-    }
+    .then(response => response.json())
+    .then(response => {
+        if (response.results[0]) {
+            console.log(response.results[0])
+        } else {
+            alert('failed to find user')
+        }
+    })
 }
 
 function displayLogin() {

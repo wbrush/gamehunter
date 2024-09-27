@@ -25,8 +25,6 @@ app.get("/",(req,res)=>{
 
 // Api request to signup
 app.post("/api/v1/signup", async (req,res) => {
-    console.log('request', req)
-    console.log('request body', req.body)
     console.log('request email', req.body.email)
 
     const user = {
@@ -40,7 +38,7 @@ app.post("/api/v1/signup", async (req,res) => {
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('signup', user)
         if (response) {
-            res.status(200).json(response)
+            res.status(200).json({ result: true })
         } else {
             res.status(500).send('Failed to get data.')
         }
