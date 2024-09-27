@@ -2,7 +2,7 @@ module.exports = { Create, Read, Update, Delete }
 
 async function Create(database, user) {
     let query = {
-        sql: `INSERT INTO users (name, email, password) VALUES ('${user.name}, '${user.email}', '${user.password}')`
+        sql: `INSERT INTO users (name, email, password) VALUES ('${user.name}', '${user.email}', '${user.password}')`
     }
 
     // Queries rows from the Albums table
