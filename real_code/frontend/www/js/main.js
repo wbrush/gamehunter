@@ -184,9 +184,6 @@ async function login() {
             'Accept': 'application/json'
         }
     })
-    console.log(response)
-    JSON.parse(response)
-    console.log('parsed')
 
     if (response.ok) {
         console.log(response)

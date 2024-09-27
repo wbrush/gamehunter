@@ -70,8 +70,7 @@ app.post("/api/v1/login", async (req,res) => {
         console.log(response)
 
         if (response) {
-            response = JSON.stringify(response)
-            res.status(200).send(response)
+            res.status(200).json(response)
         } else {
             res.status(500).send('Failed to get data.')
         }
