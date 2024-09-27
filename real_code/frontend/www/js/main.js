@@ -144,34 +144,27 @@ function search() {
     listData(query)
 }
 
-function signup() {
+async function signup() {
     name = document.getElementById('signup-name').value
     email = document.getElementById('signup-email').value
     password = document.getElementById('signup-password').value
 
     const endpoint = '/api/v1/signup'
     
-    console.log(`sending signup request to ${user_mgr_hostname} for user: ${email}`)
-    try {
-        fetch(user_mgr_hostname + endpoint, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: {
-                "name": name,
-                "email": email,
-                "password": password
-            }
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
-            console.log('finished')
-        })
-    } catch (error) {
-        console.log(error)
+    console.log(`sending signup request to ${user_mgr_hostname}`)
+    const response = await fetch(user_mgr_hostname + endpoint, {
+        method: 'POST',
+        body: JSON.stringify({ name, email, password }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+
+    if (response.ok) {
+        console.log(response)
+    } else {
+        console.log('error in finding user')
     }
 }
 
@@ -181,29 +174,7 @@ async function login() {
 
     const endpoint = '/api/v1/login'
     
-    console.log(`sending login request to ${user_mgr_hostname} for user: ${email}`)
-    // try {
-    //     fetch(user_mgr_hostname + endpoint, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: {
-    //             "email": email,
-    //             "password": password
-    //         }
-    //     })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //         console.log(data)
-    //         if (data) {
-    //             console.log('data returned')
-    //         }
-    //     })
-    // } catch (error) {
-    //     console.log(error)
-    // }
+    console.log(`sending login request to ${user_mgr_hostname}`)
 
     const response = await fetch(user_mgr_hostname + endpoint, {
         method: 'POST',
