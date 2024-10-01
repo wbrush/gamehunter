@@ -13,19 +13,16 @@ app.use(cors());
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
-const session = require('express-session')
-const pgSession = require('connect-pg-simple')(session)
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 
-const pgPool = async () => {
-    db_host = process.env.db_host
-    db_name = process.env.db_name
-    db_conn = process.env.db_conn
-    db_user = process.env.db_user
-    db_pwd = process.env.db_pwd
-    
-    const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
-    return pool
-}
+const pgPool = new Pool({
+    host: hostName,
+    database: databaseName,
+    user: userName,
+    password: dbPassword,
+    max: 5
+});
 
 app.use(session({
     secret: process.env.sessionSecret,
@@ -37,9 +34,10 @@ app.use(session({
     resave: false,
     store: new pgSession({
         pool: pgPool,
-        tableName: 'user_session'
+        tableName: 'user_session',
+        createTableIfMissing: true
     })
-}))
+}));
 
 console.log(`defining endpoints for port ${port}`)
 
