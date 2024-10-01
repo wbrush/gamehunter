@@ -16,13 +16,7 @@ app.use(express.json())
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 
-const pgPool = new Pool({
-    host: hostName,
-    database: databaseName,
-    user: userName,
-    password: dbPassword,
-    max: 5
-});
+const pgPool = () => db_Handler('session')
 
 app.use(session({
     secret: process.env.sessionSecret,
@@ -142,6 +136,8 @@ async function db_Handler(method, user){
         } else if (method == 'signup') {
             response = await Create(pool, user)
             console.log('response of signup query:', response)
+        } else if (method == 'session') {
+            return pool
         }
 
         Close(pool)
