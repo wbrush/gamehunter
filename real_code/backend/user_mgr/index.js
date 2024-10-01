@@ -1,5 +1,6 @@
 const express = require("express")
 require('dotenv').config()
+const bcrypt = require('bcrypt')
 
 const app = express()
 const port = process.env.PORT || 9001
@@ -11,6 +12,26 @@ app.use(cors());
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+
+const session = require('express-session')
+const pgSession = require('connect-pg-simple')(session)
+
+const sessionConfig = {
+    secret: process.env.sessionSecret,
+    cookie: {
+        maxAge: 300000,
+        sameSite: true,
+        secure: false
+    },
+    saveUninitialized: true,
+    resave: false,
+    store: new pgSession({
+        pool: sessionDbHandler,
+        tableName: 'user_session'
+    })
+}
+
+app.use(session(sessionConfig))
 
 console.log(`defining endpoints for port ${port}`)
 
@@ -30,7 +51,7 @@ app.post("/api/v1/signup", async (req,res) => {
     const user = {
         name: `${req.body.name}`,
         email: `${req.body.email}`,
-        password: `${req.body.password}`
+        password: `${await bcrypt.hash(req.body.password, 10)}`
     }
     
     console.log("got db request - processing")
@@ -40,7 +61,7 @@ app.post("/api/v1/signup", async (req,res) => {
         if (response) {
             res.status(200).json({ result: true })
         } else {
-            res.status(500).send('Failed to get data.')
+            res.status(500).json({ result: false })
         }
     } else if (acceptHeader.includes('plain')) {
         res.set('Content-Type', 'text/html')
@@ -65,12 +86,21 @@ app.post("/api/v1/login", async (req,res) => {
 
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('login', user)
-        console.log(response)
 
+        let validPassword
         if (response) {
-            res.status(200).json({ results: response })
+            validPassword = checkPassword(user.password, response[0].password)
+        }
+
+        if (validPassword) {
+            req.session.save(() => {
+                req.session.user_id = response[0].id
+                req.session.logged_in = true
+
+                res.status(200).json({ result: true })
+            })
         } else {
-            res.status(500).send('Failed to get data.')
+            res.status(400).json({ result: false })
         }
     } else if (acceptHeader.includes('plain')) {
         res.set('Content-Type', 'text/html')
@@ -112,6 +142,20 @@ async function db_Handler(method, user){
     } catch (e) {
         return false
     }
+}
+
+async function sessionDbHandler() {
+    db_host = process.env.db_host
+    db_sessionName = process.env.db_sessionName
+    db_conn = process.env.db_conn
+    db_user = process.env.db_user
+    db_pwd = process.env.db_pwd
+
+    const pool = await Open(db_conn, db_host, db_sessionName, db_user, db_pwd)
+}
+
+function checkPassword(loginPassword, savedPassword) {
+    return bcrypt.compareSync(loginPassword, savedPassword)
 }
 
 module.exports.app = app

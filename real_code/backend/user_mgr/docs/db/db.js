@@ -18,7 +18,7 @@ async function Create(database, user) {
 
 async function Read(database, user) {
     let query = {
-        sql: `SELECT * FROM users WHERE email ILIKE '${user.email}' AND password ILIKE '${user.password}'`,
+        sql: `SELECT * FROM users WHERE email ILIKE '${user.email}'`,
     }
 
     // Queries rows from the Albums table

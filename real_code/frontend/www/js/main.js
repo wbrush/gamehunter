@@ -165,8 +165,10 @@ async function signup() {
     .then(response => {
         if (response.result) {
             console.log(response.result)
+            // if signup successful, go to profile page
+            // document.location.replace('/profile')
         } else {
-            alert('failed to find user')
+            alert('account could not be created')
         }
     })
 }
@@ -179,22 +181,28 @@ async function login() {
     
     console.log(`sending login request to ${user_mgr_hostname}`)
 
-    await fetch(user_mgr_hostname + endpoint, {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(response => {
-        if (response.results[0]) {
-            console.log(response.results[0])
-        } else {
-            alert('failed to find user')
-        }
-    })
+    if (email && password) {
+        await fetch(user_mgr_hostname + endpoint, {
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response.result) {
+                console.log(response.result)
+                // if login successful, go to profile page
+                // document.location.replace('/profile')
+            } else {
+                alert('failed to find user')
+            }
+        })
+    } else {
+        alert('Please fill out the form')
+    }
 }
 
 function displayLogin() {
