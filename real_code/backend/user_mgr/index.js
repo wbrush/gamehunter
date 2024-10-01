@@ -87,20 +87,8 @@ app.post("/api/v1/login", async (req,res) => {
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('login', user)
 
-        let validPassword
         if (response) {
-            validPassword = checkPassword(user.password, response[0].password)
-        }
-
-        if (validPassword) {
-            console.log('password is valid')
-
-            req.session.save(() => {
-                req.session.user_id = response[0].id
-                req.session.logged_in = true
-
-                res.status(200).json({ result: true })
-            })
+            res.status(200).json({ result: true })
         } else {
             res.status(400).json({ result: false })
         }
@@ -131,13 +119,32 @@ async function db_Handler(method, user){
         console.log('sending query')
         let response
         if (method == 'login') {
+            // query for user matching email
             response = await Read(pool, user)
             console.log('response of login query:', response)
+
+            // check if input password matches saved password
+            let validPassword
+            if (response) {
+                validPassword = checkPassword(user.password, response[0].password)
+            }
+
+            if (validPassword) {
+                console.log('password is valid')
+
+                // if valid login, save session
+                req.session.save(() => {
+                    req.session.user_id = response[0].id
+                    req.session.logged_in = true
+
+                    return true
+                })
+            } else {
+                return false
+            }
         } else if (method == 'signup') {
             response = await Create(pool, user)
             console.log('response of signup query:', response)
-        } else if (method == 'session') {
-            return pool
         }
 
         Close(pool)
