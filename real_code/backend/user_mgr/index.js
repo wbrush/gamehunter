@@ -93,6 +93,8 @@ app.post("/api/v1/login", async (req,res) => {
         }
 
         if (validPassword) {
+            console.log('password is valid')
+
             req.session.save(() => {
                 req.session.user_id = response[0].id
                 req.session.logged_in = true
@@ -146,12 +148,12 @@ async function db_Handler(method, user){
 
 async function sessionDbHandler() {
     db_host = process.env.db_host
-    db_sessionName = process.env.db_sessionName
+    db_name = process.env.db_name
     db_conn = process.env.db_conn
     db_user = process.env.db_user
     db_pwd = process.env.db_pwd
 
-    const pool = await Open(db_conn, db_host, db_sessionName, db_user, db_pwd)
+    return await Open(db_conn, db_host, db_name, db_user, db_pwd)
 }
 
 function checkPassword(loginPassword, savedPassword) {
