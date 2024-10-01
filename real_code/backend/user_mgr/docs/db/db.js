@@ -2,14 +2,13 @@ module.exports = { Create, Read, Update, Delete }
 
 async function Create(database, user) {
     let query = {
-        sql: `INSERT INTO users (name, email, password) VALUES ('${user.name}', '${user.email}', '${user.password}') RETURNING *`
+        sql: `INSERT INTO users (name, email, password) VALUES ('${user.name}', '${user.email}', '${user.password}')`
     }
 
     // Queries rows from the Albums table
     try {
         console.log(query.sql)
         const response = await database.query(query.sql)
-        console.log(response.rows[0])
         return response
     } catch (err) {
         console.error('ERROR:', err);
