@@ -16,6 +16,17 @@ app.use(express.json())
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
 
+const pgPool = async () => {
+    db_host = process.env.db_host
+    db_name = process.env.db_name
+    db_conn = process.env.db_conn
+    db_user = process.env.db_user
+    db_pwd = process.env.db_pwd
+    
+    const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
+    return pool
+}
+
 app.use(session({
     secret: process.env.sessionSecret,
     cookie: {
@@ -25,7 +36,7 @@ app.use(session({
     },
     resave: false,
     store: new pgSession({
-        pgPromise: sessionDbHandler,
+        pool: pgPool,
         tableName: 'user_session'
     })
 }))
@@ -141,17 +152,6 @@ async function db_Handler(method, user){
     } catch (e) {
         return false
     }
-}
-
-async function sessionDbHandler() {
-    db_host = process.env.db_host
-    db_name = process.env.db_name
-    db_conn = process.env.db_conn
-    db_user = process.env.db_user
-    db_pwd = process.env.db_pwd
-    
-    const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
-    return pool
 }
 
 function checkPassword(loginPassword, savedPassword) {
