@@ -16,22 +16,19 @@ app.use(express.json())
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
 
-const sessionConfig = {
+app.use(session({
     secret: process.env.sessionSecret,
     cookie: {
         maxAge: 300000,
         sameSite: true,
         secure: false
     },
-    saveUninitialized: true,
     resave: false,
     store: new pgSession({
-        pool: sessionDbHandler,
+        pgPromise: sessionDbHandler,
         tableName: 'user_session'
     })
-}
-
-app.use(session(sessionConfig))
+}))
 
 console.log(`defining endpoints for port ${port}`)
 
@@ -152,8 +149,9 @@ async function sessionDbHandler() {
     db_conn = process.env.db_conn
     db_user = process.env.db_user
     db_pwd = process.env.db_pwd
-
-    return await Open(db_conn, db_host, db_name, db_user, db_pwd)
+    
+    const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
+    return pool
 }
 
 function checkPassword(loginPassword, savedPassword) {
