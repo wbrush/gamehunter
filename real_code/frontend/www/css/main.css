@@ -322,7 +322,7 @@ td a {
     border-radius: 5px;
 }
 
-.user-modal p {
+.label {
     margin: 0;
     padding-top: 15px;
     padding-bottom: 5px;
@@ -339,6 +339,15 @@ td a {
     align-items: center;
     overflow: hidden;
     position: relative;
+}
+
+.login-error,
+.lform-error,
+.sform-error,
+.signup-error {
+    margin: 0;
+    padding-top: 5px;
+    color: red;
 }
 
 #modal-switch {

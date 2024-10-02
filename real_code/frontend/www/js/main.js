@@ -23,7 +23,7 @@ function listData(query) {
         endpoint += query
     }
     
-    console.log(`sending request to ${sports_mgr_hostname, endpoint}`)
+    console.log(`sending request to ${sports_mgr_hostname}`)
     try {
         fetch(sports_mgr_hostname + endpoint, {
             method: 'GET',
@@ -34,7 +34,10 @@ function listData(query) {
         .then((res) => res.json())
         .then((data) => {
             renderListData(data)
-            renderSavedList(data)
+
+            if (!query) {
+                renderSavedList(data)
+            }
         })
     } catch (error) {
         console.log(error)
@@ -43,8 +46,8 @@ function listData(query) {
 
 // !Container div
 function renderListData(data) {
-    console.log('Returned data:', data)
     const dataContainer = document.querySelector('.data-container')
+    dataContainer.innerHTML = ''
     
     data.forEach(element => {
         const div = document.createElement('div')
@@ -66,7 +69,14 @@ function renderData(element, saved) {
     div.classList.add('content')
 
     const h2 = document.createElement('h2')
-    h2.innerHTML = element.sport + ' Signup for ' + element.date
+    let sportName = element.sport
+    sportName = sportName.split('')
+    sportName[0] = sportName[0].toUpperCase()
+    sportName = sportName.join('')
+    
+    let eventDate = formatDate(element.date)
+    eventDate = eventDate.split(',')
+    h2.innerHTML = sportName + ' signup for ' + eventDate[0]
     
     if(saved != 'true') {
         h2.classList = 'container-title'
@@ -78,7 +88,9 @@ function renderData(element, saved) {
     div.appendChild(location)
     
     const date = document.createElement('p')
-    date.innerHTML = 'Time: ' + element.time
+    let eventTime = formatDate(element.date)
+    eventTime = eventTime.split(',')
+    date.innerHTML = 'Time: ' + eventTime[1]
     div.appendChild(date)
 
     if (saved == 'true') {
@@ -144,63 +156,74 @@ function search() {
     listData(query)
 }
 
-function signup() {
+async function signup() {
     name = document.getElementById('signup-name').value
     email = document.getElementById('signup-email').value
     password = document.getElementById('signup-password').value
+    document.querySelector('.sform-error').id = 'hidden'
+    document.querySelector('.signup-error').id = 'hidden'
 
     const endpoint = '/api/v1/signup'
-    
-    console.log(`sending signup request to ${user_mgr_hostname} for user: ${email}`)
-    try {
-        fetch(user_mgr_hostname + endpoint, {
+
+    if (name && email && password) {
+        console.log(`sending signup request to ${user_mgr_hostname}`)
+
+        await fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
+            body: JSON.stringify({ name, email, password }),
             headers: {
+                'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            },
-            body: {
-                "name": name,
-                "email": email,
-                "password": password
             }
         })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
-            console.log('finished')
+        .then(response => response.json())
+        .then(response => {
+            if (response.result) {
+                // Clear form and hide modal on successful signup
+                const form = document.querySelector('.signup')
+                form.reset()
+                document.querySelector('.user-modal').id = 'hidden'
+            } else {
+                document.querySelector('.signup-error').id = ''
+            }
         })
-    } catch (error) {
-        console.log(error)
+    } else {
+        document.querySelector('.sform-error').id = ''
     }
 }
 
-function login() {
+async function login() {
     const email = document.getElementById('login-email').value
     const password = document.getElementById('login-password').value
+    document.querySelector('.lform-error').id = 'hidden'
+    document.querySelector('.login-error').id = 'hidden'
 
     const endpoint = '/api/v1/login'
-    
-    console.log(`sending login request to ${user_mgr_hostname} for user: ${email}`)
-    try {
-        fetch(user_mgr_hostname + endpoint, {
+
+    if (email && password) {
+        console.log(`sending login request to ${user_mgr_hostname}`)
+
+        await fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
+            body: JSON.stringify({ email, password }),
             headers: {
+                'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            },
-            body: {
-                "email": email,
-                "password": password
             }
         })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
-            if (data) {
-                console.log('data returned')
+        .then(response => response.json())
+        .then(response => {
+            if (response.result) {
+                // Clear form and hide modal on successful login
+                const form = document.querySelector('.login')
+                form.reset()
+                document.querySelector('.user-modal').id = 'hidden'
+            } else {
+                document.querySelector('.login-error').id = ''
             }
         })
-    } catch (error) {
-        console.log(error)
+    } else {
+        document.querySelector('.lform-error').id = ''
     }
 }
 
@@ -226,4 +249,9 @@ function displaySignup() {
 
     // disable scrolling when modal is open
     document.getElementById("scroll-body").style.overflow = "hidden"
+}
+
+function formatDate(date) {
+    const formattedDate = new Date(date).toLocaleString()
+    return formattedDate
 }
