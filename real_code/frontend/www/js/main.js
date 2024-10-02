@@ -167,7 +167,7 @@ async function signup() {
         .then(response => response.json())
         .then(response => {
             if (response.result) {
-                console.log(response.result)
+                console.log('Query success?', response.result)
                 // Clear form and hide modal on successful signup
                 const form = document.querySelector('.signup')
                 form.reset()

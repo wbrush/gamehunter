@@ -58,9 +58,8 @@ app.post("/api/v1/signup", async (req,res) => {
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('signup', user)
-        console.log(response)
-        if (response) {
-            res.status(200).json({ result: response })
+        if (response.command == 'INSERT') {
+            res.status(200).json({ result: true })
         } else {
             res.status(500).json({ result: false })
         }
