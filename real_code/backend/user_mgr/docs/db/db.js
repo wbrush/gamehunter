@@ -9,9 +9,10 @@ async function Create(database, user) {
     try {
         console.log(query.sql)
         const response = await database.query(query.sql)
+        console.log('account created')
         return response
     } catch (err) {
-        console.error('ERROR:', err);
+        console.error(err);
         return err
     }
 }
@@ -25,9 +26,10 @@ async function Read(database, user) {
     try {
         console.log(query.sql)
         const { rows } = await database.query(query.sql)
-        return rows
+        console.log('User found:', rows[0])
+        return rows[0]
     } catch (err) {
-        console.error('ERROR:', err);
+        console.error(err);
         return err
     }
 }

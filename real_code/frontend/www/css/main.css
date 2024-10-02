@@ -343,7 +343,8 @@ td a {
 
 .login-error,
 .lform-error,
-.sform-error {
+.sform-error,
+.signup-error {
     margin: 0;
     padding-top: 5px;
     color: red;
