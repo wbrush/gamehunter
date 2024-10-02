@@ -13,25 +13,25 @@ app.use(cors());
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
-const session = require('express-session');
-const pgSession = require('connect-pg-simple')(session);
+// const session = require('express-session');
+// const pgSession = require('connect-pg-simple')(session);
 
-const pgPool = () => db_Handler('session')
+// const pgPool = () => db_Handler('session')
 
-app.use(session({
-    secret: process.env.sessionSecret,
-    cookie: {
-        maxAge: 300000,
-        sameSite: true,
-        secure: false
-    },
-    resave: false,
-    store: new pgSession({
-        pool: pgPool,
-        tableName: 'user_session',
-        createTableIfMissing: true
-    })
-}));
+// app.use(session({
+//     secret: process.env.sessionSecret,
+//     cookie: {
+//         maxAge: 300000,
+//         sameSite: true,
+//         secure: false
+//     },
+//     resave: false,
+//     store: new pgSession({
+//         pool: pgPool,
+//         tableName: 'user_session',
+//         createTableIfMissing: true
+//     })
+// }));
 
 console.log(`defining endpoints for port ${port}`)
 
@@ -133,12 +133,12 @@ async function db_Handler(method, user){
                 console.log('password is valid')
 
                 // if valid login, save session
-                req.session.save(() => {
-                    req.session.user_id = response[0].id
-                    req.session.logged_in = true
+                // req.session.save(() => {
+                //     req.session.user_id = response[0].id
+                //     req.session.logged_in = true
 
-                    return true
-                })
+                // })
+                return true
             } else {
                 return false
             }
