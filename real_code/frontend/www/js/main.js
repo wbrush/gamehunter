@@ -23,7 +23,7 @@ function listData(query) {
         endpoint += query
     }
     
-    console.log(`sending request to ${sports_mgr_hostname, endpoint}`)
+    console.log(`sending request to ${sports_mgr_hostname}`)
     try {
         fetch(sports_mgr_hostname + endpoint, {
             method: 'GET',
@@ -34,7 +34,10 @@ function listData(query) {
         .then((res) => res.json())
         .then((data) => {
             renderListData(data)
-            renderSavedList(data)
+
+            if (!query) {
+                renderSavedList(data)
+            }
         })
     } catch (error) {
         console.log(error)
@@ -43,8 +46,8 @@ function listData(query) {
 
 // !Container div
 function renderListData(data) {
-    console.log('Returned data:', data)
     const dataContainer = document.querySelector('.data-container')
+    dataContainer.innerHTML = ''
     
     data.forEach(element => {
         const div = document.createElement('div')
@@ -202,7 +205,6 @@ async function login() {
         .then(response => response.json())
         .then(response => {
             if (response.result) {
-                console.log(response.result)
                 // Clear form and hide modal on successful login
                 const form = document.querySelector('.login')
                 form.reset()
