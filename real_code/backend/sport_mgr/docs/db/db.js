@@ -2,7 +2,7 @@ module.exports = { Create, Read, Update, Delete }
 
 async function Create() {
     let query = {
-        sql: 'INSERT INTO test VALUES (), ()'
+        sql: 'INSERT INTO events VALUES (), ()'
     }
 
     return
@@ -10,7 +10,7 @@ async function Create() {
 
 async function Read(database, sport, location, date) {
     let query = {
-        sql: 'SELECT * FROM test',
+        sql: 'SELECT * FROM events',
     }
 
     if (sport, location, date) {
@@ -38,7 +38,7 @@ async function Update() {
 
 async function Delete() {
     let query = {
-        sql: 'DELETE FROM test'
+        sql: 'DELETE FROM events'
     }
 
     return
