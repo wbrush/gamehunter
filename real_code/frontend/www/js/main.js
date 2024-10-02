@@ -69,7 +69,14 @@ function renderData(element, saved) {
     div.classList.add('content')
 
     const h2 = document.createElement('h2')
-    h2.innerHTML = element.sport + ' Signup for ' + element.date
+    let sportName = element.sport
+    sportName = sportName.split('')
+    sportName[0] = sportName[0].toUpperCase()
+    sportName = sportName.join('')
+    
+    let eventDate = formatDate(element.date)
+    eventDate = eventDate.split(',')
+    h2.innerHTML = sportName + ' signup for ' + eventDate[0]
     
     if(saved != 'true') {
         h2.classList = 'container-title'
@@ -81,7 +88,9 @@ function renderData(element, saved) {
     div.appendChild(location)
     
     const date = document.createElement('p')
-    date.innerHTML = 'Time: ' + element.time
+    let eventTime = formatDate(element.date)
+    eventTime = eventTime.split(',')
+    date.innerHTML = 'Time: ' + eventTime[1]
     div.appendChild(date)
 
     if (saved == 'true') {
@@ -240,4 +249,9 @@ function displaySignup() {
 
     // disable scrolling when modal is open
     document.getElementById("scroll-body").style.overflow = "hidden"
+}
+
+function formatDate(date) {
+    const formattedDate = new Date(date).toLocaleString()
+    return formattedDate
 }
