@@ -15,6 +15,7 @@
  */
 const sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
 const user_mgr_hostname = "https://gh-user-mgr-462896897923.us-central1.run.app"
+const event_mgr_hostname = ''
 
 function listData(query) {
     let endpoint = '/api/v1/sport'
@@ -54,7 +55,7 @@ function renderListData(data) {
         div.classList.add('container')
         
         const content = renderData(element)
-        const buttons = renderButtons()
+        const buttons = renderButtons(element)
         
         div.appendChild(content)
         div.appendChild(buttons)
@@ -107,15 +108,19 @@ function renderData(element, saved) {
 }
 
 // !Button div
-function renderButtons() {
+function renderButtons(element) {
     const div = document.createElement('div')
     div.classList.add('container-btns')
 
     const saveBtn = document.createElement('button')
+    saveBtn.id = `${element.id}`
+    saveBtn.onclick = function() {saveEvent(element, 'save')}
     saveBtn.innerHTML = 'Save'
     div.appendChild(saveBtn)
     
     const signupBtn = document.createElement('button')
+    signupBtn.id = `${element.id}`
+    signupBtn.onclick = function() {saveEvent(element, 'signup')}
     signupBtn.innerHTML = 'Signup'
     div.appendChild(signupBtn)
 
@@ -129,14 +134,14 @@ function renderSavedList(data) {
     h2.innerHTML = 'Saved Events'
     h2.id = 'header'
     savedContainer.appendChild(h2)
-
+    
     const div = document.createElement('div')
     div.classList.add('list')
     
     data.forEach(element => {
         const content = renderData(element, 'true')
         div.appendChild(content)
-
+        
         savedContainer.appendChild(div)
     })
 }
@@ -146,13 +151,13 @@ function search() {
     const sport = $('#selection').val()
     const location = $('#location').val()
     let query = {}
-
+    
     if (!date || !sport || !location) {
         alert('Please fill out all search parameters')
     } else {
         query = `?sport=${sport}&location=${location}&date=${date}`
     }
-
+    
     listData(query)
 }
 
@@ -162,12 +167,12 @@ async function signup() {
     password = document.getElementById('signup-password').value
     document.querySelector('.sform-error').id = 'hidden'
     document.querySelector('.signup-error').id = 'hidden'
-
+    
     const endpoint = '/api/v1/signup'
-
+    
     if (name && email && password) {
         console.log(`sending signup request to ${user_mgr_hostname}`)
-
+        
         await fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             body: JSON.stringify({ name, email, password }),
@@ -197,9 +202,9 @@ async function login() {
     const password = document.getElementById('login-password').value
     document.querySelector('.lform-error').id = 'hidden'
     document.querySelector('.login-error').id = 'hidden'
-
+    
     const endpoint = '/api/v1/login'
-
+    
     if (email && password) {
         console.log(`sending login request to ${user_mgr_hostname}`)
 
@@ -230,7 +235,7 @@ async function login() {
 function displayLogin() {
     // display modal
     document.querySelector(".user-modal").id = ""
-
+    
     // display login info
     document.querySelector(".signup").id = "hidden"
     document.querySelector(".login").id = ""
@@ -242,11 +247,11 @@ function displayLogin() {
 function displaySignup() {
     // display modal
     document.querySelector(".user-modal").id = ""
-
+    
     // display signup info
     document.querySelector(".signup").id = ""
     document.querySelector(".login").id = "hidden"
-
+    
     // disable scrolling when modal is open
     document.getElementById("scroll-body").style.overflow = "hidden"
 }
@@ -254,4 +259,37 @@ function displaySignup() {
 function formatDate(date) {
     const formattedDate = new Date(date).toLocaleString()
     return formattedDate
+}
+
+async function saveEvent(event, method) {
+    const endpoint = `/api/v1/saveEvent`
+
+    if (method == 'save') {
+        console.log('save button', event.id, 'clicked')
+        
+        // change condition to is logged in when functional
+        if (true) {
+            console.log(`sending save request to ${event_mgr_hostname}`)
+            
+            // replace with session user id
+            const user = 7
+
+            await fetch(event_mgr_hostname + endpoint + '/save', {
+                method: 'POST',
+                body: JSON.stringify({ user_id: user, event_id: event.id }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+            })
+        } else {
+            alert('Please login to save events')
+        }
+    } else {
+        console.log('signup button', e.id, 'clicked')
+    }
 }

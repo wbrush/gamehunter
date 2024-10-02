@@ -24,13 +24,16 @@ app.get("/",(req,res)=>{
 })
 
 // Api request to save event
-app.post("/api/v1/saveEvent", async (req,res) => {
-    const event = {}
-    
+app.post("/api/v1/saveEvent/:method", async (req,res) => {
     console.log("got db request - processing")
+    const link = {
+        user_id: req,
+        event_id: req.body.event_id
+    }
+
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
-        const response = await db_Handler('save', event)
+        const response = await db_Handler(req.params.method, link)
         if (response) {
             res.status(200).json(response)
         } else {
@@ -46,7 +49,7 @@ app.post("/api/v1/saveEvent", async (req,res) => {
 })
 
 // Api request to remove saved event
-app.post("/api/v1/removeEvent", async (req,res) => {
+app.post("/api/v1/removeEvent/:id", async (req,res) => {
     const event = {}
     
     console.log("got db request - processing")
@@ -68,9 +71,11 @@ app.post("/api/v1/removeEvent", async (req,res) => {
 })
 
 const { Open, Close } = require('./docs/db/connection')
-const { Create, Read, Update, Delete } = require('./docs/db/db')
+const { Create, Read, Delete } = require('./docs/db/db')
 
-async function db_Handler(method, event){
+async function db_Handler(method, link){
+    console.log('req method:', method)
+
     db_host = process.env.db_host
     db_name = process.env.db_name
     db_conn = process.env.db_conn
@@ -82,15 +87,24 @@ async function db_Handler(method, event){
         //  connect to postgres DB here
         const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
         
-        console.log('incoming event', event)
+        console.log('incoming link', link)
         console.log('sending query')
         let response
         if (method == 'save') {
-            response = await Create(pool, event)
-            console.log('response of login query:', response)
-        } else if (method == 'remove') {
-            response = await Delete(pool, event)
-            console.log('response of signup query:', response)
+            response = await Create(pool, link, 'savedevents')
+            console.log('response of save query:', response)
+
+        } else if (method == 'removeSave') {
+            response = await Delete(pool, link, 'savedevents')
+            console.log('response of remove save query:', response)
+
+        } else if (method == 'signed') {
+            response = await Create(pool, link, 'signedevents')
+            console.log('response of signed query:', response)
+
+        } else if (method == 'removeSigned') {
+            response = await Delete(pool, link, 'signedevents')
+            console.log('response of remove signed query:', response)
         }
 
         Close(pool)
