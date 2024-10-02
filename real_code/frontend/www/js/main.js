@@ -148,40 +148,50 @@ async function signup() {
     name = document.getElementById('signup-name').value
     email = document.getElementById('signup-email').value
     password = document.getElementById('signup-password').value
+    document.querySelector('.sform-error').id = 'hidden'
+    document.querySelector('.login-error').id = 'hidden'
 
     const endpoint = '/api/v1/signup'
-    
-    console.log(`sending signup request to ${user_mgr_hostname}`)
-    
-    await fetch(user_mgr_hostname + endpoint, {
-        method: 'POST',
-        body: JSON.stringify({ name, email, password }),
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(response => {
-        if (response.result) {
-            console.log(response.result)
-            // if signup successful, go to profile page
-            // document.location.replace('/profile')
-        } else {
-            alert('account could not be created')
-        }
-    })
+
+    if (name && email && password) {
+        console.log(`sending signup request to ${user_mgr_hostname}`)
+
+        await fetch(user_mgr_hostname + endpoint, {
+            method: 'POST',
+            body: JSON.stringify({ name, email, password }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response.result) {
+                console.log(response.result)
+                // Clear form and hide modal on successful signup
+                const form = document.querySelector('.signup')
+                form.reset()
+                document.querySelector('.user-modal').id = 'hidden'
+            } else {
+                alert('account could not be created')
+            }
+        })
+    } else {
+        document.querySelector('.sform-error').id = ''
+    }
 }
 
 async function login() {
     const email = document.getElementById('login-email').value
     const password = document.getElementById('login-password').value
+    document.querySelector('.lform-error').id = 'hidden'
+    // document.querySelector('.signup-error').id = 'hidden'
 
     const endpoint = '/api/v1/login'
-    
-    console.log(`sending login request to ${user_mgr_hostname}`)
 
     if (email && password) {
+        console.log(`sending login request to ${user_mgr_hostname}`)
+
         await fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             body: JSON.stringify({ email, password }),
@@ -194,14 +204,16 @@ async function login() {
         .then(response => {
             if (response.result) {
                 console.log(response.result)
-                // if login successful, go to profile page
-                // document.location.replace('/profile')
+                // Clear form and hide modal on successful login
+                const form = document.querySelector('.login')
+                form.reset()
+                document.querySelector('.user-modal').id = 'hidden'
             } else {
-                alert('failed to find user')
+                document.querySelector('.login-error').id = ''
             }
         })
     } else {
-        alert('Please fill out the form')
+        document.querySelector('.lform-error').id = ''
     }
 }
 
