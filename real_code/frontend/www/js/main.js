@@ -149,7 +149,7 @@ async function signup() {
     email = document.getElementById('signup-email').value
     password = document.getElementById('signup-password').value
     document.querySelector('.sform-error').id = 'hidden'
-    document.querySelector('.login-error').id = 'hidden'
+    document.querySelector('.signup-error').id = 'hidden'
 
     const endpoint = '/api/v1/signup'
 
@@ -173,7 +173,7 @@ async function signup() {
                 form.reset()
                 document.querySelector('.user-modal').id = 'hidden'
             } else {
-                alert('account could not be created')
+                document.querySelector('.signup-error').id = ''
             }
         })
     } else {
@@ -185,7 +185,7 @@ async function login() {
     const email = document.getElementById('login-email').value
     const password = document.getElementById('login-password').value
     document.querySelector('.lform-error').id = 'hidden'
-    // document.querySelector('.signup-error').id = 'hidden'
+    document.querySelector('.login-error').id = 'hidden'
 
     const endpoint = '/api/v1/login'
 
