@@ -60,7 +60,7 @@ app.post("/api/v1/signup", async (req,res) => {
         const response = await db_Handler('signup', user)
         console.log(response)
         if (response) {
-            res.status(200).json({ result: true })
+            res.status(200).json({ result: response })
         } else {
             res.status(500).json({ result: false })
         }
