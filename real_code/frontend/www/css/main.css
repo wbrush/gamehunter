@@ -50,7 +50,7 @@ header a {
     position: absolute;
     width: 100%;
     height: 100vh;
-    z-index: 1;
+    z-index: 101;
     backdrop-filter: blur(3px) contrast(.9) brightness(.9);
     display: flex;
 }
@@ -160,6 +160,30 @@ header a {
     font-weight: bold;
 }
 
+.carousel .list .item .content .slider {
+    width: 100%;
+    height: var(--height);
+}
+
+.carousel .list .item .content .slider .list {
+    display: flex;
+    gap: 5px;
+    height: 100%;
+    margin-top: 10px;
+}
+
+.carousel .list .item .content .slider .list .item {
+    position: inherit;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+}
+
+.carousel .list .item .content .slider .list .item:nth-child(2) {
+    background-color: rgb(237, 237, 237);
+}
+
 .carousel .list .item .content .buttons {
     display: grid;
     grid-template-columns: repeat(2, 130px);
@@ -235,7 +259,7 @@ header a {
     height: 40px;
     border-radius: 50%;
     border: none;
-    background-color: #eee4;
+    background-color: #eee8;
     color: white;
     font-family: monospace;
     font-weight: bold;
@@ -254,7 +278,8 @@ header a {
 }
 
 .carousel .list .item:nth-child(1) .title,
-.carousel .list .item:nth-child(1) .upcoming,
+.carousel .list .item:nth-child(1) .upcoming-title,
+.carousel .list .item:nth-child(1) .upcoming-events,
 .carousel .list .item:nth-child(1) .buttons {
     transform:  translateY(50px);
     filter: blur(20px);
@@ -273,12 +298,16 @@ header a {
     animation-delay: 1.2s;
 }
 
-.carousel .list .item:nth-child(1) .upcoming {
+.carousel .list .item:nth-child(1) .upcoming-title {
     animation-delay: 1.4s;
 }
 
-.carousel .list .item:nth-child(1) .buttons {
+.carousel .list .item:nth-child(1) .upcoming-events {
     animation-delay: 1.6s;
+}
+
+.carousel .list .item:nth-child(1) .buttons {
+    animation-delay: 1.8s;
 }
 
 /* carousel next button effect */
@@ -398,196 +427,3 @@ header a {
         font-size: 30px;
     }
 }
-
-/* h2 {
-    margin: 0;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgb(0, 0, 175);
-    padding: 1rem;
-}
-
-header a {
-    text-decoration: none;
-    color: white;
-}
-
-body {
-    margin: 0;
-}
-
-#header-title {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-nav {
-    display: flex;
-}
-
-nav a {
-    padding: 1rem;
-    font-size: 18px;
-}
-
-nav a:hover {
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.homepage-img {
-    position: relative;
-    width: 80%;
-    padding: 0 10%;
-    background-color: black;
-}
-
-#homepage-motto {
-    position: absolute;
-    top: 25px;
-    left: 12%;
-    color: white;
-    font-size: 42px;
-    max-width: 400px;
-}
-
-.homepage-img img {
-    height: 500px;
-    width: 100%;
-}
-
-#homepage-header {
-    text-align: center;
-    background-color: rgb(173, 2, 2);
-    color: white;
-    padding: 10px 0;
-    margin: 0;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(238, 238, 238);
-    overflow: hidden;
-    width: max-content;
-    padding: 20px;
-}
-
-.container:nth-child(even) {
-    background-color: rgb(226, 226, 226)
-}
-
-.container-title {
-    padding: .5rem;
-    color: black;
-}
-
-.container-btns {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding-right: 15px;
-    padding-bottom: 10px;
-}
-
-.container-btns button {
-    background-color: blue;
-    color: white;
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-}
-
-.container-btns button:hover {
-    cursor: pointer;
-    background-color: rgb(86, 86, 248);
-}
-
-.content {
-    position: relative;
-}
-
-.content h2 {
-    padding: 5px;
-    text-align: center;
-    text-decoration: underline;
-}
-
-.content p {
-    padding-left: 5px;
-}
-
-.content button {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    background-color: blue;
-    color: white;
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-}
-
-.content button:hover {
-    cursor: pointer;
-    background-color: rgb(86, 86, 248);
-}
-
-#header {
-    background-color: rgb(173, 2, 2);
-    color: white;
-    padding: 5px;
-}
-
-.upcoming-events {
-    border: 1px solid rgb(173, 2, 2);
-    border-top: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.upcoming-event-data-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.sports-list {
-    display:flex;
-    justify-content: center;
-    width: 80%;
-    gap: 1rem;
-    margin: 1rem auto;
-    overflow-x: scroll;
-}
-
-.sport {
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    height: 150px;
-    width: 150px;
-    border: 1px solid rgb(173, 2, 2);
-}
-
-.sport:hover {
-    cursor: pointer;
-}
-
-.sport img {
-    width: 150px;
-    height: 150px;
-    opacity: .2;
-}
-
-.sport p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    margin: 0;
-    font-size: 24px;
-} */

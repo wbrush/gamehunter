@@ -89,118 +89,67 @@ function listData(query) {
         .then((res) => res.json())
         .then((data) => {
             renderListData(data)
-
-            if (!query) {
-                renderSavedList(data)
-            }
         })
     } catch (error) {
         console.log(error)
     }
 }
 
-// !Container div
 function renderListData(data) {
-    const dataContainer = document.querySelector('.upcoming-event-data-container')
-    dataContainer.innerHTML = ''
-    
-    data.forEach(element => {
-        const div = document.createElement('div')
-        div.classList.add('container')
-        
-        const content = renderData(element)
-        const buttons = renderButtons(element)
-        
-        div.appendChild(content)
-        div.appendChild(buttons)
+    const volleyballEvents = []
+    const basketballEvents = []
+    const pickleballEvents = []
+    const tennisEvents = []
 
-        dataContainer.appendChild(div)
+    data.forEach(element => {
+        if (element.sport === 'volleyball') {
+            volleyballEvents.push(element)
+            renderData(volleyballEvents)
+        } else if (element.sport === 'basketball') {
+            basketballEvents.push(element)
+            renderData(basketballEvents)
+        } else if (element.sport === 'pickleball') {
+            pickleballEvents.push(element)
+            renderData(pickleballEvents)
+        } else {
+            tennisEvents.push(element)
+            renderData(tennisEvents)
+        }
     })
 }
 
-// !Content div
-function renderData(element, saved) {
-    const div = document.createElement('div')
-    div.classList.add('content')
+function renderData(events) {
+    const createItemDiv = document.createElement('div')
+    createItemDiv.classList.add('item')
 
-    const h2 = document.createElement('h2')
-    let sportName = element.sport
-    sportName = sportName.split('')
-    sportName[0] = sportName[0].toUpperCase()
-    sportName = sportName.join('')
-    
-    let eventDate = formatDate(element.date)
-    eventDate = eventDate.split(',')
-    h2.innerHTML = sportName
-    
-    if(saved != 'true') {
-        h2.classList = 'container-title'
-    }
-    div.appendChild(h2)
+    events.forEach(event => {
+        createItemDiv.innerHTML = ''
+        const sliderList = document.querySelector(`.upcoming-events.${event.sport} .slider .list`)
 
-    const location = document.createElement('p')
-    location.innerHTML = 'Location: ' + element.location
-    div.appendChild(location)
-    
-    const date = document.createElement('p')
-    date.innerHTML = 'Date: ' + eventDate[0]
-    div.appendChild(date)
-    
-    const time = document.createElement('p')
-    let eventTime = formatDate(element.date)
-    eventTime = eventTime.split(',')
-    time.innerHTML = 'Time: ' + eventTime[1]
-    div.appendChild(time)
+        const dateElement = document.createElement('h1')
+        const locationElement = document.createElement('p')
+        const timeElement = document.createElement('p')
 
-    if (saved == 'true') {
-        const btnDiv = document.createElement('div')
-        btnDiv.classList.add('container-btns')
-
-        const removeBtn = document.createElement('button')
-        removeBtn.innerHTML = 'Remove'
-        div.appendChild(removeBtn)
-    }
-
-
-    return div
-}
-
-// !Button div
-function renderButtons(element) {
-    const div = document.createElement('div')
-    div.classList.add('container-btns')
-
-    const saveBtn = document.createElement('button')
-    saveBtn.id = `${element.id}`
-    saveBtn.onclick = function() {saveEvent(element, 'save')}
-    saveBtn.innerHTML = 'Save'
-    div.appendChild(saveBtn)
-    
-    const signupBtn = document.createElement('button')
-    signupBtn.id = `${element.id}`
-    signupBtn.onclick = function() {saveEvent(element, 'signup')}
-    signupBtn.innerHTML = 'Signup'
-    div.appendChild(signupBtn)
-
-    return div
-}
-
-function renderSavedList(data) {
-    const savedContainer = document.querySelector('.saved-events')
-    
-    const h2 = document.createElement('h2')
-    h2.innerHTML = 'Saved Events'
-    h2.id = 'header'
-    savedContainer.appendChild(h2)
-    
-    const div = document.createElement('div')
-    div.classList.add('list')
-    
-    data.forEach(element => {
-        const content = renderData(element, 'true')
-        div.appendChild(content)
+        let formatDate = event.date.split('T')[0].split('-')
+        formatDate = formatDate[1] + '/' + formatDate[2]
+        dateElement.innerHTML = `${formatDate}`
+        createItemDiv.appendChild(dateElement)
         
-        savedContainer.appendChild(div)
+        locationElement.innerHTML = event.location
+        createItemDiv.appendChild(locationElement)
+
+        let formatTime = event.date.split('T')[1].split(':')
+        if (Number(formatTime[0]) > 12) {
+            formatTime[0] = Number(formatTime[0]) - 12
+            formatTime[2] = 'PM'
+        } else {
+            formatTime[2] = 'AM'
+        }
+        formatTime = formatTime[0] + ':' + formatTime[1] + ' ' + formatTime[2]
+        timeElement.innerHTML = `${formatTime}`
+        createItemDiv.appendChild(timeElement)
+
+        sliderList.appendChild(createItemDiv)
     })
 }
 
