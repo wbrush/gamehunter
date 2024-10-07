@@ -17,6 +17,60 @@ const sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
 const user_mgr_hostname = "https://gh-user-mgr-462896897923.us-central1.run.app"
 const event_mgr_hostname = ''
 
+let nextButton
+let prevButton
+
+function loadHomepage() {
+    nextButton = document.getElementById('next')
+    prevButton = document.getElementById('prev')
+    
+    nextButton.onclick = function() {
+        showSlider('next')
+    }
+
+    prevButton.onclick = function() {
+        showSlider('prev')
+    }
+}
+
+const timeRunning = 3000
+const timeAutoNext = 7000
+let runTimeOut
+let runAutoRun = setTimeout(() => {
+    nextButton.click()
+}, timeAutoNext)
+
+function showSlider(type) {
+    const carousel = document.querySelector('.carousel')
+    const listItem = document.querySelector('.carousel .list')
+    const thumbnail = document.querySelector('.carousel .thumbnail')
+
+    let itemSlider = document.querySelectorAll('.carousel .list .item')
+    let itemThumbnail = document.querySelectorAll('.carousel .thumbnail .item')
+
+    if (type === 'next') {
+        listItem.appendChild(itemSlider[0])
+        thumbnail.appendChild(itemThumbnail[0])
+        carousel.classList.add('next')
+    } else {
+        const positionLastItem = itemSlider.length - 1
+        listItem.prepend(itemSlider[positionLastItem])
+        thumbnail.prepend(itemThumbnail[positionLastItem])
+        carousel.classList.add('prev')
+    }
+
+    clearTimeout(runTimeOut)
+    runTimeOut = setTimeout(() => {
+        carousel.classList.remove('next')
+        carousel.classList.remove('prev')
+    }, timeRunning)
+
+    clearTimeout(runAutoRun)
+    runAutoRun = setTimeout(() => {
+        nextButton.click()
+    }, timeAutoNext)
+}
+
 function listData(query) {
     let endpoint = '/api/v1/sport'
     
@@ -47,7 +101,7 @@ function listData(query) {
 
 // !Container div
 function renderListData(data) {
-    const dataContainer = document.querySelector('.data-container')
+    const dataContainer = document.querySelector('.upcoming-event-data-container')
     dataContainer.innerHTML = ''
     
     data.forEach(element => {
@@ -77,7 +131,7 @@ function renderData(element, saved) {
     
     let eventDate = formatDate(element.date)
     eventDate = eventDate.split(',')
-    h2.innerHTML = sportName + ' signup for ' + eventDate[0]
+    h2.innerHTML = sportName
     
     if(saved != 'true') {
         h2.classList = 'container-title'
@@ -89,10 +143,14 @@ function renderData(element, saved) {
     div.appendChild(location)
     
     const date = document.createElement('p')
+    date.innerHTML = 'Date: ' + eventDate[0]
+    div.appendChild(date)
+    
+    const time = document.createElement('p')
     let eventTime = formatDate(element.date)
     eventTime = eventTime.split(',')
-    date.innerHTML = 'Time: ' + eventTime[1]
-    div.appendChild(date)
+    time.innerHTML = 'Time: ' + eventTime[1]
+    div.appendChild(time)
 
     if (saved == 'true') {
         const btnDiv = document.createElement('div')

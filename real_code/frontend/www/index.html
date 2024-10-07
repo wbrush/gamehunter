@@ -69,86 +69,127 @@
     </div>
 
     <header>
-        <a href="/" id="header-title">GameHunter</a>
         <nav>
-            <a href="/">Home</a>
-            <!-- <a href="/profile">Profile</a> -->
+            <a href="/" id="header-title">GameHunter</a>
+            <a href="/">Profile</a>
             <a onclick=displayLogin()>Login</a>
             <a onclick=displaySignup()>Signup</a>
         </nav>
     </header>
 
-    <div class="homepage-img">
+    <!-- <div class="homepage-img">
         <h2 id="homepage-motto">Helping Players Find Their Next Game.</h2>
         <img id="homepage-img" src="./images/yuji_nishida.jpg" />
-    </div>
+    </div> -->
 
-    <div class="user-events">
-        <div class="saved-events"></div>
-        
-        <div class="signed-events">
-            <h2 id="header">Signed Up</h2>
-            <div class="list">
+    <div class="carousel">
+        <div class="list">
+            <div class="item">
+                <img src="./images/volleyball.jpg"/>
                 <div class="content">
-                    <h2> Signed up for <span id="container-sport">Volleyball</span> on <span id="container-date">4/21</span></h2>
-                    <div>
-                        <p>Location: <span id="container-location">Austin, TX</span></p>
-                        <p>Time: 2pm</p>
+                    <div class="title">Volleyball</div>
+                    <div class="upcoming">
+                        <div class="upcoming-title">Upcoming</div>
+                        <div class="upcoming-events">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quidem fugiat saepe ex doloribus, exercitationem laudantium, pariatur aperiam culpa explicabo dignissimos? Porro veritatis, numquam accusamus id ad beatae corrupti neque?</div>
                     </div>
-                    <button>Cancel</button>
+                    <div class="buttons">
+                        <button>Search</button>
+                        <button>Search All</button>
+                    </div>
                 </div>
-                
+            </div>
+            
+            <div class="item">
+                <img src="./images/basketball.jpg"/>
                 <div class="content">
-                    <h2> Signed up for <span id="container-sport">Volleyball</span> on <span id="container-date">4/21</span></h2>
-                    <div>
-                        <p>Location: <span id="container-location">Austin, TX</span></p>
-                        <p>Time: 2pm</p>
+                    <div class="title">Basketball</div>
+                    <div class="upcoming">
+                        <div class="upcoming-title">Upcoming</div>
+                        <div class="upcoming-events">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quidem fugiat saepe ex doloribus, exercitationem laudantium, pariatur aperiam culpa explicabo dignissimos? Porro veritatis, numquam accusamus id ad beatae corrupti neque?</div>
                     </div>
-                    <button>Cancel</button>
+                    <div class="buttons">
+                        <button>Search</button>
+                        <button>Search All</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="item">
+                <img src="./images/pickleball.jpg"/>
+                <div class="content">
+                    <div class="title">Pickleball</div>
+                    <div class="upcoming">
+                        <div class="upcoming-title">Upcoming</div>
+                        <div class="upcoming-events">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quidem fugiat saepe ex doloribus, exercitationem laudantium, pariatur aperiam culpa explicabo dignissimos? Porro veritatis, numquam accusamus id ad beatae corrupti neque?</div>
+                    </div>
+                    <div class="buttons">
+                        <button>Search</button>
+                        <button>Search All</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="item">
+                <img src="./images/tennis.jpg"/>
+                <div class="content">
+                    <div class="title">Tennis</div>
+                    <div class="upcoming">
+                        <div class="upcoming-title">Upcoming</div>
+                        <div class="upcoming-events">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quidem fugiat saepe ex doloribus, exercitationem laudantium, pariatur aperiam culpa explicabo dignissimos? Porro veritatis, numquam accusamus id ad beatae corrupti neque?</div>
+                    </div>
+                    <div class="buttons">
+                        <button>Search</button>
+                        <button>Search All</button>
+                    </div>
                 </div>
             </div>
         </div>
+        
+        <div class="thumbnail">
+            <div class="item">
+                <img src="./images/basketball.jpg">
+                <div class="content">
+                    <div class="title">Basketball</div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="./images/pickleball.jpg">
+                <div class="content">
+                    <div class="title">Pickleball</div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="./images/tennis.jpg">
+                <div class="content">
+                    <div class="title">Tennis</div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="./images/volleyball.jpg">
+                <div class="content">
+                    <div class="title">Volleyball</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+        </div>
+        <div class="timer"></div>
     </div>
-
-    <h1 id="upcoming">Upcoming Events</h1>
     
-    <div class="search">
-        <div class="date">
-            <p>Date:</p>
-            <input id="datepicker">
-        </div>
-
-        <div class="sport-selector">
-            <p>Sport: </p>
-            <select id="selection">
-                <option>Volleyball</option>
-                <option>Basketball</option>
-                <option>Racquetball</option>
-                <option>Pickleball</option>
-            </select>
-        </div>
-
-        <div class="location">
-            <p>Location:</p>
-            <input id="location" placeholder="ex. Austin, TX">
-        </div>
-
-        <button id="search-btn" onclick=search()>Search</button>
-    </div>
+    <!-- <div class="upcoming-events">
+        <h1 id="homepage-header">Upcoming Events</h1>
+        <div class="upcoming-event-data-container"></div>
+    </div> -->
     
-    <script>
-        $(function() {
-            $('#datepicker').datepicker()
-        })
-        </script>
-    
-    <div class="data-container"></div>
-
     <script type="text/javascript">
         window.onload = function(){
             listData()
+            loadHomepage()
         }
-    </script>
+        </script>
 
     <script>
         // close modal when clicked outside

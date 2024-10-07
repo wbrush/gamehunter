@@ -14,288 +14,38 @@
  * limitations under the License.
  */
 
-h2 {
-    margin: 0;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgb(0, 0, 175);
-    padding: 1rem;
-}
-
-header a {
-    text-decoration: none;
-    color: white;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
-    margin: 0;
-}
-
-#header-title {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-nav {
-    display: flex;
-}
-
-nav a {
-    padding: 1rem;
-    font-size: 18px;
-}
-
-nav a:hover {
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.homepage-img {
-    position: relative;
-    width: 80%;
-    padding: 0 10%;
     background-color: black;
-}
-
-#homepage-motto {
-    position: absolute;
-    top: 25px;
-    left: 12%;
     color: white;
-    font-size: 42px;
-    max-width: 400px;
-}
-
-.homepage-img img {
-    height: 500px;
-    width: 100%;
-}
-
-#upcoming {
-    text-align: center;
-    background-color: rgb(173, 2, 2);
-    color: white;
-    padding: 10px 0;
-}
-
-.search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 1rem;
-}
-
-.search p {
-    font-size: 18px;
     margin: 0;
-}
-
-#search-btn {
-    height: fit-content;
-    padding: 7px;
-    font-size: 16px;
-    background-color: blue;
-    color: white;
-    border: none;
-    border-radius: 10px;
-}
-
-#search-btn:hover {
-    cursor: pointer;
-    background-color: rgb(86, 86, 248);
-}
-
-.sport-selector {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.sport-selector select {
-    height: min-content;
-    padding: 5px;
-    font-size: 16px;
-}
-
-.date {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.date input {
-    height: min-content;
-    font-size: 16px;
-    padding: 5px;
-}
-
-#datepicker {
-    display: flex;
-    max-width: fit-content;
-}
-
-.ui-datepicker {
-    background-color: rgb(241, 241, 241);
-}
-
-.ui-datepicker-inline {
-    margin: 1rem;
-}
-
-.ui-datepicker-prev,
-.ui-datepicker-next {
-    color: blue;
-}
-
-.ui-datepicker-prev:hover,
-.ui-datepicker-next:hover {
-    cursor: pointer;;
-}
-
-.ui-datepicker-next {
-    float: inline-end;
-}
-
-.ui-datepicker-next:hover,
-.ui-datepicker-prev:hover {
-    cursor: pointer;
-}
-
-.ui-datepicker-title {
-    text-align: center;
-}
-
-td a {
-    text-decoration: none;
-}
-
-.location {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.location input {
-    font-size: 16px;
-    padding: 5px;
-}
-
-.data-container {
-    margin: 1rem 10%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    row-gap: 2rem;
-}
-
-.container {
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    box-shadow: 5px 5px 10px rgb(96, 0, 0);
+    font-size: 12px;
+    font-family: Poppins;
     overflow: hidden;
 }
 
-.container-title {
-    background-color: rgb(173, 2, 2);
-    padding: .5rem;
+a {
+    text-decoration: none;
     color: white;
 }
 
-.container-btns {
+header {
+    width: 1140px;
+    max-width: 80%;
+    margin: auto;
+    height: 50px;
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-right: 15px;
-    padding-bottom: 10px;
-}
-
-.container-btns button {
-    background-color: blue;
-    color: white;
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-}
-
-.container-btns button:hover {
-    cursor: pointer;
-    background-color: rgb(86, 86, 248);
-}
-
-.content {
+    align-items: center;
     position: relative;
+    z-index: 100;
 }
 
-.content h2 {
-    padding: 5px 5px 0 5px;
+header a {
+    margin-right: 40px;
 }
 
-.content p {
-    padding-left: 5px;
-}
-
-.content button {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    background-color: blue;
-    color: white;
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-}
-
-.content button:hover {
-    cursor: pointer;
-    background-color: rgb(86, 86, 248);
-}
-
-.user-events {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.saved-events,
-.signed-events {
-    width: 40%;
-    border: 1px solid rgb(173, 2, 2);
-    border-radius: 5px;
-}
-
-.user-events {
-    margin: 0;
-    padding: 10px;
-}
-
-#header {
-    background-color: rgb(173, 2, 2);
-    color: white;
-    padding: 5px;
-}
-
-.list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    row-gap: 1rem;
-    margin: 5px;
-}
-
-.list .content {
-    width: 45%;
-    background-color: rgb(235, 235, 235);
-    border-radius: 5px;
-}
-
+/* Login/Signup Modal */
 .user-modal {
     position: absolute;
     width: 100%;
@@ -365,3 +115,479 @@ td a {
 #hidden {
     display: none;
 }
+
+/* Carousel */
+.carousel {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    margin-top: -50px;
+    position: relative;
+}
+
+.carousel .list .item {
+    position: absolute;
+    inset: 0 0 0 0;
+}
+
+.carousel .list .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel .list .item .content {
+    position: absolute;
+    top: 20%;
+    width: 1140px;
+    max-width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-right: 30%;
+    box-sizing: border-box;
+    color: white;
+}
+
+.carousel .list .item .content .title {
+    text-shadow: 0 5px 10px black;
+    font-weight: bold;
+    font-size: 5em;
+}
+
+.carousel .list .item .content .upcoming-title {
+    color: orangered;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.carousel .list .item .content .buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 130px);
+    grid-template-rows: 40px;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.carousel .list .item .content button {
+    border: none;
+    background-color: white;
+    letter-spacing: 3px;
+    font-weight: 500;
+}
+
+.carousel .list .item .content button:nth-child(2) {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+/* Carousel thumbnails */
+.thumbnail {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    width: max-content;
+    z-index: 100;
+    display: flex;
+    gap: 20px;
+}
+
+.thumbnail .item {
+    width: 150px;
+    height: 220px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.thumbnail .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.thumbnail .item .content {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+}
+
+.thumbnail .item .content .title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Carousel arrow buttons */
+.arrows {
+    position: absolute;
+    top: 80%;
+    right: 52%;
+    width: 300px;
+    max-width: 30%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.arrows button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #eee4;
+    color: white;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: large;
+    transition: .5s;
+    z-index: 100;
+}
+
+.arrows button:hover {
+    background-color: white;
+    color: #555;
+}
+
+.carousel .list .item:nth-child(1) {
+    z-index: 1;
+}
+
+.carousel .list .item:nth-child(1) .title,
+.carousel .list .item:nth-child(1) .upcoming,
+.carousel .list .item:nth-child(1) .buttons {
+    transform:  translateY(50px);
+    filter: blur(20px);
+    opacity: 0;
+    animation: showContent .5s 1s linear 1 forwards;
+}
+@keyframes showContent {
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
+}
+
+.carousel .list .item:nth-child(1) .title {
+    animation-delay: 1.2s;
+}
+
+.carousel .list .item:nth-child(1) .upcoming {
+    animation-delay: 1.4s;
+}
+
+.carousel .list .item:nth-child(1) .buttons {
+    animation-delay: 1.6s;
+}
+
+/* carousel next button effect */
+.carousel.next .list .item:nth-child(1) img {
+    width: 150px;
+    height: 220px;
+    position: absolute;
+    left: 50%;
+    bottom: 50px;
+    border-radius: 20px;
+    animation: showImage .5s linear 1 forwards;
+}
+@keyframes showImage {
+    to {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        bottom: 0;
+        border-radius: 0;
+    }
+}
+
+.carousel.next .thumbnail .item:nth-last-child(1) {
+    width: 0;
+    overflow: hidden;
+    animation: showThumbnail .5s linear 1 forwards;
+}
+@keyframes showThumbnail {
+    to {
+        width: 150px;
+    }
+}
+
+.carousel.next .thumbnail {
+    transform: translateX(150px);
+    animation: transformThumbnail .5s linear 1 forwards;
+}
+@keyframes transformThumbnail {
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* carousel prev button effect */
+.carousel.prev .list .item:nth-child(2) {
+    z-index: 1;
+}
+
+.carousel.prev .list .item:nth-child(2) img{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    animation: outImage .5s linear 1 forwards;
+}
+@keyframes outImage {
+    to {
+        width: 150px;
+        height: 220px;
+        border-radius: 20px;
+        left: 50%;
+        bottom: 50px;
+    }
+}
+
+.carousel.prev .thumbnail .item:nth-child(1) {
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    animation: showThumbnail .5s linear 1 forwards;
+}
+
+.carousel.prev .list .item:nth-child(2) .title,
+.carousel.prev .list .item:nth-child(2) .upcoming,
+.carousel.prev .list .item:nth-child(2) .buttons {
+    animation: contentOut 1.5s linear 1 forwards;
+}
+@keyframes contentOut {
+    to {
+        transform: translateY(-150px);
+        filter: blur(20px);
+        opacity: 0;
+    }
+}
+
+.carousel.next .arrows button,
+.carousel.prev .arrows button {
+    pointer-events: none;
+}
+
+/* next slide timer */
+.timer {
+    width: 100%;
+    height: 5px;
+    background-color: orangered;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    animation: slideTimer 7s linear 1 forwards;
+}
+@keyframes slideTimer {
+    to {
+        width: 0;
+    }
+}
+
+@media screen and (max-width: 678px) {
+    header a {
+        margin-right: 20px;
+    }
+
+    .carousel .list .item .content {
+        padding-right: 0;
+    }
+
+    .carousel .list .item .content .title {
+        font-size: 30px;
+    }
+}
+
+/* h2 {
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(0, 0, 175);
+    padding: 1rem;
+}
+
+header a {
+    text-decoration: none;
+    color: white;
+}
+
+body {
+    margin: 0;
+}
+
+#header-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+}
+
+nav a {
+    padding: 1rem;
+    font-size: 18px;
+}
+
+nav a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.homepage-img {
+    position: relative;
+    width: 80%;
+    padding: 0 10%;
+    background-color: black;
+}
+
+#homepage-motto {
+    position: absolute;
+    top: 25px;
+    left: 12%;
+    color: white;
+    font-size: 42px;
+    max-width: 400px;
+}
+
+.homepage-img img {
+    height: 500px;
+    width: 100%;
+}
+
+#homepage-header {
+    text-align: center;
+    background-color: rgb(173, 2, 2);
+    color: white;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(238, 238, 238);
+    overflow: hidden;
+    width: max-content;
+    padding: 20px;
+}
+
+.container:nth-child(even) {
+    background-color: rgb(226, 226, 226)
+}
+
+.container-title {
+    padding: .5rem;
+    color: black;
+}
+
+.container-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+}
+
+.container-btns button {
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+.container-btns button:hover {
+    cursor: pointer;
+    background-color: rgb(86, 86, 248);
+}
+
+.content {
+    position: relative;
+}
+
+.content h2 {
+    padding: 5px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.content p {
+    padding-left: 5px;
+}
+
+.content button {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+.content button:hover {
+    cursor: pointer;
+    background-color: rgb(86, 86, 248);
+}
+
+#header {
+    background-color: rgb(173, 2, 2);
+    color: white;
+    padding: 5px;
+}
+
+.upcoming-events {
+    border: 1px solid rgb(173, 2, 2);
+    border-top: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.upcoming-event-data-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sports-list {
+    display:flex;
+    justify-content: center;
+    width: 80%;
+    gap: 1rem;
+    margin: 1rem auto;
+    overflow-x: scroll;
+}
+
+.sport {
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border: 1px solid rgb(173, 2, 2);
+}
+
+.sport:hover {
+    cursor: pointer;
+}
+
+.sport img {
+    width: 150px;
+    height: 150px;
+    opacity: .2;
+}
+
+.sport p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    margin: 0;
+    font-size: 24px;
+} */
