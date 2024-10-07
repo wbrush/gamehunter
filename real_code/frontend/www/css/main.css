@@ -177,7 +177,7 @@ header a:hover {
     margin-top: 10px;
 }
 
-.carousel .list .item .content .slider .list .item {
+.carousel .list .item .content .slider .list .event {
     position: inherit;
     padding: 10px;
     background-color: white;
@@ -185,7 +185,7 @@ header a:hover {
     border-radius: 20px;
 }
 
-.carousel .list .item .content .slider .list .item:nth-child(2) {
+.carousel .list .item .content .slider .list .event:nth-child(2) {
     background-color: rgb(237, 237, 237);
 }
 
@@ -385,9 +385,10 @@ header a:hover {
 }
 
 .carousel.prev .list .item:nth-child(2) .title,
-.carousel.prev .list .item:nth-child(2) .upcoming,
+.carousel.prev .list .item:nth-child(2) .upcoming-title,
+.carousel.prev .list .item:nth-child(2) .upcoming-events,
 .carousel.prev .list .item:nth-child(2) .buttons {
-    animation: contentOut 1.5s linear 1 forwards;
+    animation: contentOut 1s linear 1 forwards;
 }
 @keyframes contentOut {
     to {
@@ -411,12 +412,6 @@ header a:hover {
     z-index: 10;
     top: 0;
     left: 0;
-    animation: slideTimer 7s linear 1 forwards;
-}
-@keyframes slideTimer {
-    to {
-        width: 0;
-    }
 }
 
 @media screen and (max-width: 678px) {

@@ -19,22 +19,38 @@ const event_mgr_hostname = ''
 
 let nextButton
 let prevButton
+let autoTimer
+let autoCountdown
 
 function loadHomepage() {
+    autoTimer = document.querySelector('.timer')
     nextButton = document.getElementById('next')
     prevButton = document.getElementById('prev')
     
     nextButton.onclick = function() {
         showSlider('next')
     }
-
+    
     prevButton.onclick = function() {
         showSlider('prev')
     }
+
+    let interval = 1000
+    autoCountdown = setInterval(() => {
+        interval--
+        progressWidth = interval / 100
+    
+        if (interval > 0) {
+            autoTimer.style.width = (progressWidth * 10) +'%'
+        } else {
+            clearInterval(autoCountdown)
+        }
+    }, 10)
 }
 
+
 const timeRunning = 3000
-const timeAutoNext = 7000
+const timeAutoNext = 10000
 let runTimeOut
 let runAutoRun = setTimeout(() => {
     nextButton.click()
@@ -44,9 +60,8 @@ function showSlider(type) {
     const carousel = document.querySelector('.carousel')
     const listItem = document.querySelector('.carousel .list')
     const thumbnail = document.querySelector('.carousel .thumbnail')
-
-    let itemSlider = document.querySelectorAll('.carousel .list .item')
-    let itemThumbnail = document.querySelectorAll('.carousel .thumbnail .item')
+    const itemSlider = document.querySelectorAll('.carousel .list .item')
+    const itemThumbnail = document.querySelectorAll('.carousel .thumbnail .item')
 
     if (type === 'next') {
         listItem.appendChild(itemSlider[0])
@@ -69,6 +84,19 @@ function showSlider(type) {
     runAutoRun = setTimeout(() => {
         nextButton.click()
     }, timeAutoNext)
+
+    clearInterval(autoCountdown)
+    let interval = 1000
+    autoCountdown = setInterval(() => {
+        interval--
+        progressWidth = interval / 100
+    
+        if (interval > 0) {
+            autoTimer.style.width = (progressWidth * 10) +'%'
+        } else {
+            clearInterval(autoCountdown)
+        }
+    }, 10)
 }
 
 function listData(query) {
@@ -120,7 +148,7 @@ function renderListData(data) {
 
 function renderData(events) {
     const createItemDiv = document.createElement('div')
-    createItemDiv.classList.add('item')
+    createItemDiv.classList.add('event')
 
     events.forEach(event => {
         createItemDiv.innerHTML = ''
