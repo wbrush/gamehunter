@@ -46,6 +46,10 @@ header a {
     margin-right: 40px;
 }
 
+header a:hover {
+    cursor: pointer;
+}
+
 /* Login/Signup Modal */
 .user-modal {
     position: absolute;
