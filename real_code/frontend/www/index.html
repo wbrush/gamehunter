@@ -33,6 +33,7 @@
 
     <title>GameHunter</title>
 </head>
+
 <body id="scroll-body">
     <div class="user-modal" id="hidden">
         <form class="login" onsubmit="login(); return false">
@@ -97,8 +98,8 @@
                     </div>
 
                     <div class="buttons">
-                        <button>Search</button>
-                        <button>Search All</button>
+                        <button onclick=searchRedirect('volleyball')>Search</button>
+                        <button onclick=searchRedirect()>Search All</button>
                     </div>
                 </div>
             </div>
@@ -119,8 +120,8 @@
                         </div>
                     </div>
                     <div class="buttons">
-                        <button>Search</button>
-                        <button>Search All</button>
+                        <button onclick=searchRedirect('basketball')>Search</button>
+                        <button onclick=searchRedirect()>Search All</button>
                     </div>
                 </div>
             </div>
@@ -139,8 +140,8 @@
                         </div>
                     </div>
                     <div class="buttons">
-                        <button>Search</button>
-                        <button>Search All</button>
+                        <button onclick=searchRedirect('pickleball')>Search</button>
+                        <button onclick=searchRedirect()>Search All</button>
                     </div>
                 </div>
             </div>
@@ -161,8 +162,8 @@
                         </div>
                     </div>
                     <div class="buttons">
-                        <button>Search</button>
-                        <button>Search All</button>
+                        <button onclick=searchRedirect('tennis')>Search</button>
+                        <button onclick=searchRedirect()>Search All</button>
                     </div>
                 </div>
             </div>
@@ -207,7 +208,7 @@
             listData()
             loadHomepage()
         }
-        </script>
+    </script>
 
     <script>
         // close modal when clicked outside

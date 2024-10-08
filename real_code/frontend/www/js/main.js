@@ -187,19 +187,12 @@ function renderData(events) {
     })
 }
 
-function search() {
-    const date = $('#datepicker').val()
-    const sport = $('#selection').val()
-    const location = $('#location').val()
-    let query = {}
-    
-    if (!date || !sport || !location) {
-        alert('Please fill out all search parameters')
+function searchRedirect(path) {
+    if (path != undefined) {
+        location.href = `/search/${path}`
     } else {
-        query = `?sport=${sport}&location=${location}&date=${date}`
+        location.href = '/search'
     }
-    
-    listData(query)
 }
 
 async function signup() {
