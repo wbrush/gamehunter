@@ -124,28 +124,31 @@ function listData(query) {
 }
 
 function renderListData(data) {
+    const currentTimestamp = new Date(Date.now()).valueOf()
     const volleyballEvents = []
     const basketballEvents = []
     const pickleballEvents = []
     const tennisEvents = []
 
     data.forEach(element => {
-        if (element.date > new Date.now()) {
-            console.log('future event', element)
+        const elementDate = new Date(element.date).valueOf()
+
+        if (currentTimestamp < elementDate) {
+            if (element.sport === 'volleyball' && volleyballEvents.length <= 5) {
+                volleyballEvents.push(element)
+                renderData(volleyballEvents)
+            } else if (element.sport === 'basketball' && basketballEvents.length <= 5) {
+                basketballEvents.push(element)
+                renderData(basketballEvents)
+            } else if (element.sport === 'pickleball' && pickleballEvents.length <= 5) {
+                pickleballEvents.push(element)
+                renderData(pickleballEvents)
+            } else if (element.sport === 'tennis' && tennisEvents.length <= 5){
+                tennisEvents.push(element)
+                renderData(tennisEvents)
+            }
         }
-        if (element.sport === 'volleyball' && volleyballEvents.length <= 5) {
-            volleyballEvents.push(element)
-            renderData(volleyballEvents)
-        } else if (element.sport === 'basketball' && basketballEvents.length <= 5) {
-            basketballEvents.push(element)
-            renderData(basketballEvents)
-        } else if (element.sport === 'pickleball' && pickleballEvents.length <= 5) {
-            pickleballEvents.push(element)
-            renderData(pickleballEvents)
-        } else if (element.sport === 'tennis' && tennisEvents.length <= 5){
-            tennisEvents.push(element)
-            renderData(tennisEvents)
-        }
+
     })
 }
 
