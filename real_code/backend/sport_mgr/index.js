@@ -23,7 +23,12 @@ app.get("/",(req,res)=>{
     return res.status(200).json({service : "gh-sport-mgr"})
 })
 
+app.get("/search",(req,res)=>{
+    res.sendFile(path.join(__dirname, '../../frontend/www/pages/search.html'))
+})
+
 app.get('/search/:sport', async (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/www/pages/search.html'))
     const search = {
         sport: req.params.sport
     }
@@ -33,7 +38,6 @@ app.get('/search/:sport', async (req, res) => {
     if (acceptHeader.includes('json')) {
         const response = await db_Handler(search)
         if (response) {
-            res.sendFile(path.join(__dirname, '../../frontend/www/pages/search.html'))
         } else {
             res.status(500).send('Failed to get data.')
         }
