@@ -130,6 +130,9 @@ function renderListData(data) {
     const tennisEvents = []
 
     data.forEach(element => {
+        if (element.date > new Date.now()) {
+            console.log('future event', element)
+        }
         if (element.sport === 'volleyball' && volleyballEvents.length <= 5) {
             volleyballEvents.push(element)
             renderData(volleyballEvents)

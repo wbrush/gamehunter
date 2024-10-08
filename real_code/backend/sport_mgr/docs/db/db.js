@@ -1,8 +1,9 @@
 module.exports = { Create, Read, Update, Delete }
 
-async function Create() {
+async function Create(sport, location, date) {
+     //!date format: YYYY-MM-DDTHH:MM:SSZ
     let query = {
-        sql: 'INSERT INTO events VALUES (), ()'
+        sql: `INSERT INTO events (sport, location, date) VALUES ('${sport}', '${location}', '${date}')`
     }
 
     return
@@ -16,6 +17,8 @@ async function Read(database, sport, location, date) {
     if (sport, location, date) {
         query.sql += ` WHERE location ILIKE '${location}' AND sport ILIKE '${sport}'`
     }
+
+    query.sql += ' ORDER BY date'
 
     // Queries rows from the Albums table
     try {
