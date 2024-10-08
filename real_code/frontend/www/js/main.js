@@ -48,6 +48,9 @@ function loadHomepage() {
     }, 10)
 }
 
+function loadSearchPage() {
+    console.log('search page loaded')
+}
 
 const timeRunning = 3000
 const timeAutoNext = 10000

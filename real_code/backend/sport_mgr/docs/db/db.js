@@ -9,13 +9,15 @@ async function Create(sport, location, date) {
     return
 }
 
-async function Read(database, sport, location, date) {
+async function Read(database, { sport, location, date }) {
     let query = {
         sql: 'SELECT * FROM events',
     }
 
-    if (sport, location, date) {
+    if (sport && location && date) {
         query.sql += ` WHERE location ILIKE '${location}' AND sport ILIKE '${sport}'`
+    } else {
+        query.sql += ` WHERE sport ILIKE '${sport}'`
     }
 
     query.sql += ' ORDER BY date'

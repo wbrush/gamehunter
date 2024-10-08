@@ -23,16 +23,42 @@ app.get("/",(req,res)=>{
     return res.status(200).json({service : "gh-sport-mgr"})
 })
 
-// Api request to receive all and filtered events
-app.get("/api/v1/sport", async (req,res) => {
-    const sport= req.query.sport
-    const location = req.query.location
-    const date = req.query.date
+app.get('/search/:sport', async (req, res) => {
+    const search = {
+        sport: req.params.sport
+    }
     
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
-        const response = await db_Handler(sport, location, date)
+        const response = await db_Handler(search)
+        if (response) {
+            res.sendFile(path.join(__dirname, '../../frontend/www/pages/search.html'))
+        } else {
+            res.status(500).send('Failed to get data.')
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
+    return
+    }
+)
+
+// Api request to receive all and filtered events
+app.get("/api/v1/sport", async (req,res) => {
+    const search = {
+        sport: req.query.sport,
+        location: req.query.location,
+        date: req.query.date
+    }
+    
+    console.log("got db request - processing")
+    acceptHeader = req.header('Accept')
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler(search)
         if (response) {
             res.status(200).json(response)
         } else {
@@ -50,7 +76,7 @@ app.get("/api/v1/sport", async (req,res) => {
 const { Open, Close } = require('./docs/db/connection')
 const { Create, Read, Update, Delete } = require('./docs/db/db')
 
-async function db_Handler(sport, location, date){
+async function db_Handler(search){
     db_host = process.env.db_host
     db_name = process.env.db_name
     db_conn = process.env.db_conn
@@ -62,7 +88,7 @@ async function db_Handler(sport, location, date){
         //  connect to postgres DB here
         const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
         console.log('sending query')
-        const response = await Read(pool, sport, location, date)
+        const response = await Read(pool, search)
         console.log('response of query:', response)
 
         Close(pool)
