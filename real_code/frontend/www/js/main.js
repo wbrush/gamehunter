@@ -15,6 +15,89 @@
  */
 const sports_mgr_hostname = "https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app"
 const user_mgr_hostname = "https://gh-user-mgr-462896897923.us-central1.run.app"
+const event_mgr_hostname = ''
+
+let nextButton
+let prevButton
+let autoTimer
+let autoCountdown
+
+function loadHomepage() {
+    autoTimer = document.querySelector('.timer')
+    nextButton = document.getElementById('next')
+    prevButton = document.getElementById('prev')
+    
+    nextButton.onclick = function() {
+        showSlider('next')
+    }
+    
+    prevButton.onclick = function() {
+        showSlider('prev')
+    }
+
+    let interval = 1000
+    autoCountdown = setInterval(() => {
+        interval--
+        progressWidth = interval / 100
+    
+        if (interval > 0) {
+            autoTimer.style.width = (progressWidth * 10) +'%'
+        } else {
+            clearInterval(autoCountdown)
+        }
+    }, 10)
+}
+
+
+const timeRunning = 3000
+const timeAutoNext = 10000
+let runTimeOut
+let runAutoRun = setTimeout(() => {
+    nextButton.click()
+}, timeAutoNext)
+
+function showSlider(type) {
+    const carousel = document.querySelector('.carousel')
+    const listItem = document.querySelector('.carousel .list')
+    const thumbnail = document.querySelector('.carousel .thumbnail')
+    const itemSlider = document.querySelectorAll('.carousel .list .item')
+    const itemThumbnail = document.querySelectorAll('.carousel .thumbnail .item')
+
+    if (type === 'next') {
+        listItem.appendChild(itemSlider[0])
+        thumbnail.appendChild(itemThumbnail[0])
+        carousel.classList.add('next')
+    } else {
+        const positionLastItem = itemSlider.length - 1
+        listItem.prepend(itemSlider[positionLastItem])
+        thumbnail.prepend(itemThumbnail[positionLastItem])
+        carousel.classList.add('prev')
+    }
+
+    clearTimeout(runTimeOut)
+    runTimeOut = setTimeout(() => {
+        carousel.classList.remove('next')
+        carousel.classList.remove('prev')
+    }, timeRunning)
+
+    clearTimeout(runAutoRun)
+    runAutoRun = setTimeout(() => {
+        nextButton.click()
+    }, timeAutoNext)
+
+    clearInterval(autoCountdown)
+    let interval = 1000
+    autoCountdown = setInterval(() => {
+        interval--
+        progressWidth = interval / 100
+    
+        if (interval > 0) {
+            autoTimer.style.width = (progressWidth * 10) +'%'
+        } else {
+            clearInterval(autoCountdown)
+        }
+    }, 10)
+}
 
 function listData(query) {
     let endpoint = '/api/v1/sport'
@@ -34,101 +117,67 @@ function listData(query) {
         .then((res) => res.json())
         .then((data) => {
             renderListData(data)
-
-            if (!query) {
-                renderSavedList(data)
-            }
         })
     } catch (error) {
         console.log(error)
     }
 }
 
-// !Container div
 function renderListData(data) {
-    const dataContainer = document.querySelector('.data-container')
-    dataContainer.innerHTML = ''
-    
-    data.forEach(element => {
-        const div = document.createElement('div')
-        div.classList.add('container')
-        
-        const content = renderData(element)
-        const buttons = renderButtons()
-        
-        div.appendChild(content)
-        div.appendChild(buttons)
+    const volleyballEvents = []
+    const basketballEvents = []
+    const pickleballEvents = []
+    const tennisEvents = []
 
-        dataContainer.appendChild(div)
+    data.forEach(element => {
+        if (element.sport === 'volleyball' && volleyballEvents.length <= 5) {
+            volleyballEvents.push(element)
+            renderData(volleyballEvents)
+        } else if (element.sport === 'basketball' && basketballEvents.length <= 5) {
+            basketballEvents.push(element)
+            renderData(basketballEvents)
+        } else if (element.sport === 'pickleball' && pickleballEvents.length <= 5) {
+            pickleballEvents.push(element)
+            renderData(pickleballEvents)
+        } else if (element.sport === 'tennis' && tennisEvents.length <= 5){
+            tennisEvents.push(element)
+            renderData(tennisEvents)
+        }
     })
 }
 
-// !Content div
-function renderData(element, saved) {
-    const div = document.createElement('div')
-    div.classList.add('content')
+function renderData(events) {
+    const createItemDiv = document.createElement('div')
+    createItemDiv.classList.add('event')
 
-    const h2 = document.createElement('h2')
-    h2.innerHTML = element.sport + ' Signup for ' + element.date
-    
-    if(saved != 'true') {
-        h2.classList = 'container-title'
-    }
-    div.appendChild(h2)
+    events.forEach(event => {
+        createItemDiv.innerHTML = ''
+        const sliderList = document.querySelector(`.upcoming-events.${event.sport} .slider .list`)
 
-    const location = document.createElement('p')
-    location.innerHTML = 'Location: ' + element.location
-    div.appendChild(location)
-    
-    const date = document.createElement('p')
-    date.innerHTML = 'Time: ' + element.time
-    div.appendChild(date)
+        const dateElement = document.createElement('h1')
+        const locationElement = document.createElement('p')
+        const timeElement = document.createElement('p')
 
-    if (saved == 'true') {
-        const btnDiv = document.createElement('div')
-        btnDiv.classList.add('container-btns')
+        let formatDate = event.date.split('T')[0].split('-')
+        formatDate = formatDate[1] + '/' + formatDate[2]
+        dateElement.innerHTML = `${formatDate}`
+        createItemDiv.appendChild(dateElement)
+        
+        locationElement.innerHTML = event.location
+        createItemDiv.appendChild(locationElement)
 
-        const removeBtn = document.createElement('button')
-        removeBtn.innerHTML = 'Remove'
-        div.appendChild(removeBtn)
-    }
+        let formatTime = event.date.split('T')[1].split(':')
+        if (Number(formatTime[0]) > 12) {
+            formatTime[0] = Number(formatTime[0]) - 12
+            formatTime[2] = 'PM'
+        } else {
+            formatTime[2] = 'AM'
+        }
+        formatTime = formatTime[0] + ':' + formatTime[1] + ' ' + formatTime[2]
+        timeElement.innerHTML = `${formatTime}`
+        createItemDiv.appendChild(timeElement)
 
-
-    return div
-}
-
-// !Button div
-function renderButtons() {
-    const div = document.createElement('div')
-    div.classList.add('container-btns')
-
-    const saveBtn = document.createElement('button')
-    saveBtn.innerHTML = 'Save'
-    div.appendChild(saveBtn)
-    
-    const signupBtn = document.createElement('button')
-    signupBtn.innerHTML = 'Signup'
-    div.appendChild(signupBtn)
-
-    return div
-}
-
-function renderSavedList(data) {
-    const savedContainer = document.querySelector('.saved-events')
-    
-    const h2 = document.createElement('h2')
-    h2.innerHTML = 'Saved Events'
-    h2.id = 'header'
-    savedContainer.appendChild(h2)
-
-    const div = document.createElement('div')
-    div.classList.add('list')
-    
-    data.forEach(element => {
-        const content = renderData(element, 'true')
-        div.appendChild(content)
-
-        savedContainer.appendChild(div)
+        sliderList.appendChild(createItemDiv)
     })
 }
 
@@ -137,13 +186,13 @@ function search() {
     const sport = $('#selection').val()
     const location = $('#location').val()
     let query = {}
-
+    
     if (!date || !sport || !location) {
         alert('Please fill out all search parameters')
     } else {
         query = `?sport=${sport}&location=${location}&date=${date}`
     }
-
+    
     listData(query)
 }
 
@@ -153,12 +202,12 @@ async function signup() {
     password = document.getElementById('signup-password').value
     document.querySelector('.sform-error').id = 'hidden'
     document.querySelector('.signup-error').id = 'hidden'
-
+    
     const endpoint = '/api/v1/signup'
-
+    
     if (name && email && password) {
         console.log(`sending signup request to ${user_mgr_hostname}`)
-
+        
         await fetch(user_mgr_hostname + endpoint, {
             method: 'POST',
             body: JSON.stringify({ name, email, password }),
@@ -188,9 +237,9 @@ async function login() {
     const password = document.getElementById('login-password').value
     document.querySelector('.lform-error').id = 'hidden'
     document.querySelector('.login-error').id = 'hidden'
-
+    
     const endpoint = '/api/v1/login'
-
+    
     if (email && password) {
         console.log(`sending login request to ${user_mgr_hostname}`)
 
@@ -221,7 +270,7 @@ async function login() {
 function displayLogin() {
     // display modal
     document.querySelector(".user-modal").id = ""
-
+    
     // display login info
     document.querySelector(".signup").id = "hidden"
     document.querySelector(".login").id = ""
@@ -233,11 +282,49 @@ function displayLogin() {
 function displaySignup() {
     // display modal
     document.querySelector(".user-modal").id = ""
-
+    
     // display signup info
     document.querySelector(".signup").id = ""
     document.querySelector(".login").id = "hidden"
-
+    
     // disable scrolling when modal is open
     document.getElementById("scroll-body").style.overflow = "hidden"
+}
+
+function formatDate(date) {
+    const formattedDate = new Date(date).toLocaleString()
+    return formattedDate
+}
+
+async function saveEvent(event, method) {
+    const endpoint = `/api/v1/saveEvent`
+
+    if (method == 'save') {
+        console.log('save button', event.id, 'clicked')
+        
+        // change condition to is logged in when functional
+        if (true) {
+            console.log(`sending save request to ${event_mgr_hostname}`)
+            
+            // replace with session user id
+            const user = 7
+
+            await fetch(event_mgr_hostname + endpoint + '/save', {
+                method: 'POST',
+                body: JSON.stringify({ user_id: user, event_id: event.id }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+            })
+        } else {
+            alert('Please login to save events')
+        }
+    } else {
+        console.log('signup button', e.id, 'clicked')
+    }
 }
