@@ -233,6 +233,10 @@ header a:hover {
     position: relative;
 }
 
+.thumbnail .item:hover{
+    cursor: pointer;
+}
+
 .thumbnail .item img {
     width: 100%;
     height: 100%;
