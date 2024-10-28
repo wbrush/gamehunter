@@ -1,0 +1,17 @@
+/* AccountSignup.jsx Styling */
+.signupDiv {
+    display: flex;
+    justify-content: center;
+    padding-right: 5%;
+    padding-top: 10%;
+}
+.h2Signup {
+    text-align: center;
+}
+.signupForm {
+    background-color: #b6bc34;
+    
+}
+label {
+    padding-right: 2%;
+}

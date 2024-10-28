@@ -1,0 +1,16 @@
+/* Login.jsx styling */
+.formDiv {
+    display: flex;
+    justify-content: center;
+    padding-right: 3%;
+    padding-top: 10%;
+}
+h2 {
+    text-align: center;
+}
+.loginForm {
+    background-color: #b6bc34;
+}
+label {
+    padding-right: 2%;
+}
