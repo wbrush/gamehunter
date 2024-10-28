@@ -16,8 +16,6 @@ async function Read(database, { sport, location, date }) {
 
     if (sport && location && date) {
         query.sql += ` WHERE location ILIKE '${location}' AND sport ILIKE '${sport}'`
-    } else {
-        query.sql += ` WHERE sport ILIKE '${sport}'`
     }
 
     query.sql += ' ORDER BY date'
