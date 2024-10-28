@@ -3,12 +3,14 @@
     font-family: Poppins;
     position: relative;
     margin-top: -50px;
+    height: 500px;
 }
 
 .hero img {
     width: 100%;
     height: 500px;
     opacity: .8;
+    border-bottom: 1px solid blue;
 }
 
 .hero h1 {
