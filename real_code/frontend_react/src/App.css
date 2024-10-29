@@ -20,12 +20,10 @@
  * Remove the margin in all browsers.
  */
 body {
-  background-color: black;
   color: white;
   margin: 0;
   font-size: 12px;
   font-family: Poppins;
-  overflow: hidden;
 }
 
 /**
