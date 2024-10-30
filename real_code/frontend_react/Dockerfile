@@ -28,4 +28,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["serve", "-s", "-l", "3000", "./build"]
