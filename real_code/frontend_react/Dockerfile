@@ -14,18 +14,18 @@
 
 FROM node:18-alpine
 
+RUN mkdir -p /app
+
 WORKDIR /app
-
-COPY package.json .
-
-RUN npm install
-
-RUN npm i -g serve
 
 COPY . .
 
+ENV PORT=8080
+
+RUN npm i -g serve
+
+RUN npm install
+
 RUN npm run build
 
-EXPOSE 8080
-
-CMD ["serve", "-s", "-l", "8080", "./dist"]
+CMD ["serve", "-s", "-l", "8080", "./build"]
