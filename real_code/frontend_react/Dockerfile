@@ -12,5 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM nginx
-COPY ./www /usr/share/nginx/html
+FROM node:18-alpine
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+COPY . .
+
+ENV PORT=8080
+
+RUN npm i -g serve
+
+RUN npm install
+
+RUN npm run build
+
+CMD ["serve", "-s", "-l", "8080", "./build"]
