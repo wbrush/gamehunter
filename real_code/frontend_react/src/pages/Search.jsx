@@ -17,6 +17,8 @@ const Search = () => {
   const [sport, setSport] = useState('Volleyball')
   const [location, setLocation] = useState('Clay Madsen Rec Center')
   const [date, setDate] = useState(new Date())
+  const [sportArray, setSportArray] = useState([])
+  const [locationArray, setLocationArray] = useState([])
 
   useEffect(() => {
     if (initialMount.current || query != '') {
@@ -29,6 +31,7 @@ const Search = () => {
         })
         .then((res) => res.json())
         .then((data) => {
+          loadSearchFilters(data)
           filterData(data)
         })
       } catch (error) {
@@ -38,6 +41,24 @@ const Search = () => {
       initialMount.current = false
     }
   }, [query])
+
+  const loadSearchFilters = (data) => {
+    data.forEach((element) => {
+      element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
+
+      if (!sportArray.includes(element.sport)) {
+        sportArray.push(element.sport)
+      }
+      
+      setSportArray(sportArray)
+      
+      if (!locationArray.includes(element.location)) {
+        locationArray.push(element.location)
+      }
+
+      setLocationArray(locationArray)
+    })
+  }
     
   const filterData = (data) => {
     const currentTimestamp = new Date(Date.now()).valueOf()
@@ -96,18 +117,22 @@ const Search = () => {
         <div>
           <p>Sport:</p>
           <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
-            <option>Volleyball</option>
-            <option>Basketball</option>
-            <option>Pickleball</option>
-            <option>Tennis</option>
+            {sportArray.map((sport) => {
+              return (
+                <option key={sport}>{sport}</option>
+              )
+            })}
           </select>
         </div>
 
         <div>
           <p>Location:</p>
           <select onChange={(option) => setLocation(option.target.selectedOptions[0].innerHTML)}>
-            <option>Clay Madsen Rec Center</option>
-            <option>Wells Branch</option>
+          {locationArray.map((location) => {
+              return (
+                <option key={location}>{location}</option>
+              )
+            })}
           </select>
         </div>
 
