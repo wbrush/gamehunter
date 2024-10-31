@@ -4,44 +4,31 @@ import { Link } from "react-router-dom"
 import Thumbnail from "./thumbnail/thumbnail"
 import './carousel.css'
 
-const Carousel = () => {
+const Carousel = ({ sports }) => {
     const [activeSport, setActiveSport] = useState(0)
     const [sportsArray, setSportsArray] = useState(['Basketball', 'Pickleball', 'Tennis', 'Volleyball'])
-    const [sports, setSports] = useState([
-        {
-            id: 'volleyball',
-            title: 'Volleyball',
-            events: [
-                {
-                    id: 0,
-                    date: '04/23',
-                    location: 'Clay Madsen Rec Center',
-                    time: '6:00 PM'
-                },
-                {
-                    id: 1,
-                    date: '04/23',
-                    location: 'Clay Madsen Recreactional Center',
-                    time: '6:00 PM'
-                },
-            ]
-        },
-        {
-            id: 'basketball',
-            title: 'Basketball',
-            events: []
-        },
-        {
-            id: 'pickleball',
-            title: 'Pickleball',
-            events: []
-        },
-        {
-            id: 'tennis',
-            title: 'Tennis',
-            events: []
-        },
-    ])
+    // const [sports, setSports] = useState([
+    //     {
+    //         id: 'volleyball',
+    //         title: 'Volleyball',
+    //         events: []
+    //     },
+    //     {
+    //         id: 'basketball',
+    //         title: 'Basketball',
+    //         events: []
+    //     },
+    //     {
+    //         id: 'pickleball',
+    //         title: 'Pickleball',
+    //         events: []
+    //     },
+    //     {
+    //         id: 'tennis',
+    //         title: 'Tennis',
+    //         events: []
+    //     }
+    // ])
     const initialMount = useRef(true)
 
     useEffect(() => {
