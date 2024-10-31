@@ -12,20 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:18-alpine
-
-RUN mkdir -p /app
+FROM node:18-alpine AS build
 
 WORKDIR /app
-
-COPY . .
-
-ENV PORT=8080
-
-RUN npm i -g serve
-
+COPY package*.json ./
 RUN npm install
-
+COPY . .
 RUN npm run build
 
-CMD ["serve", "-s", "-l", "8080", "./build"]
+FROM fholzer/nginx-brotli:v1.12.2
+
+WORKDIR /etc/nginx
+ADD nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
