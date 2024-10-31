@@ -15,7 +15,7 @@ const Search = () => {
 
   const [query, setQuery] = useState('')
   const [sport, setSport] = useState('Volleyball')
-  const [location, setLocation] = useState('Clay Madsen')
+  const [location, setLocation] = useState('Clay Madsen Rec Center')
   const [date, setDate] = useState(new Date())
 
   useEffect(() => {
@@ -106,7 +106,7 @@ const Search = () => {
         <div>
           <p>Location:</p>
           <select onChange={(option) => setLocation(option.target.selectedOptions[0].innerHTML)}>
-            <option>Clay Madsen</option>
+            <option>Clay Madsen Rec Center</option>
             <option>Wells Branch</option>
           </select>
         </div>
