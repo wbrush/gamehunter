@@ -7,28 +7,6 @@ import './carousel.css'
 const Carousel = ({ sports }) => {
     const [activeSport, setActiveSport] = useState(0)
     const [sportsArray, setSportsArray] = useState(['Basketball', 'Pickleball', 'Tennis', 'Volleyball'])
-    // const [sports, setSports] = useState([
-    //     {
-    //         id: 'volleyball',
-    //         title: 'Volleyball',
-    //         events: []
-    //     },
-    //     {
-    //         id: 'basketball',
-    //         title: 'Basketball',
-    //         events: []
-    //     },
-    //     {
-    //         id: 'pickleball',
-    //         title: 'Pickleball',
-    //         events: []
-    //     },
-    //     {
-    //         id: 'tennis',
-    //         title: 'Tennis',
-    //         events: []
-    //     }
-    // ])
     const initialMount = useRef(true)
 
     useEffect(() => {
