@@ -49,13 +49,14 @@ const Search = () => {
       if (!sportArray.includes(element.sport)) {
         sportArray.push(element.sport)
       }
-      
-      setSportArray(sportArray)
-      
+
       if (!locationArray.includes(element.location)) {
         locationArray.push(element.location)
       }
-
+      
+      setSport(sportArray[0])
+      setLocation(locationArray[0])
+      setSportArray(sportArray)
       setLocationArray(locationArray)
     })
   }
