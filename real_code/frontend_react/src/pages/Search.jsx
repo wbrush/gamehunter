@@ -80,6 +80,10 @@ const Search = () => {
     return date
   }
 
+  const updateQuery = () => {
+    setQuery('?sport=' + sport + '&location=' + location.split(' ').join('+') + '&date=' + date.toString().split(' ').join('+'))
+  }
+
   return (
     <>
     <Header modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} setModalDisplay={setModalDisplay} />
@@ -112,7 +116,7 @@ const Search = () => {
           <DatePicker selected={date} onChange={(date) => setDate(date)} />
         </div>
 
-        <button onClick={() => setQuery('?')}>Search</button>
+        <button onClick={updateQuery}>Search</button>
       </div>
 
     </div>
