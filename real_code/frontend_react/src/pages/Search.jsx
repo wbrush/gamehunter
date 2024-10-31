@@ -10,76 +10,75 @@ import '../pagescss/search.css'
 const Search = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
-  // const [filteredEvents, setFilteredEvents] = useState([])
-  // const initialMount = useRef(true)
+  const [filteredEvents, setFilteredEvents] = useState([])
+  const initialMount = useRef(true)
 
-  // const [query, setQuery] = useState('')
-  // const [sport, setSport] = useState('Volleyball')
-  // const [location, setLocation] = useState('Clay Madsen')
-  // const [date, setDate] = useState(new Date())
+  const [query, setQuery] = useState('')
+  const [sport, setSport] = useState('Volleyball')
+  const [location, setLocation] = useState('Clay Madsen')
+  const [date, setDate] = useState(new Date())
 
-  // useEffect(() => {
-  //   if (initialMount.current || query != '') {
-  //     try {
-  //       fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport' + query, {
-  //         method: 'GET',
-  //         headers: {
-  //           'Accept': 'application/json'
-  //         }
-  //       })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log('returned data', data)
-  //         filterData(data)
-  //       })
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
+  useEffect(() => {
+    if (initialMount.current || query != '') {
+      try {
+        fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport' + query, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          filterData(data)
+        })
+      } catch (error) {
+        console.error(error)
+      }
 
-  //     initialMount.current = false
-  //   }
-  // }, [query])
+      initialMount.current = false
+    }
+  }, [query])
     
-  // const filterData = (data) => {
-  //   const currentTimestamp = new Date(Date.now()).valueOf()
-  //   const tempArr = []
+  const filterData = (data) => {
+    const currentTimestamp = new Date(Date.now()).valueOf()
+    const tempArr = []
 
-  //   data.forEach(element => {
-  //     const elementDate = new Date(element.date).valueOf()
-  //     element.date = element.date.split('T')
+    data.forEach(element => {
+      const elementDate = new Date(element.date).valueOf()
+      element.date = element.date.split('T')
 
       
-  //     if (currentTimestamp < elementDate) {
-  //       element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
-  //       element.time = formatTime(element.date[1])
-  //       element.date = formatDate(element.date[0])
-  //       tempArr.push(element)
-  //     } //else {deleteQuery()} deletes past events
-  //   })
-  //   setFilteredEvents(tempArr)
-  // }
+      if (currentTimestamp < elementDate) {
+        element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
+        element.time = formatTime(element.date[1])
+        element.date = formatDate(element.date[0])
+        tempArr.push(element)
+      } //else {deleteQuery()} deletes past events
+    })
+    setFilteredEvents(tempArr)
+  }
 
-  // const formatTime = (time) => {
-  //   time = time.split(':')
-  //   time.pop()
+  const formatTime = (time) => {
+    time = time.split(':')
+    time.pop()
 
-  //   if (time[0] > 12) {
-  //     time[0] = Number(time[0]) - 12
-  //     time[1] += ' PM'
-  //   }else if (time[0] == 12 && time[1] > 0) {
-  //     time[1] += ' PM'
-  //   } else {
-  //     time [1] += ' AM'
-  //   }
+    if (time[0] > 12) {
+      time[0] = Number(time[0]) - 12
+      time[1] += ' PM'
+    }else if (time[0] == 12 && time[1] > 0) {
+      time[1] += ' PM'
+    } else {
+      time [1] += ' AM'
+    }
     
-  //   return time.join(':')
-  // }
+    return time.join(':')
+  }
   
-  // const formatDate = (date) => {
-  //   date = date.split('-')
-  //   date = date[1] + '/' + date[2]
-  //   return date
-  // }
+  const formatDate = (date) => {
+    date = date.split('-')
+    date = date[1] + '/' + date[2]
+    return date
+  }
 
   return (
     <>
