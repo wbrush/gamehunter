@@ -107,9 +107,9 @@ const Search = () => {
       <div className="search-bar">
         <div>
           <p>Sport:</p>
-          <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
+          <select value={sport} onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
             <option>Select</option>
-            <Select array={sportArray} sport={sport} />
+            <Select array={sportArray} />
           </select>
         </div>
 

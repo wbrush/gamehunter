@@ -1,14 +1,8 @@
-const Select = ({ array, sport }) => {
+const Select = ({ array }) => {
     return array?.map((element, i) => {
-        if (element === sport) {
-            return (
-                <option selected key={i}>{element}</option>
-            )
-        } else {
-            return (
-                <option key={i}>{element}</option>
-            )
-        }
+        return (
+            <option key={i}>{element}</option>
+        )
     })
 }
 
