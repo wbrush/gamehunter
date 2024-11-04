@@ -1,17 +1,18 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import Header from '../components/header/header'
 import Modal from '../components/modal/modal'
 import Hero from '../components/hero/hero'
+import Select from '../components/select/select'
 import '../pagescss/search.css'
 
 const Search = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
-  const [filteredEvents, setFilteredEvents] = useState([])
-  const initialMount = useRef(true)
+  const response = useOutletContext()
 
   const [query, setQuery] = useState('')
   const [sport, setSport] = useState('Volleyball')
@@ -19,37 +20,20 @@ const Search = () => {
   const [date, setDate] = useState(new Date())
   const [sportArray, setSportArray] = useState([])
   const [locationArray, setLocationArray] = useState([])
+  const [pageLoad, setPageLoad] = useState(null)
 
   useEffect(() => {
-    if (initialMount.current || query != '') {
-      try {
-        fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport' + query, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          }
-        })
-        .then((res) => res.json())
-        .then((data) => {
-          loadSearchFilters(data)
-          filterData(data)
-        })
-      } catch (error) {
-        console.error(error)
-      }
-
-      initialMount.current = false
+    if (response.length > 0) {
+      loadSearchFilters(response)
     }
-  }, [query])
-
-  const loadSearchFilters = (data) => {
-    data.forEach((element) => {
-      element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
-
+  }, [pageLoad])
+  
+  const loadSearchFilters = (response) => {
+    response.forEach((element) => {
       if (!sportArray.includes(element.sport)) {
         sportArray.push(element.sport)
       }
-
+      
       if (!locationArray.includes(element.location)) {
         locationArray.push(element.location)
       }
@@ -58,48 +42,8 @@ const Search = () => {
       setLocation(locationArray[0])
       setSportArray(sportArray)
       setLocationArray(locationArray)
+      setPageLoad(true)
     })
-  }
-    
-  const filterData = (data) => {
-    const currentTimestamp = new Date(Date.now()).valueOf()
-    const tempArr = []
-
-    data.forEach(element => {
-      const elementDate = new Date(element.date).valueOf()
-      element.date = element.date.split('T')
-
-      
-      if (currentTimestamp < elementDate) {
-        element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
-        element.time = formatTime(element.date[1])
-        element.date = formatDate(element.date[0])
-        tempArr.push(element)
-      } //else {deleteQuery()} deletes past events
-    })
-    setFilteredEvents(tempArr)
-  }
-
-  const formatTime = (time) => {
-    time = time.split(':')
-    time.pop()
-
-    if (time[0] > 12) {
-      time[0] = Number(time[0]) - 12
-      time[1] += ' PM'
-    }else if (time[0] == 12 && time[1] > 0) {
-      time[1] += ' PM'
-    } else {
-      time [1] += ' AM'
-    }
-    
-    return time.join(':')
-  }
-  
-  const formatDate = (date) => {
-    date = date.split('-')
-    date = date[1] + '/' + date[2]
-    return date
   }
 
   const updateQuery = () => {
@@ -118,22 +62,14 @@ const Search = () => {
         <div>
           <p>Sport:</p>
           <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
-            {sportArray.map((sport) => {
-              return (
-                <option key={sport}>{sport}</option>
-              )
-            })}
+            <Select array={sportArray}/>
           </select>
         </div>
 
         <div>
           <p>Location:</p>
           <select onChange={(option) => setLocation(option.target.selectedOptions[0].innerHTML)}>
-          {locationArray.map((location) => {
-              return (
-                <option key={location}>{location}</option>
-              )
-            })}
+            <Select array={locationArray}/>
           </select>
         </div>
 
@@ -148,7 +84,7 @@ const Search = () => {
     </div>
 
     <div className='search-container'>
-      {filteredEvents.length > 0 ? filteredEvents.map((event, i) => {
+      {response.length > 0 ? response.map((event, i) => {
         return (
           <div className="event" key={event.id}>
             <h1>{event.date}</h1>
