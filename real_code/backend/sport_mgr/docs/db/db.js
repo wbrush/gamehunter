@@ -10,7 +10,7 @@ async function Create(sport, location, date) {
 }
 
 async function Read(database, { sport, location, date }) {
-    let queryDate = new Date() || date
+    let queryDate = new Date().toISOString() || date
     let query = {
         sql: `SELECT * FROM events WHERE date > ${queryDate}`,
     }
