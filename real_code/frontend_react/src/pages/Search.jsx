@@ -44,6 +44,7 @@ const Search = () => {
       fetchRequest()
       loadSearchFilters(null, dataLoaded)
     } else {
+      fetchRequest()
       loadSearchFilters(null, dataLoaded)
     }
   }, [dataLoaded])
