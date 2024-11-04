@@ -27,6 +27,30 @@ app.get("/search",(req,res)=>{
     res.sendFile(path.join(__dirname, '../../frontend/www/pages/search.html'))
 })
 
+app.get('/search/:sport', async (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/www/pages/search.html'))
+    const search = {
+        sport: req.params.sport
+    }
+    
+    console.log("got db request - processing")
+    acceptHeader = req.header('Accept')
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler(search)
+        if (response) {
+        } else {
+            res.status(500).send('Failed to get data.')
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
+    return
+    }
+)
+
 // Api request to receive all and filtered events
 app.get("/api/v1/sport", async (req,res) => {
     const search = {
