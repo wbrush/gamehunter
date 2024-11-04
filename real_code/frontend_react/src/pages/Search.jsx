@@ -94,6 +94,7 @@ const Search = () => {
 
   const updateQuery = () => {
     setQuery('?sport=' + sport + '&location=' + location.split(' ').join('+') + '&date=' + date.toString().split(' ').join('+'))
+    fetchRequest()
   }
 
   return (
