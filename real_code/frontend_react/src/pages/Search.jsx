@@ -29,12 +29,14 @@ const Search = () => {
   
   useEffect(() => {
     if (response.length > 0) {
+      let tempResponse
       if(searchParams.size > 0 && dataLoaded.length == 0) {
-        response = response.filter((element) => element.sport.toLowerCase() === searchParams.get('sport'))
+        tempResponse = response.filter((element) => element.sport.toLowerCase() === searchParams.get('sport'))
+        setSport(tempResponse[0].sport)
       }
 
       loadSearchFilters(response, null)
-      setFilteredResponse(response)
+      setFilteredResponse(tempResponse)
     } else if (response.length == 0 && dataLoaded.length == 0) {
       fetchRequest()
       loadSearchFilters(null, dataLoaded)
@@ -83,9 +85,6 @@ const Search = () => {
       })
     }
 
-
-    setSport(sportArray[0])
-    setLocation(locationArray[0])
     setSportArray(sportArray)
     setLocationArray(locationArray)
   }
@@ -107,7 +106,7 @@ const Search = () => {
           <p>Sport:</p>
           <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
             <option>Select</option>
-            <Select array={sportArray}/>
+            <Select array={sportArray} sport={sport} />
           </select>
         </div>
 
@@ -130,7 +129,7 @@ const Search = () => {
     </div>
 
     <div className='search-container'>
-      <SearchContainer response={filteredResponse}/>
+      <SearchContainer response={filteredResponse} />
     </div>
     </>
   )
