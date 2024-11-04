@@ -28,7 +28,6 @@ const Search = () => {
   const [locationArray, setLocationArray] = useState([])
   
   useEffect(() => {
-    console.log(response)
     if (response.length > 0) {
       if(searchParams.size > 0 && dataLoaded.length == 0) {
         response = response.filter((element) => element.sport.toLowerCase() === searchParams.get('sport'))

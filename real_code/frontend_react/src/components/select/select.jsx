@@ -1,9 +1,16 @@
 const Select = ({ array }) => {
-    return array?.map((element, i) => {
+    console.log(array)
+    if (array.length === 1) {
         return (
-            <option key={i}>{element}</option>
+            <option selected>{array[0]}</option>
         )
-    })
+    } else {
+        return array?.map((element, i) => {
+            return (
+                <option key={i}>{element}</option>
+            )
+        })
+    }
 }
 
 export default Select
