@@ -10,9 +10,9 @@ async function Create(sport, location, date) {
 }
 
 async function Read(database, { sport, location, date }) {
-    let date = new Date() || date
+    let queryDate = new Date() || date
     let query = {
-        sql: `SELECT * FROM events WHERE date > ${date}`,
+        sql: `SELECT * FROM events WHERE date > ${queryDate}`,
     }
 
     if (sport && location) {
