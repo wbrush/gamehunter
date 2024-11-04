@@ -46,7 +46,7 @@ const Carousel = ({ sports }) => {
                         </div>
 
                         <div className="buttons">
-                            <Link to={`/search/${sports[activeSport].id}`}>Search</Link>
+                            <Link to={`/search?sport=${sports[activeSport].id}`}>Search</Link>
                             <Link to='/search'>Search All</Link>
                         </div>
                     </div>

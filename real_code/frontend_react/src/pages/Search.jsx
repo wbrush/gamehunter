@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -7,6 +7,7 @@ import Header from '../components/header/header'
 import Modal from '../components/modal/modal'
 import Hero from '../components/hero/hero'
 import Select from '../components/select/select'
+import SearchContainer from '../components/searchContainer/searchContainer';
 import { filterData } from '../utils/functions';
 import '../pagescss/search.css'
 
@@ -14,8 +15,10 @@ const Search = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
   
-  let response = useOutletContext()
   const [query, setQuery] = useState('')
+  const [searchParams, setSearchParams] = useSearchParams()
+  let response = useOutletContext()
+  const [filteredResponse, setFilteredResponse] = useState([])
   const [dataLoaded, setDataLoaded] = useState([])
 
   const [sport, setSport] = useState('')
@@ -23,10 +26,16 @@ const Search = () => {
   const [date, setDate] = useState(new Date())
   const [sportArray, setSportArray] = useState([])
   const [locationArray, setLocationArray] = useState([])
-
+  
   useEffect(() => {
+    console.log(response)
     if (response.length > 0) {
+      if(searchParams.size > 0 && dataLoaded.length == 0) {
+        response = response.filter((element) => element.sport.toLowerCase() === searchParams.get('sport'))
+      }
+
       loadSearchFilters(response, null)
+      setFilteredResponse(response)
     } else if (response.length == 0 && dataLoaded.length == 0) {
       fetchRequest()
       loadSearchFilters(null, dataLoaded)
@@ -97,7 +106,7 @@ const Search = () => {
       <div className="search-bar">
         <div>
           <p>Sport:</p>
-          <select onChange={(option) => setSport(option.target.selectedOptions[1].innerHTML)}>
+          <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
             <option>Select</option>
             <Select array={sportArray}/>
           </select>
@@ -105,7 +114,7 @@ const Search = () => {
 
         <div>
           <p>Location:</p>
-          <select onChange={(option) => setLocation(option.target.selectedOptions[1].innerHTML)}>
+          <select onChange={(option) => setLocation(option.target.selectedOptions[0].innerHTML)}>
             <option>Select</option>
             <Select array={locationArray}/>
           </select>
@@ -122,16 +131,7 @@ const Search = () => {
     </div>
 
     <div className='search-container'>
-      {response.length > 0 ? response.map((event, i) => {
-        return (
-          <div className="event" key={event.id}>
-            <h1>{event.date}</h1>
-            <p>Sport: {event.sport}</p>
-            <p>Location: {event.location}</p>
-            <p>Time: {event.time}</p>
-          </div>
-        )
-      }) : <></>}
+      <SearchContainer response={filteredResponse}/>
     </div>
     </>
   )
