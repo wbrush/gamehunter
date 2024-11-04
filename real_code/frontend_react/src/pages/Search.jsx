@@ -7,43 +7,79 @@ import Header from '../components/header/header'
 import Modal from '../components/modal/modal'
 import Hero from '../components/hero/hero'
 import Select from '../components/select/select'
+import { filterData } from '../utils/functions';
 import '../pagescss/search.css'
 
 const Search = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
-  const response = useOutletContext()
-
+  
+  let response = useOutletContext()
   const [query, setQuery] = useState('')
-  const [sport, setSport] = useState('Volleyball')
-  const [location, setLocation] = useState('Clay Madsen Rec Center')
+  const [dataLoaded, setDataLoaded] = useState([])
+
+  const [sport, setSport] = useState('')
+  const [location, setLocation] = useState('')
   const [date, setDate] = useState(new Date())
   const [sportArray, setSportArray] = useState([])
   const [locationArray, setLocationArray] = useState([])
-  const [pageLoad, setPageLoad] = useState(null)
 
   useEffect(() => {
     if (response.length > 0) {
-      loadSearchFilters(response)
+      loadSearchFilters(response, null)
+    } else if (response.length == 0 && dataLoaded.length == 0) {
+      fetchRequest()
+      loadSearchFilters(null, dataLoaded)
+    } else {
+      loadSearchFilters(null, dataLoaded)
     }
-  }, [pageLoad])
-  
-  const loadSearchFilters = (response) => {
-    response.forEach((element) => {
-      if (!sportArray.includes(element.sport)) {
-        sportArray.push(element.sport)
+  }, [dataLoaded])
+
+  const fetchRequest = async () => {
+    const api = await fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport' + query, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
       }
-      
-      if (!locationArray.includes(element.location)) {
-        locationArray.push(element.location)
-      }
-      
-      setSport(sportArray[0])
-      setLocation(locationArray[0])
-      setSportArray(sportArray)
-      setLocationArray(locationArray)
-      setPageLoad(true)
     })
+    const apijson = await api.json()
+    
+    const filtered = filterData(apijson)
+    setDataLoaded(filtered)
+  }
+
+  const loadSearchFilters = (response, dataLoaded) => {
+    if (response) {
+      response.forEach((element) => {
+        if (!sportArray.includes(element.sport)) {
+          sportArray.push(element.sport)
+        }
+  
+        if (!locationArray.includes(element.location)) {
+          locationArray.push(element.location)
+        }
+      })
+    } else {
+      dataLoaded.forEach((element) => {
+        if (!sportArray.includes(element.title)) {
+          sportArray.push(element.title)
+        }
+  
+        if (element.events.length > 0) {
+          for (let i = 0; i < element.events.length; i++) {
+            if (!locationArray.includes(element.events[i].location)) {
+              locationArray.push(element.events[i].location)
+            }
+          }
+        }
+      })
+    }
+
+
+    setSport(sportArray[0])
+    setLocation(locationArray[0])
+    setSportArray(sportArray)
+    setLocationArray(locationArray)
   }
 
   const updateQuery = () => {
@@ -61,14 +97,16 @@ const Search = () => {
       <div className="search-bar">
         <div>
           <p>Sport:</p>
-          <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
+          <select onChange={(option) => setSport(option.target.selectedOptions[1].innerHTML)}>
+            <option>Select</option>
             <Select array={sportArray}/>
           </select>
         </div>
 
         <div>
           <p>Location:</p>
-          <select onChange={(option) => setLocation(option.target.selectedOptions[0].innerHTML)}>
+          <select onChange={(option) => setLocation(option.target.selectedOptions[1].innerHTML)}>
+            <option>Select</option>
             <Select array={locationArray}/>
           </select>
         </div>

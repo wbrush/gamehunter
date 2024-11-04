@@ -1,7 +1,7 @@
 const Select = ({ array }) => {
-    return array.map((element) => {
+    return array?.map((element, i) => {
         return (
-            <option key={element}>{element}</option>
+            <option key={i}>{element}</option>
         )
     })
 }

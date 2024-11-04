@@ -6,7 +6,6 @@ import Carousel from '../components/carousel/carousel';
 const Home = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
-  const [filteredEvents, setFilteredEvents] = useState([])
   const initialMount = useRef(true)
   const [sports, setSports] = useState([
     {
@@ -77,8 +76,6 @@ const Home = () => {
         }))
       } //else {deleteQuery()} deletes past events
     })
-
-    setFilteredEvents(tempDateArray)
   }
 
   const formatTime = (time) => {
