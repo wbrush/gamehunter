@@ -7,13 +7,14 @@ import './carousel.css'
 const Carousel = ({ events }) => {
     const [activeSport, setActiveSport] = useState(0)
     const [sportsArray, setSportsArray] = useState(['Volleyball', 'Basketball', 'Pickleball', 'Tennis'])
-    const [originalEvents, setOriginalEvents] = useState(null)
+    const [currentEvents, setCurrentEvents] = useState(null)
     
     useEffect(() => {
         if (events) {
-            setOriginalEvents(events)
+            const temp = events.filter((event) => event.sport === sportsArray[activeSport] || event.sport === sportsArray[activeSport].toLowerCase())
+            setCurrentEvents(temp)
         }
-    }, [events])
+    }, [events, activeSport])
 
     return (
         <div className="carousel">
@@ -29,7 +30,7 @@ const Carousel = ({ events }) => {
                         <div className="upcoming-events volleyball">
                             <div className="slider">
                                 <div className="list">
-                                    {events?.map((event) => {
+                                    {currentEvents?.map((event) => {
                                         return (
                                             <div className="event" key={event.id}>
                                                 <h1>{event.date}</h1>
