@@ -1,24 +1,29 @@
 import { useState, useEffect, useRef } from 'react'
 import './thumbnail.css'
 
-const Thumbnail = ({ sports, setSports }) => {
+const Thumbnail = ({ sports, setActiveSport }) => {
     const divRef = useRef(null)
+    let temp = sports.slice(0, sports.length)
+    const [thumbnailSports, setThumbnailSports] = useState([])
+
+    useEffect(() => {
+        temp.push(temp.shift())
+        setThumbnailSports(temp)
+    }, [])
 
     const handleChange = (event) => {
         setTime(1000)
         let clickedIndex
         if (event.target.id) {
-            clickedIndex = sports.indexOf(event.target.id)
+            clickedIndex = thumbnailSports.indexOf(event.target.id)
+            setActiveSport(sports.indexOf(event.target.id))
         } else {
             clickedIndex = 0
+            setActiveSport(sports.indexOf(thumbnailSports[0]))
         }
-        sports.push(sports[clickedIndex])
-        sports = sports.filter((sport, i) => {
-            if (i != clickedIndex) {
-                return sport
-            }
-        })
-        setSports(sports)
+
+        thumbnailSports.push(thumbnailSports.splice(clickedIndex, 1)[0])
+        setThumbnailSports(thumbnailSports)
     }
 
     const [time, setTime] = useState(1000)
@@ -41,7 +46,7 @@ const Thumbnail = ({ sports, setSports }) => {
 
     return (
         <div className="thumbnail" ref={divRef}>
-            {sports.map((sport, i) => {
+            {thumbnailSports.map((sport, i) => {
                 return (
                     <div className="item" key={sport} onClick={handleChange}>
                         <img src={`./images/${sport.toLowerCase()}.jpg`} id={sport} />

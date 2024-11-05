@@ -14,11 +14,9 @@ import '../pagescss/search.css'
 const Search = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
-  
-  const [searchParams, setSearchParams] = useSearchParams()
+
   let response = useOutletContext()
   const [filteredResponse, setFilteredResponse] = useState([])
-  const [dataLoaded, setDataLoaded] = useState([])
 
   const [sport, setSport] = useState('')
   const [city, setCity] = useState('')
@@ -26,27 +24,15 @@ const Search = () => {
   const [date, setDate] = useState(new Date())
   const [sportArray, setSportArray] = useState([])
   const [cityArray, setCityArray] = useState([])
-  
+
   useEffect(() => {
     if (response.length > 0) {
-      let tempResponse
-      if(searchParams.size > 0 && dataLoaded.length == 0) {
-        tempResponse = response.filter((element) => element.sport.toLowerCase() === searchParams.get('sport'))
-        setSport(tempResponse[0].sport)
-      } else {
-        tempResponse = response
-      }
-
-      loadSearchFilters(response, null)
-      setFilteredResponse(tempResponse)
-    } else if (response.length == 0 && dataLoaded.length == 0) {
-      fetchRequest()
-      loadSearchFilters(null, dataLoaded)
+      loadSearchFilters(response)
+      setFilteredResponse(response)
     } else {
       fetchRequest()
-      loadSearchFilters(null, dataLoaded)
     }
-  }, [dataLoaded])
+  }, [])
 
   const fetchRequest = async () => {
     const api = await fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport', {
@@ -56,12 +42,14 @@ const Search = () => {
       }
     })
     const apijson = await api.json()
-    
+
     const filtered = filterData(apijson)
-    setDataLoaded(filtered)
+    console.log(filtered)
+    loadSearchFilters(filtered)
+    setFilteredResponse(filtered)
   }
 
-  const loadSearchFilters = (response, dataLoaded) => {
+  const loadSearchFilters = (response) => {
     if (response) {
       response.forEach((element) => {
         if (!sportArray.includes(element.sport)) {
@@ -70,20 +58,6 @@ const Search = () => {
   
         if (!cityArray.includes(element.city)) {
           cityArray.push(element.city)
-        }
-      })
-    } else {
-      dataLoaded.forEach((element) => {
-        if (!sportArray.includes(element.title)) {
-          sportArray.push(element.title)
-        }
-  
-        if (element.events.length > 0) {
-          for (let i = 0; i < element.events.length; i++) {
-            if (!cityArray.includes(element.events[i].city)) {
-              cityArray.push(element.events[i].city)
-            }
-          }
         }
       })
     }

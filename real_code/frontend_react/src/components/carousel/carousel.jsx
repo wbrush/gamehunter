@@ -4,40 +4,38 @@ import { Link } from "react-router-dom"
 import Thumbnail from "./thumbnail/thumbnail"
 import './carousel.css'
 
-const Carousel = ({ sports }) => {
+const Carousel = ({ events }) => {
     const [activeSport, setActiveSport] = useState(0)
-    const [sportsArray, setSportsArray] = useState(['Basketball', 'Pickleball', 'Tennis', 'Volleyball'])
-    const initialMount = useRef(true)
-
+    const [sportsArray, setSportsArray] = useState(['Volleyball', 'Basketball', 'Pickleball', 'Tennis'])
+    const [originalEvents, setOriginalEvents] = useState(null)
+    
     useEffect(() => {
-        if (initialMount.current) {
-            initialMount.current = false
-        } else {
-            let index = sports.findIndex(sport => sport.title === sportsArray[sportsArray.length - 1])
-            setActiveSport(index)
+        if (events) {
+            setOriginalEvents(events)
         }
-    }, [sportsArray])
+    }, [events])
 
     return (
         <div className="carousel">
             <div className="list">
                 <div className="item">
-                    <img src={`./images/${sports[activeSport].id}.jpg`}/>
+                    <img src={`./images/${sportsArray[activeSport].toLowerCase()}.jpg`}/>
 
                     <div className="content">
-                        <div className="title">{sports[activeSport].title}</div>
+                        <div className="title">{sportsArray[activeSport]}</div>
 
                         <div className="upcoming-title">Upcoming Events</div>
 
                         <div className="upcoming-events volleyball">
                             <div className="slider">
                                 <div className="list">
-                                    {sports[activeSport].events.map((event) => {
+                                    {events?.map((event) => {
                                         return (
                                             <div className="event" key={event.id}>
                                                 <h1>{event.date}</h1>
-                                                <p>Location: {event.location}</p>
                                                 <p>Time: {event.time}</p>
+                                                <p>Location: {event.city}, {event.state}</p>
+                                                <p>Facility: {event.location}</p>
                                             </div>
                                         )
                                     })}
@@ -46,14 +44,13 @@ const Carousel = ({ sports }) => {
                         </div>
 
                         <div className="buttons">
-                            <Link to={`/search?sport=${sports[activeSport].id}`}>Search</Link>
                             <Link className="searchAll" to='/search'>Search All</Link>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <Thumbnail sports={sportsArray} setSports={setSportsArray} />
+            <Thumbnail sports={sportsArray} setActiveSport={setActiveSport} />
         </div>
     )
 }
