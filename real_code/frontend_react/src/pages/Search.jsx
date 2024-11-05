@@ -21,10 +21,11 @@ const Search = () => {
   const [dataLoaded, setDataLoaded] = useState([])
 
   const [sport, setSport] = useState('')
-  const [location, setLocation] = useState('')
+  const [city, setCity] = useState('')
+  const [state, setState] = useState('')
   const [date, setDate] = useState(new Date())
   const [sportArray, setSportArray] = useState([])
-  const [locationArray, setLocationArray] = useState([])
+  const [cityArray, setCityArray] = useState([])
   
   useEffect(() => {
     if (response.length > 0) {
@@ -67,8 +68,8 @@ const Search = () => {
           sportArray.push(element.sport)
         }
   
-        if (!locationArray.includes(element.location)) {
-          locationArray.push(element.location)
+        if (!cityArray.includes(element.city)) {
+          cityArray.push(element.city)
         }
       })
     } else {
@@ -79,8 +80,8 @@ const Search = () => {
   
         if (element.events.length > 0) {
           for (let i = 0; i < element.events.length; i++) {
-            if (!locationArray.includes(element.events[i].location)) {
-              locationArray.push(element.events[i].location)
+            if (!cityArray.includes(element.events[i].city)) {
+              cityArray.push(element.events[i].city)
             }
           }
         }
@@ -88,7 +89,7 @@ const Search = () => {
     }
 
     setSportArray(sportArray)
-    setLocationArray(locationArray)
+    setCityArray(cityArray)
   }
 
   return (
@@ -109,10 +110,18 @@ const Search = () => {
         </div>
 
         <div>
-          <p>Location:</p>
-          <select onChange={(option) => setLocation(option.target.selectedOptions[0].innerHTML)}>
+          <p>City:</p>
+          <select onChange={(option) => setCity(option.target.selectedOptions[0].innerHTML)}>
             <option>Select</option>
-            <Select array={locationArray}/>
+            <Select array={cityArray}/>
+          </select>
+        </div>
+        
+        <div>
+          <p>State:</p>
+          <select disabled>
+            <option>Texas</option>
+            {/* <Select array={stateArray}/> */}
           </select>
         </div>
 

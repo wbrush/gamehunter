@@ -1,11 +1,13 @@
 const SearchContainer = ({ response }) => {
+    console.log(response)
     return response?.map((event) => {
         return (
             <div className="event" key={event.id}>
                 <h1>{event.date}</h1>
                 <p>Sport: {event.sport}</p>
-                <p>Location: {event.location}</p>
                 <p>Time: {event.time}</p>
+                <p>Facility: {event.location}</p>
+                <p>Location: {event.city}, {event.state}</p>
             </div>
         )
     })
