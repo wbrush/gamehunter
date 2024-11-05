@@ -1,27 +1,5 @@
 const filterData = (data) => {
     const currentTimestamp = new Date(Date.now()).valueOf()
-    const sports = [
-        {
-            id: 'volleyball',
-            title: 'Volleyball',
-            events: []
-        },
-        {
-            id: 'basketball',
-            title: 'Basketball',
-            events: []
-        },
-        {
-            id: 'pickleball',
-            title: 'Pickleball',
-            events: []
-        },
-        {
-            id: 'tennis',
-            title: 'Tennis',
-            events: []
-        }
-    ]
 
     data.forEach(element => {
         const elementDate = new Date(element.date).valueOf()
@@ -32,19 +10,10 @@ const filterData = (data) => {
         element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
         element.time = formatTime(element.date[1])
         element.date = formatDate(element.date[0])
-
-        sports.map(sport => {
-            if (element.sport.toLowerCase() == sport.id) {
-                sport.events.push(element)
-                return {...sport}
-            } else {
-                return sport
-            }
-        })
       } //else {deleteQuery()} deletes past events
     })
 
-    return sports
+    return data
 }
 
 const formatTime = (time) => {
