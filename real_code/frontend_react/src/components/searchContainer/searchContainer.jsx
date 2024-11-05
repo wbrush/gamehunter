@@ -1,5 +1,4 @@
 const SearchContainer = ({ response }) => {
-    console.log(response)
     return response?.map((event) => {
         return (
             <div className="event" key={event.id}>
