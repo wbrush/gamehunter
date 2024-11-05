@@ -15,7 +15,6 @@ const Search = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
   
-  const [query, setQuery] = useState('')
   const [searchParams, setSearchParams] = useSearchParams()
   let response = useOutletContext()
   const [filteredResponse, setFilteredResponse] = useState([])
@@ -49,7 +48,7 @@ const Search = () => {
   }, [dataLoaded])
 
   const fetchRequest = async () => {
-    const api = await fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport' + query, {
+    const api = await fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport', {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
@@ -92,11 +91,6 @@ const Search = () => {
     setLocationArray(locationArray)
   }
 
-  const updateQuery = () => {
-    setQuery('?sport=' + sport + '&location=' + location.split(' ').join('+') + '&date=' + date.toString().split(' ').join('+'))
-    fetchRequest()
-  }
-
   return (
     <>
     <Header modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} setModalDisplay={setModalDisplay} />
@@ -126,8 +120,6 @@ const Search = () => {
           <p>Date:</p>
           <DatePicker selected={date} onChange={(date) => setDate(date)} />
         </div>
-
-        <button onClick={updateQuery}>Search</button>
       </div>
 
     </div>

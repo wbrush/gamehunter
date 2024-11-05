@@ -94,7 +94,7 @@
     margin-top: 20px;
 }
 
-.carousel .list .item .content a {
+.carousel .list .item .content .buttons a {
     border: none;
     background-color: white;
     letter-spacing: 3px;
@@ -105,7 +105,7 @@
     font-size: 14px;
 }
 
-.carousel .list .item .content a:nth-child(2) {
+.carousel .list .item .content .buttons a:nth-child(2) {
     background-color: transparent;
     color: white;
     border: 1px solid white;
