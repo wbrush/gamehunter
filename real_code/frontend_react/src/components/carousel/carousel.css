@@ -95,18 +95,20 @@
 }
 
 .carousel .list .item .content .buttons a {
-    border: none;
     background-color: white;
     letter-spacing: 3px;
     font-weight: 500;
-    color: black;
     text-align: center;
     padding: 15px 0;
     font-size: 14px;
-}
-
-.carousel .list .item .content .buttons a:nth-child(2) {
     background-color: transparent;
     color: white;
     border: 1px solid white;
+}
+
+.carousel .list .item .content .buttons a:hover {
+    background-color: white;
+    color: black;
+    border: none;
+    text-decoration: none;
 }
