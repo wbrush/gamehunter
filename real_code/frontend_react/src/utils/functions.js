@@ -34,7 +34,7 @@ const formatTime = (time) => {
 
 const formatDate = (date) => {
     date = date.split('-')
-    date = date[1] + '/' + date[2]
+    date = date[1] + '/' + date[2] + '/' + date[0]
     return date
 }
 

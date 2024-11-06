@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useOutletContext, useSearchParams } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -14,9 +14,12 @@ import '../pagescss/search.css'
 const Search = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
+  
+  const initialMount = useRef(true)
 
   let response = useOutletContext()
   const [filteredResponse, setFilteredResponse] = useState([])
+  const [updatedResponse, setUpdatedResponse] = useState([])
 
   const [sport, setSport] = useState('')
   const [city, setCity] = useState('')
@@ -34,6 +37,35 @@ const Search = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (!initialMount.current) {
+      let temp = filteredResponse
+      if (sport && sport != 'Select') {
+        temp = temp.filter((event) => sport === event.sport)
+      }
+  
+      if (city && city != 'Select') {
+        temp = temp.filter((event) => city === event.city)
+      }
+  
+      if (date) {
+        const selectedDate = new Date(date).valueOf()
+        temp = temp.filter((event) => selectedDate < new Date(event.date).valueOf())
+      }
+
+      if (temp.length === 0) {
+        console.log('no events match that criteria') //!change to visual display to user
+        setSport('')
+        setCity('')
+        setDate(new Date())
+      }
+      
+      setUpdatedResponse(temp)
+    } else {
+      initialMount.current = false
+    }
+  }, [sport, city, state, date])
+
   const fetchRequest = async () => {
     const api = await fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport', {
       method: 'GET',
@@ -44,7 +76,6 @@ const Search = () => {
     const apijson = await api.json()
 
     const filtered = filterData(apijson)
-    console.log(filtered)
     loadSearchFilters(filtered)
     setFilteredResponse(filtered)
   }
@@ -85,7 +116,7 @@ const Search = () => {
 
         <div>
           <p>City:</p>
-          <select onChange={(option) => setCity(option.target.selectedOptions[0].innerHTML)}>
+          <select value={city} onChange={(option) => setCity(option.target.selectedOptions[0].innerHTML)}>
             <option>Select</option>
             <Select array={cityArray}/>
           </select>
@@ -94,7 +125,7 @@ const Search = () => {
         <div>
           <p>State:</p>
           <select disabled>
-            <option>Texas</option>
+            <option>Select</option>
             {/* <Select array={stateArray}/> */}
           </select>
         </div>
@@ -108,7 +139,7 @@ const Search = () => {
     </div>
 
     <div className='search-container'>
-      <SearchContainer response={filteredResponse} />
+      <SearchContainer response={filteredResponse} updatedResponse={updatedResponse} />
     </div>
     </>
   )
