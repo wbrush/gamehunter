@@ -14,26 +14,6 @@ app.use(cors());
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
-// const session = require('express-session');
-// const pgSession = require('connect-pg-simple')(session);
-
-// const pgPool = () => db_Handler('session')
-
-// app.use(session({
-//     secret: process.env.sessionSecret,
-//     cookie: {
-//         maxAge: 300000,
-//         sameSite: true,
-//         secure: false
-//     },
-//     resave: false,
-//     store: new pgSession({
-//         pool: pgPool,
-//         tableName: 'user_session',
-//         createTableIfMissing: true
-//     })
-// }));
-
 console.log(`defining endpoints for port ${port}`)
 
 app.listen(port,()=>{
@@ -124,19 +104,12 @@ async function db_Handler(method, user){
             // check if input password matches saved password
             let validPassword
             if (response) {
-                validPassword = checkPassword(user.password, response.password)
+                validPassword = await checkPassword(user.password, response.password)
             }
 
             if (validPassword) {
                 console.log('password is valid')
-                const token = signToken(user)
-
-                // if valid login, save session
-                // req.session.save(() => {
-                //     req.session.user_id = response[0].id
-                //     req.session.logged_in = true
-
-                // })
+                // const token = signToken(user)
                 return true
             } else {
                 return false
@@ -152,9 +125,9 @@ async function db_Handler(method, user){
         return false
     }
 }
-
-function checkPassword(loginPassword, savedPassword) {
-    return bcrypt.compareSync(loginPassword, savedPassword)
+async function checkPassword(loginPassword, savedPassword) {
+    const valid = await bcrypt.compareSync(loginPassword, savedPassword)
+    return valid
 }
 
 module.exports.app = app
