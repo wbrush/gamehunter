@@ -34,18 +34,19 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
         
         if (modalDisplay === 'Login') {
             try {
-                // add login query
                 const login = await fetchRequest('login')
-                console.log(login)
-        
-                Auth.login('banana');
+
+                if (login.result) {
+                    Auth.login('banana');
+                } else {
+                    console.log('error')
+                }
             } catch (e) {
                 console.error(e);
                 alert("Invalid Username or Password, Please Try Again.")
             }
         } else if (modalDisplay === 'Signup') {
             try {
-                // add singup query
                 const signup = await fetchRequest('signup')
                 console.log(signup)
         
@@ -79,7 +80,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
                 'password': `${userState.password}`
             })
         })
-        console.log(api)
+        
         const apiJson = await api.json()
         return apiJson
     }
