@@ -108,7 +108,6 @@ async function db_Handler(method, user){
                         console.error(err)
                     }
                     if (data) {
-                        console.log(data)
                         return true
                     } else {
                         return false
