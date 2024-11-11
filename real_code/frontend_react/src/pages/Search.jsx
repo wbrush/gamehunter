@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import Header from '../components/header/header'
-import Modal from '../components/modal/modal'
+import Modal from '../components/userModal/modal'
 import Hero from '../components/hero/hero'
 import Select from '../components/select/select'
 import SearchContainer from '../components/searchContainer/searchContainer';

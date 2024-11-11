@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Header from '../components/header/header'
-import Modal from '../components/modal/modal'
+import Modal from '../components/userModal/modal'
 import Carousel from '../components/carousel/carousel';
 import { filterData } from '../utils/functions';
 
