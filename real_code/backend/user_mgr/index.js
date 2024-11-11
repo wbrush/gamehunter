@@ -129,9 +129,17 @@ async function db_Handler(method, user){
 }
 async function checkPassword(loginPassword, savedPassword) {
     console.log('checking password')
-    const valid = await bcrypt.compare(loginPassword, savedPassword)
-    console.log(valid)
-    return valid
+    bcrypt.compare(loginPassword, savedPassword, (err, data) => {
+        if (err) {
+            console.error(err)
+        }
+        if (data) {
+            console.log(data)
+            return data
+        } else {
+            return false
+        }
+    })
 }
 
 module.exports.app = app
