@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Auth from '../../utils/auth'
 import './modal.css';
 
 const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisplay }) => {
@@ -30,16 +31,31 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(userState);
-        // try {
-        //   const { data } = await login({
-        //     variables: { ...userState },
-        //   });
-    
-        //   Auth.login(data.login.token);
-        // } catch (e) {
-        //   console.error(e);
-        //   alert("Invalid Username or Password, Please Try Again.")
-        // }
+        
+        if (modalDisplay === 'Login') {
+            try {
+                // add login query
+                const login = await fetchRequest('login')
+                console.log(login)
+        
+                Auth.login('banana');
+            } catch (e) {
+                console.error(e);
+                alert("Invalid Username or Password, Please Try Again.")
+            }
+        } else if (modalDisplay === 'Signup') {
+            try {
+                // add singup query
+                const signup = await fetchRequest('signup')
+                console.log(signup)
+        
+                Auth.login('banana');
+            } catch (e) {
+                console.error(e);
+                alert("Invalid Username or Password, Please Try Again.")
+            }
+
+        }
     
         // clear form values
         setUserState({
@@ -47,7 +63,26 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
             email: '',
             password: '',
         });
+        setModalVisibility(!modalVisibility)
     };
+
+    const fetchRequest = async (method) => {
+        const api = await fetch ('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/' + method, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'name': `${userState.name}`,
+                'email': `${userState.email}`,
+                'password': `${userState.password}`
+            })
+        })
+        console.log(api)
+        const apiJson = await api.json()
+        return apiJson
+    }
 
     return modalVisibility ? 
         (

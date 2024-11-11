@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Auth from '../../utils/auth'
 import './header.css';
 
 const Header = ({ modalVisibility, setModalVisibility, setModalDisplay }) => {
@@ -9,13 +10,25 @@ const Header = ({ modalVisibility, setModalVisibility, setModalDisplay }) => {
         }
     }
 
+    const logout = () => {
+        Auth.logout()
+    }
+
     return (
         <header>
             <nav>
                 <Link to="/" id="header-title">GameHunter</Link>
-                <Link to="/profile">Profile</Link>
-                <button onClick={displayModal}>Login</button>
-                <button onClick={displayModal}>Signup</button>
+                {Auth.loggedIn() ? (
+                    <>
+                        <Link to="/profile">Profile</Link>
+                        <button onClick={logout}>Logout</button>
+                    </>
+                ) : (
+                    <>
+                        <button onClick={displayModal}>Login</button>
+                        <button onClick={displayModal}>Signup</button>
+                    </>
+                )}
             </nav>
         </header>
     )
