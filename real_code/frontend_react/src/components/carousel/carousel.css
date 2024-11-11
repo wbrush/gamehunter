@@ -64,7 +64,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 10px;
-    position: inherit;
+    position: relative;
     padding: 10px;
     background-color: white;
     color: black;
@@ -75,6 +75,26 @@
 .carousel .list .item .content .slider .list .event h1 {
     text-align: center;
     border-bottom: 1px solid grey;
+}
+
+.carousel .list .item .content .slider .list .event #last {
+    margin-bottom: 15px;
+}
+
+.carousel .list .item .content .slider .list .event button {
+    background-color: transparent;
+    border: none;
+    width: fit-content;
+    color: blue;
+    padding-bottom: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.carousel .list .item .content .slider .list .event button:hover {
+    cursor: pointer;
 }
 
 .carousel .list .item .content .slider .list .event * {
