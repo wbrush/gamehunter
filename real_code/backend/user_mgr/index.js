@@ -100,7 +100,6 @@ async function db_Handler(method, user){
         if (method == 'login') {
             // query for user matching email
             response = await Read(pool, user)
-            console.log('response', response)
 
             // check if input password matches saved password
             let validPassword
@@ -130,7 +129,8 @@ async function db_Handler(method, user){
 }
 async function checkPassword(loginPassword, savedPassword) {
     console.log('checking password')
-    const valid = await bcrypt.compareSync(loginPassword, savedPassword)
+    const valid = await bcrypt.compare(loginPassword, savedPassword)
+    console.log(valid)
     return valid
 }
 
