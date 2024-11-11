@@ -102,18 +102,18 @@ async function db_Handler(method, user){
             response = await Read(pool, user)
 
             // check if input password matches saved password
-            let validPassword
             if (response) {
-                validPassword = await checkPassword(user.password, response.password)
-            }
-
-            if (validPassword) {
-                console.log('password is valid')
-                // const token = signToken(user)
-                return true
-            } else {
-                console.log('password is incorrect')
-                return false
+                bcrypt.compare(user.password, response.password, (err, data) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                    if (data) {
+                        console.log(data)
+                        return true
+                    } else {
+                        return false
+                    }
+                })
             }
         } else if (method == 'signup') {
             response = await Create(pool, user)
@@ -126,20 +126,6 @@ async function db_Handler(method, user){
         console.error(e)
         return e
     }
-}
-async function checkPassword(loginPassword, savedPassword) {
-    console.log('checking password')
-    bcrypt.compare(loginPassword, savedPassword, (err, data) => {
-        if (err) {
-            console.error(err)
-        }
-        if (data) {
-            console.log(data)
-            return data
-        } else {
-            return false
-        }
-    })
 }
 
 module.exports.app = app
