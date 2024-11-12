@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useOutletContext } from 'react-router-dom';
+
 import Header from '../components/header/header'
 import Modal from '../components/userModal/modal'
 import EventList from '../components/eventList/list'
 import SearchContainer from '../components/searchContainer/searchContainer';
+
 import Auth from '../utils/auth'
 import { filterData } from '../utils/functions';
+
 import '../pagescss/profile.css'
 
 const Profile = () => {
