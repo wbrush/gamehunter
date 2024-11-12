@@ -82,6 +82,6 @@
     margin: 0;
 }
 
-.search-container .event:nth-child(2) {
+.search-container .event:nth-child(even) {
     background-color: rgb(237, 237, 237);
 }
