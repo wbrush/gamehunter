@@ -34,10 +34,10 @@ body {
     align-items: center;
     padding-bottom: 20px;
     border-bottom: 1px solid white;
+    overflow: hidden;
 }
 
 .profile-page .upcoming-events .upcoming-slider {
-    width: 100%;
     min-height: 150px;
 }
 
@@ -46,7 +46,6 @@ body {
     gap: 5px;
     height: 100%;
     margin-top: 10px;
-    /* overflow-x: scroll; */
 }
 
 .profile-page .upcoming-events .upcoming-slider .list .event {
