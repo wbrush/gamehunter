@@ -7,7 +7,7 @@ const EventList = ({ array, dateFormat, reduced }) => {
             <div className="event" key={event.id}>
                 {!reduced ? (
                     <>
-                        <h1>temp</h1>
+                        <h1>{temp}</h1>
                         <p>Time: {event.time}</p>
                     </>
                 ) : (
