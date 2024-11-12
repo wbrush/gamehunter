@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 
 import Thumbnail from "./thumbnail/thumbnail"
 import EventModal from '../eventModal/modal'
+import EventList from '../eventList/list'
 import './carousel.css'
 
 const Carousel = ({ events }) => {
@@ -40,20 +41,7 @@ const Carousel = ({ events }) => {
                         <div className="upcoming-events volleyball">
                             <div className="slider">
                                 <div className="list">
-                                    {currentEvents?.map((event) => {
-                                        let temp = event.date.split('/')
-                                        temp = temp[0] + '/' + temp[1]
-                                        return (
-                                            <div className="event" key={event.id}>
-                                                <h1>{temp}</h1>
-                                                <p>Time: {event.time}</p>
-                                                <p>Location: {event.city}, {event.state}</p>
-                                                <p id="last">Facility: {event.location}</p>
-
-                                                <button data-key={event.id} onClick={changeEventModal}>See more</button>
-                                            </div>
-                                        )
-                                    })}
+                                    <EventList array={currentEvents} dateFormat={changeEventModal} />
                                 </div>
                             </div>
                         </div>

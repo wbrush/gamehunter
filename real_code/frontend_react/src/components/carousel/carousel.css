@@ -101,7 +101,7 @@
     margin: 0;
 }
 
-.carousel .list .item .content .slider .list .event:nth-child(2) {
+.carousel .list .item .content .slider .list .event:nth-child(even) {
     background-color: rgb(237, 237, 237);
 }
 
