@@ -34,10 +34,10 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
         
         if (modalDisplay === 'Login') {
             try {
-                const login = await fetchRequest('login')
+                const result = await fetchRequest('login')
 
-                if (login.result) {
-                    Auth.login('banana');
+                if (result.data) {
+                    Auth.login(result.data);
                 } else {
                     console.log('error')
                 }
@@ -47,10 +47,13 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
             }
         } else if (modalDisplay === 'Signup') {
             try {
-                const signup = await fetchRequest('signup')
-                console.log(signup)
-        
-                Auth.login('banana');
+                const result = await fetchRequest('signup')
+
+                if (result.data) {
+                    Auth.login(result.data);
+                } else {
+                    console.log('error')
+                }
             } catch (e) {
                 console.error(e);
                 alert("Invalid Username or Password, Please Try Again.")
