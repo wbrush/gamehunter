@@ -30,8 +30,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(userState);
-        
+
         if (modalDisplay === 'Login') {
             try {
                 const result = await fetchRequest('login')
@@ -58,15 +57,15 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
                 console.error(e);
                 alert("Invalid Username or Password, Please Try Again.")
             }
-
         }
-    
+
         // clear form values
         setUserState({
             name: '',
             email: '',
             password: '',
         });
+
         setModalVisibility(!modalVisibility)
     };
 
@@ -83,7 +82,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
                 'password': `${userState.password}`
             })
         })
-        
+
         const apiJson = await api.json()
         return apiJson
     }
@@ -93,7 +92,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
             <div className="user-modal" onClick={toggleModal}>
                 <form onSubmit={handleSubmit}>
                     <h2>{modalDisplay}</h2>
-            
+
                     {modalDisplay === 'Signup' ? (
                         <>
                             <p className="label">Name</p>
@@ -104,7 +103,6 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
                             />
                         </>
                         ) : (<></>)}
-                    
 
                     <p className="label">Email</p>
                     <input id="login-email" 
