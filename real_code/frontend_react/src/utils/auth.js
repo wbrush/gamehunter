@@ -5,7 +5,10 @@ import decode from 'jwt-decode';
 class AuthService {
     // get user data from JSON web token by decoding it
     getUser() {
-        return decode(this.getToken());
+        const token = this.getToken()
+        if (token) {
+            return decode(token);
+        }
     }
 
     // return `true` or `false` if token exists (does not verify if it's expired yet)
