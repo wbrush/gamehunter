@@ -1,7 +1,7 @@
 const express = require("express")
 require('dotenv').config()
 const bcrypt = require('bcrypt')
-// const { signToken } = require('/utils/auth')
+const { signToken } = require('./utils/auth')
 
 const app = express()
 const port = process.env.PORT || 9001
@@ -40,7 +40,8 @@ app.post("/api/v1/signup", async (req,res) => {
         const response = await db_Handler('signup', user)
 
         if (response) {
-            res.status(200).json({ data: response })
+            const token = signToken(response)
+            res.status(200).json({ data: token })
         } else {
             res.status(500).json({ data: null })
         }
@@ -67,7 +68,8 @@ app.post("/api/v1/login", async (req,res) => {
         const response = await db_Handler('login', user)
 
         if (response) {
-            res.status(200).json({ data: response })
+            const token = signToken(response)
+            res.status(200).json({ data: token })
         } else {
             res.status(400).json({ data: null })
         }
