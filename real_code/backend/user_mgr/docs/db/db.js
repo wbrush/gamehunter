@@ -8,8 +8,8 @@ async function Create(database, user) {
     // Queries rows from the Albums table
     try {
         console.log(query.sql)
-        const response = await database.query(query.sql)
-        return response
+        const { rows } = await database.query(query.sql)
+        return rows[0]
     } catch (err) {
         console.error(err);
         return err

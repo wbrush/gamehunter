@@ -39,7 +39,7 @@ app.post("/api/v1/signup", async (req,res) => {
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('signup', user)
 
-        if (response.command == 'INSERT') {
+        if (response) {
             res.status(200).json({ data: response })
         } else {
             res.status(500).json({ data: null })
