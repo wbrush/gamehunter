@@ -23,6 +23,7 @@ async function Open(instance, hostName, databaseName, userName, dbPassword) {
 }
 
 async function Close(database) {
+    console.log('closing DB connection')
     database.end()
 }
 

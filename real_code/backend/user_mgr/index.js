@@ -40,9 +40,9 @@ app.post("/api/v1/signup", async (req,res) => {
         const response = await db_Handler('signup', user)
 
         if (response.command == 'INSERT') {
-            res.status(200).json({ result: true })
+            res.status(200).json({ data: response })
         } else {
-            res.status(500).json({ result: false })
+            res.status(500).json({ data: null })
         }
     } else if (acceptHeader.includes('plain')) {
         res.set('Content-Type', 'text/html')
@@ -67,9 +67,9 @@ app.post("/api/v1/login", async (req,res) => {
         const response = await db_Handler('login', user)
 
         if (response) {
-            res.status(200).json({ result: true })
+            res.status(200).json({ data: response })
         } else {
-            res.status(400).json({ result: false })
+            res.status(400).json({ data: null })
         }
     } else if (acceptHeader.includes('plain')) {
         res.set('Content-Type', 'text/html')
@@ -100,6 +100,7 @@ async function db_Handler(method, user){
         if (method == 'login') {
             // query for user matching email
             response = await Read(pool, user)
+            console.log('login response', response)
 
             // check if input password matches saved password
             if (response) {
@@ -108,14 +109,15 @@ async function db_Handler(method, user){
                         console.error(err)
                     }
                     if (data) {
-                        return true
+                        return response
                     } else {
-                        return false
+                        return null
                     }
                 })
             }
         } else if (method == 'signup') {
             response = await Create(pool, user)
+            console.log('signup response', response)
         }
 
         Close(pool)
