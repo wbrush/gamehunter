@@ -38,6 +38,7 @@ const formatDate = (date) => {
     return date
 }
 
+// GET Request
 const getFetchRequest = async (url) => {
     const api = await fetch (url, {
         method: 'GET',
@@ -50,6 +51,7 @@ const getFetchRequest = async (url) => {
     return apijson
 }
 
+// User POST Request
 const postFetchRequest = async (url, data) => {
     const api = await fetch (url, {
         method: 'POST',
@@ -68,4 +70,22 @@ const postFetchRequest = async (url, data) => {
     return apiJson
 }
 
-export { filterData, getFetchRequest, postFetchRequest }
+// Save/Remove Event POST Request
+const postEventRequest = async (url, data) => {
+    const api = await fetch (url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'userId': `${data.user}`,
+            'eventId': `${data.event}`,
+        })
+    })
+
+    const apiJson = await api.json()
+    return apiJson
+}
+
+export { filterData, getFetchRequest, postFetchRequest, postEventRequest }
