@@ -16,6 +16,36 @@ const filterData = (data) => {
     return data
 }
 
+const filterUserEvents = (data) => {
+    const currentTimestamp = new Date(Date.now()).valueOf()
+    const events = {
+        upcoming: [],
+        past: []
+    }
+
+    data.forEach(element => {
+        const elementDate = new Date(element.date).valueOf()
+
+        element.date = element.date.split('T')
+
+        if (currentTimestamp < elementDate) {
+        element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
+        element.time = formatTime(element.date[1])
+        element.date = formatDate(element.date[0])
+
+        events.upcoming.push(element)
+        } else {
+        element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
+        element.time = formatTime(element.date[1])
+        element.date = formatDate(element.date[0])
+
+        events.past.push(element)
+        }
+    })
+
+    return events
+}
+
 const formatTime = (time) => {
     time = time.split(':')
     time.pop()
@@ -88,4 +118,4 @@ const postEventRequest = async (url, data) => {
     return apiJson
 }
 
-export { filterData, getFetchRequest, postFetchRequest, postEventRequest }
+export { filterData, getFetchRequest, postFetchRequest, postEventRequest, filterUserEvents }
