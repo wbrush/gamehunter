@@ -24,7 +24,8 @@ app.get("/",(req,res)=>{
 })
 
 // Api request to request a users events
-app.get("/api/v1/user/:id", async (req,res) => {
+app.get("/api/v1/user/{id}", async (req,res) => {
+    console.log(req)
     const ids = {
         user: `${req.params.id}`
     }
