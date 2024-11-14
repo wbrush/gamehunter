@@ -1,4 +1,5 @@
 import Auth from '../../utils/auth'
+import { postEventRequest } from '../../utils/functions'
 
 import './modal.css';
 
@@ -9,11 +10,15 @@ const EventModal = ({ modalVisibility, setModalVisibility, eventDetails}) => {
         }
     }
 
-    const eventSignup = (e) => {
+    const eventSignup = async (e) => {
         const userData = Auth.getUser()
+        const ids = {
+            user: userData.user.id,
+            event: Number(e.target.dataset.key)
+        }
 
-        console.log('event id', e.target.dataset.key)
-        console.log('user id', userData.user.id)
+        const response = await postEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/add', ids)
+        console.log(response)
     }
 
     return modalVisibility ? 
