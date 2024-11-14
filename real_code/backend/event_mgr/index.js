@@ -25,7 +25,6 @@ app.get("/",(req,res)=>{
 
 // Api request to request a users events
 app.get("/api/v1/user/:id", async (req,res) => {
-    console.log(req)
     const ids = {
         user: `${req.params.id}`
     }
@@ -35,7 +34,6 @@ app.get("/api/v1/user/:id", async (req,res) => {
 
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('read', ids)
-        console.log(response)
         
         if (response) {
             res.status(200).json(response)
@@ -105,7 +103,7 @@ app.post("/api/v1/remove", async (req,res) => {
 })
 
 const { Open, Close } = require('./docs/db/connection')
-const { Create, Delete } = require('./docs/db/db')
+const { Create, Read, Delete } = require('./docs/db/db')
 
 async function db_Handler(method, data){
     db_host = process.env.db_host
