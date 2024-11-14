@@ -23,21 +23,24 @@ app.get("/",(req,res)=>{
     return res.status(200).json({service : "gh-sport-mgr"})
 })
 
-// Api request to save event
-app.post("/api/v1/saveEvent/:method", async (req,res) => {
-    console.log("got db request - processing")
-    const link = {
-        user_id: req,
-        event_id: req.body.event_id
+// Api request to signup for events
+app.post("/api/v1/add", async (req,res) => {
+    const ids = {
+        user: `${req.body.userId}`,
+        event: `${req.body.eventId}`
     }
-
+    
+    console.log("got db request - processing")
     acceptHeader = req.header('Accept')
+
     if (acceptHeader.includes('json')) {
-        const response = await db_Handler(req.params.method, link)
+        const response = await db_Handler('add', ids)
+        console.log(response)
+        
         if (response) {
-            res.status(200).json(response)
+            res.status(200).json({ result: true })
         } else {
-            res.status(500).send('Failed to get data.')
+            res.status(400).json({ result: false })
         }
     } else if (acceptHeader.includes('plain')) {
         res.set('Content-Type', 'text/html')
@@ -45,21 +48,25 @@ app.post("/api/v1/saveEvent/:method", async (req,res) => {
     } else {
         res.status(412).json({error : "Invalid Accept Header"})
     }
-    return
 })
 
 // Api request to remove saved event
-app.post("/api/v1/removeEvent/:id", async (req,res) => {
-    const event = {}
+app.post("/api/v1/remove", async (req,res) => {
+    const ids = {
+        user: `${req.body.userId}`,
+        event: `${req.body.eventId}`
+    }
     
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
-        const response = await db_Handler('remove', event)
+        const response = await db_Handler('remove', ids)
+        console.log(response)
+
         if (response) {
-            res.status(200).json(response)
+            res.status(200).json({ result: true })
         } else {
-            res.status(500).send('Failed to get data.')
+            res.status(500).send({ result: false })
         }
     } else if (acceptHeader.includes('plain')) {
         res.set('Content-Type', 'text/html')
@@ -71,11 +78,9 @@ app.post("/api/v1/removeEvent/:id", async (req,res) => {
 })
 
 const { Open, Close } = require('./docs/db/connection')
-const { Create, Read, Delete } = require('./docs/db/db')
+const { Create, Delete } = require('./docs/db/db')
 
-async function db_Handler(method, link){
-    console.log('req method:', method)
-
+async function db_Handler(method, data){
     db_host = process.env.db_host
     db_name = process.env.db_name
     db_conn = process.env.db_conn
@@ -87,24 +92,14 @@ async function db_Handler(method, link){
         //  connect to postgres DB here
         const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
         
-        console.log('incoming link', link)
         console.log('sending query')
         let response
-        if (method == 'save') {
-            response = await Create(pool, link, 'savedevents')
-            console.log('response of save query:', response)
-
-        } else if (method == 'removeSave') {
-            response = await Delete(pool, link, 'savedevents')
-            console.log('response of remove save query:', response)
-
-        } else if (method == 'signed') {
-            response = await Create(pool, link, 'signedevents')
-            console.log('response of signed query:', response)
-
-        } else if (method == 'removeSigned') {
-            response = await Delete(pool, link, 'signedevents')
-            console.log('response of remove signed query:', response)
+        if (method == 'add') {
+            response = await Create(pool, data)
+            console.log('response of add query:', response)
+        } else if (method == 'remove') {
+            response = await Delete(pool, data)
+            console.log('response of remove query:', response)
         }
 
         Close(pool)
