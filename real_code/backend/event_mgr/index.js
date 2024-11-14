@@ -37,7 +37,7 @@ app.post("/api/v1/add", async (req,res) => {
         const response = await db_Handler('add', ids)
         console.log(response)
         
-        if (response) {
+        if (response.rowCount > 0) {
             res.status(200).json({ result: true })
         } else {
             res.status(400).json({ result: false })
@@ -63,7 +63,7 @@ app.post("/api/v1/remove", async (req,res) => {
         const response = await db_Handler('remove', ids)
         console.log(response)
 
-        if (response) {
+        if (response.rowCount > 0) {
             res.status(200).json({ result: true })
         } else {
             res.status(500).send({ result: false })
