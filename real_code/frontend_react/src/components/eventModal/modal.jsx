@@ -1,3 +1,5 @@
+import Auth from '../../utils/auth'
+
 import './modal.css';
 
 const EventModal = ({ modalVisibility, setModalVisibility, eventDetails}) => {
@@ -5,6 +7,13 @@ const EventModal = ({ modalVisibility, setModalVisibility, eventDetails}) => {
         if (event.target.className === 'event-modal' || event.target.className === 'close-modal') {
             setModalVisibility(!modalVisibility)
         }
+    }
+
+    const eventSignup = (e) => {
+        const userData = Auth.getUser()
+
+        console.log('event id', e.target.dataset.key)
+        console.log('user id', userData.user.id)
     }
 
     return modalVisibility ? 
@@ -16,7 +25,10 @@ const EventModal = ({ modalVisibility, setModalVisibility, eventDetails}) => {
                     <p>Time: {eventDetails.time}</p>
                     <p>Location: {eventDetails.city}, {eventDetails.state}</p>
                     <p>Facility: {eventDetails.location}</p>
+
+                    <button data-key={eventDetails.id} onClick={eventSignup}>Add</button>
                 </div>
+
             </div>
         ) : null
 }

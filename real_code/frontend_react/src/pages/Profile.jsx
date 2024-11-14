@@ -29,7 +29,7 @@ const Profile = () => {
         } else {
             fetchRequest()
         }
-        
+
         const user = Auth.getUser()?.user
         setUserData(user)
         setTempEmail(user.email)

@@ -59,7 +59,7 @@ function App() {
     } else {
       time [1] += ' AM'
     }
-    
+
     return time.join(':')
   }
   
