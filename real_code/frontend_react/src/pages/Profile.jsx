@@ -71,7 +71,7 @@ const Profile = () => {
                     <>
                         <div className='user'>
                             <div className="user-content">
-                                <h1>{userData.name}</h1>
+                                <h1>{userData.name}'s Profile</h1>
 
                                 <div className="user-info">
                                     <div>
