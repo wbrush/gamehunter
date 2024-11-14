@@ -16,9 +16,9 @@ async function Create(database, data) {
     }
 }
 
-async function Read(database, user_id) {
+async function Read(database, data) {
     let query = {
-        sql: `SELECT * FROM signedevents LEFT JOIN events ON signedevents.event_id = events.id WHERE user_id = ${user_id} ORDER BY date`
+        sql: `SELECT * FROM signedevents LEFT JOIN events ON signedevents.event_id = events.id WHERE user_id = ${data.user} ORDER BY date`
     }
 
     try {
