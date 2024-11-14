@@ -1,4 +1,4 @@
-module.exports = { Create, Delete }
+module.exports = { Create, Read, Delete }
 
 async function Create(database, data) {
     let query = {
@@ -12,6 +12,21 @@ async function Create(database, data) {
         return response
     } catch (err) {
         console.error(err);
+        return err
+    }
+}
+
+async function Read(database, user_id) {
+    let query = {
+        sql: `SELECT * FROM signedevents LEFT JOIN events ON signedevents.event_id = events.id WHERE user_id = ${user_id} ORDER BY date`
+    }
+
+    try {
+        console.log(query.sql)
+        const { rows } = await database.query(query.sql)
+        return rows
+    } catch (err) {
+        console.error('ERROR:', err);
         return err
     }
 }
