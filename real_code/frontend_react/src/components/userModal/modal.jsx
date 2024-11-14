@@ -1,5 +1,8 @@
 import { useState } from 'react';
+
 import Auth from '../../utils/auth'
+import { postFetchRequest } from '../../utils/functions';
+
 import './modal.css';
 
 const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisplay }) => {
@@ -33,7 +36,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
 
         if (modalDisplay === 'Login') {
             try {
-                const result = await fetchRequest('login')
+                const result = await postFetchRequest('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/login', userState)
 
                 if (result.data) {
                     Auth.login(result.data);
@@ -46,7 +49,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
             }
         } else if (modalDisplay === 'Signup') {
             try {
-                const result = await fetchRequest('signup')
+                const result = await postFetchRequest('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/signup', userState)
 
                 if (result.data) {
                     Auth.login(result.data);
@@ -68,24 +71,6 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
 
         setModalVisibility(!modalVisibility)
     };
-
-    const fetchRequest = async (method) => {
-        const api = await fetch ('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/' + method, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'name': `${userState.name}`,
-                'email': `${userState.email}`,
-                'password': `${userState.password}`
-            })
-        })
-
-        const apiJson = await api.json()
-        return apiJson
-    }
 
     return modalVisibility ? 
         (

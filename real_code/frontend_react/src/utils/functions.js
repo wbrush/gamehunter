@@ -38,4 +38,34 @@ const formatDate = (date) => {
     return date
 }
 
-export { filterData }
+const getFetchRequest = async (url) => {
+    const api = await fetch (url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+
+    const apijson = await api.json()
+    return apijson
+}
+
+const postFetchRequest = async (url, data) => {
+    const api = await fetch (url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'name': `${data.name}`,
+            'email': `${data.email}`,
+            'password': `${data.password}`
+        })
+    })
+
+    const apiJson = await api.json()
+    return apiJson
+}
+
+export { filterData, getFetchRequest, postFetchRequest }

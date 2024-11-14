@@ -7,7 +7,7 @@ import EventList from '../components/eventList/list'
 import SearchContainer from '../components/searchContainer/searchContainer';
 
 import Auth from '../utils/auth'
-import { filterData } from '../utils/functions';
+import { filterData, getFetchRequest } from '../utils/functions';
 
 import '../pagescss/profile.css'
 
@@ -37,15 +37,9 @@ const Profile = () => {
     }, [modalVisibility])
 
     const fetchRequest = async () => {
-        const api = await fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        const apijson = await api.json()
-        
-        const filtered = filterData(apijson)
+        const response = await getFetchRequest('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport')
+        const filtered = filterData(response)
+
         setFilteredResponse(filtered)
     }
 

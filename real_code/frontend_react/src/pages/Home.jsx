@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+
 import Header from '../components/header/header'
 import Modal from '../components/userModal/modal'
 import Carousel from '../components/carousel/carousel';
-import { filterData } from '../utils/functions';
+
+import { filterData, getFetchRequest } from '../utils/functions';
 
 const Home = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
@@ -14,6 +16,7 @@ const Home = () => {
   useEffect(() => {
     if (initialMount.current) {
       fetchRequest()
+
       initialMount.current = false
     } else {
       filterData(dataReturned)
@@ -21,15 +24,8 @@ const Home = () => {
   }, [dataReturned])
 
   const fetchRequest = async () => {
-    const api = await fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    const apijson = await api.json()
-    
-    setDataReturned(apijson)
+    const response = await getFetchRequest('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport')
+    setDataReturned(response)
   }
 
   return (

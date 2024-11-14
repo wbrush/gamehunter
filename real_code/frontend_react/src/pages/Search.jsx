@@ -8,7 +8,9 @@ import Modal from '../components/userModal/modal'
 import Hero from '../components/hero/hero'
 import Select from '../components/select/select'
 import SearchContainer from '../components/searchContainer/searchContainer';
-import { filterData } from '../utils/functions';
+
+import { filterData, getFetchRequest } from '../utils/functions';
+
 import '../pagescss/search.css'
 
 const Search = () => {
@@ -67,15 +69,9 @@ const Search = () => {
   }, [sport, city, state, date])
 
   const fetchRequest = async () => {
-    const api = await fetch ('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    const apijson = await api.json()
+    const response = await getFetchRequest('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport')
+    const filtered = filterData(response)
 
-    const filtered = filterData(apijson)
     loadSearchFilters(filtered)
     setFilteredResponse(filtered)
   }
