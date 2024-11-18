@@ -17,8 +17,10 @@ const EventModal = ({ modalVisibility, setModalVisibility, eventDetails}) => {
             event: Number(e.target.dataset.key)
         }
 
-        const response = await postEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/add', ids)
-        console.log(response)
+        const response = await postEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/add/', ids)
+        if (response) {
+            setModalVisibility(false)
+        }
     }
 
     return modalVisibility ? 
