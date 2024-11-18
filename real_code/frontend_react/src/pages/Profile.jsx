@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Header from '../components/header/header'
 import Modal from '../components/userModal/modal'
 import EventList from '../components/eventList/list'
-import SearchContainer from '../components/searchContainer/searchContainer';
+import ProfileContainer from '../components/profileContainer/profileContainer';
 
 import Auth from '../utils/auth'
 import { filterUserEvents, getFetchRequest } from '../utils/functions';
@@ -107,7 +107,7 @@ const Profile = () => {
                             <h2>Upcoming Events</h2>
                             <div className="upcoming-slider">
                                 <div className="list">
-                                    <SearchContainer response={upcomingEvents} updatedResponse={[]} />
+                                    <ProfileContainer response={upcomingEvents} setUpcomingEvents={setUpcomingEvents} />
                                 </div>
                             </div>
                         </div>
