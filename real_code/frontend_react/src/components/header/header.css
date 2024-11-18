@@ -54,7 +54,7 @@ header nav .dropdown .dropdown-content:hover {
     cursor: pointer;
 }
 
-header nav .dropdown .dropdown-content p {
+header nav .dropdown .dropdown-content a {
     margin: 0;
     padding: 5px;
 }
