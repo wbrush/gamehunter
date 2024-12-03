@@ -27,6 +27,7 @@ const Search = () => {
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
   const [date, setDate] = useState(new Date())
+  const initialDate = new Date()
   const [sportArray, setSportArray] = useState([])
   const [cityArray, setCityArray] = useState([])
 
@@ -42,15 +43,15 @@ const Search = () => {
   useEffect(() => {
     if (!initialMount.current) {
       let temp = filteredResponse
-      if (sport && sport != 'Select') {
+      if (sport && sport != 'Select' || sport != '') {
         temp = temp.filter((event) => sport === event.sport)
       }
-  
-      if (city && city != 'Select') {
+
+      if (city && city != 'Select' || city != '') {
         temp = temp.filter((event) => city === event.city)
       }
-  
-      if (date) {
+
+      if (date && new Date(initialDate).valueOf() != new Date(date).valueOf()) {
         const selectedDate = new Date(date).valueOf()
         temp = temp.filter((event) => selectedDate < new Date(event.date).valueOf())
       }
@@ -61,7 +62,7 @@ const Search = () => {
         setCity('')
         setDate(new Date())
       }
-      
+
       setUpdatedResponse(temp)
     } else {
       initialMount.current = false
@@ -95,48 +96,48 @@ const Search = () => {
 
   return (
     <>
-    <Header modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} setModalDisplay={setModalDisplay} />
-    <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalDisplay={modalDisplay} setModalDisplay={setModalDisplay} />
-    
-    <div className='search-page'>
-      <Hero />
+      <Header modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} setModalDisplay={setModalDisplay} />
+      <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalDisplay={modalDisplay} setModalDisplay={setModalDisplay} />
 
-      <div className="search-bar">
-        <div>
-          <p>Sport:</p>
-          <select value={sport} onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
-            <option>Select</option>
-            <Select array={sportArray} />
-          </select>
+      <div className='search-page'>
+        <Hero />
+
+        <div className="search-bar">
+          <div>
+            <p>Sport:</p>
+            <select value={sport} onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
+              <option>Select</option>
+              <Select array={sportArray} />
+            </select>
+          </div>
+
+          <div>
+            <p>City:</p>
+            <select value={city} onChange={(option) => setCity(option.target.selectedOptions[0].innerHTML)}>
+              <option>Select</option>
+              <Select array={cityArray}/>
+            </select>
+          </div>
+
+          <div>
+            <p>State:</p>
+            <select disabled>
+              <option>Select</option>
+              {/* <Select array={stateArray}/> */}
+            </select>
+          </div>
+
+          <div>
+            <p>Date:</p>
+            <DatePicker selected={date} onChange={(date) => setDate(date)} />
+          </div>
         </div>
 
-        <div>
-          <p>City:</p>
-          <select value={city} onChange={(option) => setCity(option.target.selectedOptions[0].innerHTML)}>
-            <option>Select</option>
-            <Select array={cityArray}/>
-          </select>
-        </div>
-        
-        <div>
-          <p>State:</p>
-          <select disabled>
-            <option>Select</option>
-            {/* <Select array={stateArray}/> */}
-          </select>
-        </div>
-
-        <div>
-          <p>Date:</p>
-          <DatePicker selected={date} onChange={(date) => setDate(date)} />
-        </div>
       </div>
 
-    </div>
-
-    <div className='search-container'>
-      <SearchContainer response={filteredResponse} updatedResponse={updatedResponse} />
-    </div>
+      <div className='search-container'>
+        <SearchContainer response={filteredResponse} updatedResponse={updatedResponse} />
+      </div>
     </>
   )
 }
