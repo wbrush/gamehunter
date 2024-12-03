@@ -81,6 +81,19 @@ const getFetchRequest = async (url) => {
     return apijson
 }
 
+// GET Request for user events
+const getEventRequest = async (url) => {
+    const api = await fetch (url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+
+    const apijson = await api.json()
+    return apijson
+}
+
 // User POST Request
 const postFetchRequest = async (url, data) => {
     const api = await fetch (url, {
@@ -118,4 +131,4 @@ const postEventRequest = async (url, data) => {
     return apiJson
 }
 
-export { filterData, getFetchRequest, postFetchRequest, postEventRequest, filterUserEvents }
+export { filterData, getFetchRequest, getEventRequest, postFetchRequest, postEventRequest, filterUserEvents }

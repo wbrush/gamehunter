@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Auth from '../../utils/auth'
-import { postFetchRequest } from '../../utils/functions';
+import { postFetchRequest, getEventRequest } from '../../utils/functions';
 
 import './modal.css';
 
@@ -62,6 +62,9 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
             }
         }
 
+        const userId = Auth.getUser().user.id
+        getUserEvents(userId)
+
         // clear form values
         setUserState({
             name: '',
@@ -71,6 +74,14 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
 
         setModalVisibility(!modalVisibility)
     };
+
+    const getUserEvents = async (id) => {
+        const response = await getEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/getUserEvents/' + `${id}`)
+
+        if (response) {
+            localStorage.setItem('user_events', response)
+        }
+    }
 
     return modalVisibility ? 
         (

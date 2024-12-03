@@ -36,7 +36,6 @@ function App() {
       const elementDate = new Date(element.date).valueOf()
       element.date = element.date.split('T')
 
-      
       if (currentTimestamp < elementDate) {
         element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
         element.time = formatTime(element.date[1])
@@ -62,7 +61,7 @@ function App() {
 
     return time.join(':')
   }
-  
+
   const formatDate = (date) => {
     date = date.split('-')
     date = date[1] + '/' + date[2] + '/' + date[0]
