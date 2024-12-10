@@ -143,7 +143,7 @@ const Search = () => {
       </div>
 
       <div className='search-container'>
-        {noResults ? (<p>No Results Found</p>) : (<SearchContainer response={filteredResponse} updatedResponse={updatedResponse} />)}
+        {noResults ? (<p id='no-results'>No Results Found</p>) : (<SearchContainer response={filteredResponse} updatedResponse={updatedResponse} />)}
       </div>
     </>
   )
