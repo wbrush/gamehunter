@@ -46,6 +46,17 @@
     border-radius: 0;
 }
 
+.create-page .create-page-content form button {
+    background-color: blue;
+    color: white;
+    width: fit-content;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: auto;
+    margin-top: 20px;
+}
+
 .create-page .create-page-content .divider {
     width: fit-content;
     position: relative;
