@@ -52,6 +52,11 @@
     text-decoration: underline;
 }
 
+.search-bar button:hover {
+    cursor: pointer;
+    color: blue;
+}
+
 .search-container {
     width: 80%;
     margin: 100px auto 50px;
