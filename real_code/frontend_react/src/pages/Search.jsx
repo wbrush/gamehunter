@@ -18,11 +18,11 @@ const Search = () => {
   const [modalDisplay, setModalDisplay] = useState('Login');
   
   const initialMount = useRef(true)
-
+  
   let response = useOutletContext()
   const [filteredResponse, setFilteredResponse] = useState([])
   const [updatedResponse, setUpdatedResponse] = useState([])
-
+  
   const [sport, setSport] = useState('')
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
@@ -30,6 +30,7 @@ const Search = () => {
   const initialDate = new Date()
   const [sportArray, setSportArray] = useState([])
   const [cityArray, setCityArray] = useState([])
+  const [noResults, setNoResults ] = useState(false);
 
   useEffect(() => {
     if (response.length > 0) {
@@ -57,10 +58,7 @@ const Search = () => {
       }
 
       if (temp.length === 0) {
-        console.log('no events match that criteria') //!change to visual display to user
-        setSport('')
-        setCity('')
-        setDate(new Date())
+        setNoResults(true)
       }
 
       setUpdatedResponse(temp)
@@ -92,6 +90,14 @@ const Search = () => {
 
     setSportArray(sportArray)
     setCityArray(cityArray)
+  }
+
+  const resetFilters = () => {
+    setSport('')
+    setCity('')
+    setDate(new Date())
+
+    setNoResults(false)
   }
 
   return (
@@ -131,12 +137,13 @@ const Search = () => {
             <p>Date:</p>
             <DatePicker selected={date} onChange={(date) => setDate(date)} />
           </div>
-        </div>
 
+          <button onClick={resetFilters}>Reset</button>
+        </div>
       </div>
 
       <div className='search-container'>
-        <SearchContainer response={filteredResponse} updatedResponse={updatedResponse} />
+        {noResults ? (<p>No Results Found</p>) : (<SearchContainer response={filteredResponse} updatedResponse={updatedResponse} />)}
       </div>
     </>
   )
