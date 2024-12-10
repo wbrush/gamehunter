@@ -10,19 +10,25 @@ import '../pagescss/create.css'
 const Create = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
+  
+  const [eventErrorMessage, setEventErrorMessage ] = useState(false);
+  const [tourneyErrorMessage, setTourneyErrorMessage ] = useState(false);
 
   const [date, setDate] = useState(new Date())
   const [sport, setSport] = useState('')
   const [location, setLocation] = useState('')
   const [facility, setFacility] = useState('')
 
-  const createEvent = (e) => {
-    e.preventDefault()
-
-    console.log(sport)
-    console.log(date)
-    console.log(location)
-    console.log(facility)
+  const createEvent = (method) => {
+    if (method === 'event') {
+      if (sport === '' || facility === '' || location === '') {
+        setEventErrorMessage(true)
+      }
+    } else if (method === 'tourney') {
+      if (sport === '' || facility === '' || location === '') {
+        setTourneyErrorMessage(true)
+      }
+    }
   }
 
   return (
@@ -53,15 +59,23 @@ const Create = () => {
 
             <div>
               <label>Facility</label>
-              <input placeholder='ex. Clay Madsen Rec' onChange={(input) => setFacility(input.target.value)} />
+              <input placeholder='ex. Clay Madsen Rec'
+              name='facility'
+              value={facility}
+              onChange={(input) => setFacility(input.target.value)} />
             </div>
 
             <div>
               <label>Location</label>
-              <input placeholder='ex. Round Rock, TX' onChange={(input) => setLocation(input.target.value)} />
+              <input placeholder='ex. Round Rock, TX'
+              name='location'
+              value={location}
+              onChange={(input) => setLocation(input.target.value)} />
             </div>
 
-            <button onClick={createEvent}>Create</button>
+            {eventErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
+
+            <p id='form-submit' onClick={() => createEvent('event')}>Create</p>
           </form>
           
           <div className='divider'>
@@ -90,15 +104,23 @@ const Create = () => {
 
             <div>
               <label>Facility:</label>
-              <input placeholder='ex. Clay Madsen Rec' onChange={(input) => setFacility(input.target.value)} />
+              <input placeholder='ex. Clay Madsen Rec'
+              name='facility'
+              value={facility}
+              onChange={(input) => setFacility(input.target.value)} />
             </div>
 
             <div>
               <label>Location:</label>
-              <input placeholder='ex. Round Rock, TX' onChange={(input) => setLocation(input.target.value)} />
+              <input placeholder='ex. Round Rock, TX'
+              name='location'
+              value={location}
+              onChange={(input) => setLocation(input.target.value)} />
             </div>
 
-            <button onClick={createEvent}>Create</button>
+            {tourneyErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
+
+            <p id='form-submit' onClick={() => createEvent('tourney')}>Create</p>
           </form>
         </div>
       </div>

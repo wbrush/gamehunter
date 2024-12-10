@@ -46,7 +46,7 @@
     border-radius: 0;
 }
 
-.create-page .create-page-content form button {
+.create-page .create-page-content form #form-submit {
     background-color: blue;
     color: white;
     width: fit-content;
@@ -55,6 +55,10 @@
     padding: 5px;
     margin: auto;
     margin-top: 20px;
+}
+
+.create-page .create-page-content form #form-submit:hover {
+    cursor: pointer;
 }
 
 .create-page .create-page-content .divider {
@@ -76,4 +80,11 @@
     background-color: black;
     color: orangered;
     padding: 10px;
+}
+
+.form-error {
+    margin: 0;
+    padding-top: 5px;
+    color: red;
+    text-align: center;
 }
