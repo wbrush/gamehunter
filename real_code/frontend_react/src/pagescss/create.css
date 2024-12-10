@@ -1,0 +1,68 @@
+.create-page {
+    margin-top: -50px;
+    height: calc(100vh);
+    position: relative;
+}
+
+.create-page-content {
+    display: flex;
+    justify-content: space-between;
+    width: 1140px;
+    max-width: 80%;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.create-page .create-page-content form {
+    background-color: rgb(10, 10, 10);
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+}
+
+.create-page .create-page-content form div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.create-page .create-page-content form div label {
+    margin: 0;
+}
+
+.create-page .create-page-content form div select {
+    margin: 0;
+    padding: 0;
+    padding-left: 5px;
+    width: 189px;
+    border-radius: 0;
+}
+
+.create-page .create-page-content .divider {
+    width: fit-content;
+    position: relative;
+}
+
+.create-page .divider #divider {
+    width: 2px;
+    height: 100%;
+    background-color: orangered;
+}
+
+.create-page .divider h1 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: orangered;
+    padding: 10px;
+}

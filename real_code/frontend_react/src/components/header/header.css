@@ -37,9 +37,3 @@ header nav button:hover {
     text-decoration: underline;
     color: rgb(67, 67, 255);
 }
-
-.divider {
-    width: 100%;
-    height: 1px;
-    background-color: orangered;
-}
