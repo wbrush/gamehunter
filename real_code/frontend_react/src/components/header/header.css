@@ -21,8 +21,7 @@ header nav .user {
 
 header nav p,
 header nav a,
-header nav button,
-header nav .dropdown .dropdown-header span {
+header nav button {
     margin: 0;
     margin-right: 40px;
     text-decoration: none;
@@ -37,42 +36,6 @@ header nav button:hover {
     cursor: pointer;
     text-decoration: underline;
     color: rgb(67, 67, 255);
-}
-
-header nav .dropdown {
-    position: relative;
-}
-
-header nav .dropdown .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: rgb(10, 10, 10);
-    border: 1px solid orangered;
-}
-
-header nav .dropdown .dropdown-content:hover {
-    cursor: pointer;
-}
-
-header nav .dropdown .dropdown-content a {
-    margin: 0;
-    padding: 5px;
-}
-
-header nav .dropdown:hover .dropdown-content {
-    display: block;
-}
-
-header nav .dropdown .dropdown-header #hover {
-    display: none;
-}
-
-header nav .dropdown:hover .dropdown-header #hover {
-    display: block;
-}
-
-header nav .dropdown:hover .dropdown-header #normal {
-    display: none;
 }
 
 .divider {

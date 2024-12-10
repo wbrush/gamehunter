@@ -20,18 +20,7 @@ const Header = ({ modalVisibility, setModalVisibility, setModalDisplay }) => {
                 <div className="links">
                     <Link to="/" id="header-title">GameHunter</Link>
 
-                    <div className="dropdown">
-                        <div className='dropdown-header'>
-                            <span id='normal'>Create+</span>
-                            <span id='hover'>Create-</span>
-                        </div>
-
-                        <div className="dropdown-content">
-                            <Link>Event</Link>
-                            <div className="divider"></div>
-                            <Link>Tourney</Link>
-                        </div>
-                    </div>
+                    <Link to="/create">Create</Link>
                 </div>
 
                 <div className="user">
