@@ -53,7 +53,7 @@ const Create = () => {
 
             <div>
               <label>Facility</label>
-              <input placeholder='ex. Clay Madsen Rec Center' onChange={(input) => setFacility(input.target.value)} />
+              <input placeholder='ex. Clay Madsen Rec' onChange={(input) => setFacility(input.target.value)} />
             </div>
 
             <div>
@@ -90,7 +90,7 @@ const Create = () => {
 
             <div>
               <label>Facility:</label>
-              <input placeholder='ex. Clay Madsen Rec Center' onChange={(input) => setFacility(input.target.value)} />
+              <input placeholder='ex. Clay Madsen Rec' onChange={(input) => setFacility(input.target.value)} />
             </div>
 
             <div>
