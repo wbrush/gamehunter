@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import Header from '../components/header/header'
 import Modal from '../components/userModal/modal'
+
+import { postCreateEventRequest } from '../utils/functions'
 
 import '../pagescss/create.css'
 
@@ -18,15 +20,31 @@ const Create = () => {
   const [sport, setSport] = useState('')
   const [location, setLocation] = useState('')
   const [facility, setFacility] = useState('')
+  const [notes, setNotes] = useState('')
 
   const createEvent = (method) => {
+    const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/${method}/`
+    const eventDetails = {
+      date: date,
+      sport: sport,
+      location: location,
+      facility: facility,
+      notes: notes
+    }
+
     if (method === 'event') {
       if (sport === '' || facility === '' || location === '') {
         setEventErrorMessage(true)
+      } else {
+        console.log('submit event form')
+        postCreateEventRequest(url, eventDetails)
       }
     } else if (method === 'tourney') {
       if (sport === '' || facility === '' || location === '') {
         setTourneyErrorMessage(true)
+      } else {
+        console.log('submit tourney form')
+        postCreateEventRequest(url, eventDetails)
       }
     }
   }
@@ -73,6 +91,14 @@ const Create = () => {
               onChange={(input) => setLocation(input.target.value)} />
             </div>
 
+            <div>
+              <label>Notes</label>
+              <textarea placeholder='ex. Entry fees, age restriction, level of play, etc.'
+              name='notes'
+              value={notes}
+              onChange={(input) => setNotes(input.target.value)}></textarea>
+            </div>
+
             {eventErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
 
             <p id='form-submit' onClick={() => createEvent('event')}>Create</p>
@@ -116,6 +142,14 @@ const Create = () => {
               name='location'
               value={location}
               onChange={(input) => setLocation(input.target.value)} />
+            </div>
+
+            <div>
+              <label>Notes</label>
+              <textarea placeholder='ex. Entry fees, age restriction, level of play, etc.'
+              name='notes'
+              value={notes}
+              onChange={(input) => setNotes(input.target.value)}></textarea>
             </div>
 
             {tourneyErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
