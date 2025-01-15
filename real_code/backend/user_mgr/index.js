@@ -66,6 +66,7 @@ app.post("/api/v1/login", async (req,res) => {
 
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('login', user)
+        console.log(response)
 
         if (response) {
             const token = signToken(response)
