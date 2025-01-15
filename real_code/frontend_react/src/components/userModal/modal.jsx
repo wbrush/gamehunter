@@ -46,10 +46,10 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
         if (modalDisplay === 'Login') {
             try {
                 const result = await postFetchRequest('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/login', userState)
-                Auth.login(result.data)
-
-                if (Auth.getUser()) {
+                
+                if (result.success) {
                     setToggleLoginError(false)
+                    Auth.login(result.message)
 
                     const userId = Auth.getUser().user.id
                     getUserEvents(userId)
