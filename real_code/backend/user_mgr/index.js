@@ -74,8 +74,6 @@ app.post("/api/v1/login", async (req,res) => {
                     console.error(err)
                 }
 
-                console.log(result)
-
                 if (result) {
                     const token = signToken(response)
                     res.json({success: true, message: token})
