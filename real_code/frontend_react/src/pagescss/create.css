@@ -6,7 +6,7 @@
 
 #login-text {
     position: absolute;
-    top: 20%;
+    top: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: red;
@@ -39,20 +39,20 @@
     color: white;
 }
 
-.create-page .create-page-content form div {
+.create-page .create-page-content form .section {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 15px;
 }
 
-.create-page .create-page-content form div label {
+.create-page .create-page-content form .section label {
     margin: 0;
 }
 
-.create-page .create-page-content form div select,
-.create-page .create-page-content form div textarea,
-.create-page .create-page-content form div input {
+.create-page .create-page-content form .section select,
+.create-page .create-page-content form .section textarea,
+.create-page .create-page-content form .section input {
     margin: 0;
     padding: 5px;
     padding-left: 5px;

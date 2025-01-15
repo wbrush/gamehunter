@@ -37,7 +37,6 @@ const Profile = () => {
         const response = await getFetchRequest(url)
 
         let filtered
-        console.log(user)
         if (response.name != 'error') {
             filtered = filterUserEvents(response)
 

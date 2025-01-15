@@ -27,7 +27,7 @@ const Create = () => {
 
   useEffect(() => {
     setLoggedIn(Auth.loggedIn())
-  }, [loggedIn])
+  }, [modalVisibility])
 
   const createEvent = (method) => {
     const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/${method}/`
@@ -63,55 +63,106 @@ const Create = () => {
 
       <div className='create-page'>
         {loggedIn ? null : <h4 id='login-text'>Please login to post an event.</h4>}
+
         <div className="create-page-content">
           <div className='form'>
-            <form inert={loggedIn.toString()}>
-              <h2>Create an Event</h2>
+            {loggedIn ? 
+              <form>
+                <h2>Create an Event</h2>
 
-              <div>
-                <label>Date</label>
-                <DatePicker selected={date} onChange={(date) => setDate(date)} />
-              </div>
+                <div className='section'>
+                  <label>Date</label>
+                  <DatePicker selected={date} onChange={(date) => setDate(date)} />
+                </div>
 
-              <div>
-                <label>Sport</label>
-                <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
-                  <option>Select</option>
-                  <option>Volleyball</option>
-                  <option>Basketball</option>
-                  <option>Pickleball</option>
-                  <option>Tennis</option>
-                </select>
-              </div>
+                <div className='section'>
+                  <label>Sport</label>
+                  <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
+                    <option>Select</option>
+                    <option>Volleyball</option>
+                    <option>Basketball</option>
+                    <option>Pickleball</option>
+                    <option>Tennis</option>
+                  </select>
+                </div>
 
-              <div>
-                <label>Facility</label>
-                <input placeholder='ex. Clay Madsen Rec'
-                name='facility'
-                value={facility}
-                onChange={(input) => setFacility(input.target.value)} />
-              </div>
+                <div className='section'>
+                  <label>Facility</label>
+                  <input placeholder='ex. Clay Madsen Rec'
+                  name='facility'
+                  value={facility}
+                  onChange={(input) => setFacility(input.target.value)} />
+                </div>
 
-              <div>
-                <label>Location</label>
-                <input placeholder='ex. Round Rock, TX'
-                name='location'
-                value={location}
-                onChange={(input) => setLocation(input.target.value)} />
-              </div>
+                <div className='section'>
+                  <label>Location</label>
+                  <input placeholder='ex. Round Rock, TX'
+                  name='location'
+                  value={location}
+                  onChange={(input) => setLocation(input.target.value)} />
+                </div>
 
-              <div>
-                <label>Notes</label>
-                <textarea placeholder='ex. Entry fees, age restriction, level of play, etc.'
-                name='notes'
-                value={notes}
-                onChange={(input) => setNotes(input.target.value)}></textarea>
-              </div>
+                <div className='section'>
+                  <label>Notes</label>
+                  <textarea placeholder='ex. Entry fees, age restriction, level of play, etc.'
+                  name='notes'
+                  value={notes}
+                  onChange={(input) => setNotes(input.target.value)}></textarea>
+                </div>
 
-              {eventErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
+                {eventErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
 
-              <p id='form-submit' onClick={() => createEvent('event')}>Create</p>
-            </form>
+                <p id='form-submit' onClick={() => createEvent('event')}>Create</p>
+              </form>
+            : 
+              <form inert='true'>
+                <h2>Create an Event</h2>
+
+                <div className='section'>
+                  <label>Date</label>
+                  <DatePicker selected={date} onChange={(date) => setDate(date)} />
+                </div>
+
+                <div className='section'>
+                  <label>Sport</label>
+                  <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
+                    <option>Select</option>
+                    <option>Volleyball</option>
+                    <option>Basketball</option>
+                    <option>Pickleball</option>
+                    <option>Tennis</option>
+                  </select>
+                </div>
+
+                <div className='section'>
+                  <label>Facility</label>
+                  <input placeholder='ex. Clay Madsen Rec'
+                  name='facility'
+                  value={facility}
+                  onChange={(input) => setFacility(input.target.value)} />
+                </div>
+
+                <div className='section'>
+                  <label>Location</label>
+                  <input placeholder='ex. Round Rock, TX'
+                  name='location'
+                  value={location}
+                  onChange={(input) => setLocation(input.target.value)} />
+                </div>
+
+                <div className='section'>
+                  <label>Notes</label>
+                  <textarea placeholder='ex. Entry fees, age restriction, level of play, etc.'
+                  name='notes'
+                  value={notes}
+                  onChange={(input) => setNotes(input.target.value)}></textarea>
+                </div>
+
+                {eventErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
+
+                <p id='form-submit' onClick={() => createEvent('event')}>Create</p>
+              </form>
+            }
           </div>
 
           <div className='divider'>
@@ -125,12 +176,12 @@ const Create = () => {
             <form id='disabled'>
               <h2>Create a Tourney</h2>
 
-              <div>
+              <div className='section'>
                 <label>Date:</label>
                 <DatePicker selected={date} onChange={(date) => setDate(date)} />
               </div>
 
-              <div>
+              <div className='section'>
                 <label>Sport:</label>
                 <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
                   <option>Select</option>
@@ -141,7 +192,7 @@ const Create = () => {
                 </select>
               </div>
 
-              <div>
+              <div className='section'>
                 <label>Facility:</label>
                 <input placeholder='ex. Clay Madsen Rec'
                 name='facility'
@@ -149,7 +200,7 @@ const Create = () => {
                 onChange={(input) => setFacility(input.target.value)} />
               </div>
 
-              <div>
+              <div className='section'>
                 <label>Location:</label>
                 <input placeholder='ex. Round Rock, TX'
                 name='location'
@@ -157,7 +208,7 @@ const Create = () => {
                 onChange={(input) => setLocation(input.target.value)} />
               </div>
 
-              <div>
+              <div className='section'>
                 <label>Notes</label>
                 <textarea placeholder='ex. Entry fees, age restriction, level of play, etc.'
                 name='notes'
