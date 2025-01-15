@@ -96,7 +96,7 @@ async function db_Handler(method, user){
     try {
         //  connect to postgres DB here
         const pool = await Open(db_conn, db_host, db_name, db_user, db_pwd)
-        
+
         console.log('sending query for user', user)
 
         let response
@@ -107,7 +107,7 @@ async function db_Handler(method, user){
 
             // check if input password matches saved password
             if (response) {
-                bcrypt.compare(user.password, response.password, (err, data) => {
+                const comparePassword = bcrypt.compare(user.password, response.password, (err, data) => {
                     if (err) {
                         console.error(err)
                     }
@@ -117,15 +117,20 @@ async function db_Handler(method, user){
                         return null
                     }
                 })
+
+                console.log('comparePassword', comparePassword)
+                if (comparePassword) {
+                    return response
+                }
             }
         } else if (method == 'signup') {
             response = await Create(pool, user)
             console.log('signup response', response)
+            return response
         }
 
         Close(pool)
         console.log("finished!")
-        return response
     } catch (e) {
         console.error(e)
         return e
