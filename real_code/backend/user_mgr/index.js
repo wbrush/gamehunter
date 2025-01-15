@@ -107,14 +107,16 @@ async function db_Handler(method, user){
 
             // check if input password matches saved password
             if (response) {
-                const comparePassword = bcrypt.compare(user.password, response.password, (err, data) => {
+                let comparePassword
+
+                bcrypt.compare(user.password, response.password, (err, data) => {
                     if (err) {
                         console.error(err)
                     }
                     if (data) {
-                        return response
+                        comparePassword = true
                     } else {
-                        return null
+                        comparePassword = false
                     }
                 })
 
