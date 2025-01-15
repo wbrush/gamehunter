@@ -66,7 +66,6 @@ app.post("/api/v1/login", async (req,res) => {
 
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('login', user)
-        console.log(response)
 
         // check if input password matches saved password
         if (response) {
@@ -76,9 +75,9 @@ app.post("/api/v1/login", async (req,res) => {
                 }
                 if (result) {
                     const token = signToken(response)
-                    res.status(200).json({ data: token })
+                    res.json({success: true, message: token})
                 } else {
-                    res.status(400).json({ data: null })
+                    res.json({success: false, message: 'passwords do not match'})
                 }
             })
         } else if (acceptHeader.includes('plain')) {
