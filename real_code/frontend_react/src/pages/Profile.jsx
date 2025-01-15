@@ -36,10 +36,15 @@ const Profile = () => {
         const url = 'https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/user/' + user.id
         const response = await getFetchRequest(url)
 
-        const filtered = filterUserEvents(response)
+        let filtered
+        console.log(user)
+        if (response.name != 'error') {
+            filtered = filterUserEvents(response)
 
-        setUpcomingEvents(filtered.upcoming)
-        setPastEvents(filtered.past)
+            setUpcomingEvents(filtered.upcoming)
+            setPastEvents(filtered.past)
+        }
+
     }
 
     const handleChange = (e) => {

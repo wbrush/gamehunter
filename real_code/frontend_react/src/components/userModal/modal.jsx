@@ -7,6 +7,14 @@ import './modal.css';
 
 const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisplay }) => {
     const [userState, setUserState] = useState({ name: '', email: '', password: '' });
+    const [toggleEmailError, setToggleEmailError] = useState(false)
+
+    const errorStyling = {
+        'color': 'red',
+        'margin': 0,
+        'paddingTop': '5px',
+        'fontSize': '14px'
+    }
 
     const toggleModal = (event) => {
         if (event.target.className === 'user-modal') {
@@ -51,28 +59,29 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
             try {
                 const result = await postFetchRequest('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/signup', userState)
 
-                if (result.data) {
-                    Auth.login(result.data);
+                if (Auth.getUser()) {
+                    setToggleEmailError(false)
+                    Auth.login(result.data)
+
+                    const userId = Auth.getUser().user.id
+                    getUserEvents(userId)
+
+                    // clear form values
+                    setUserState({
+                        name: '',
+                        email: '',
+                        password: '',
+                    })
+
+                    setModalVisibility(!modalVisibility)
                 } else {
-                    console.log('error')
+                    setToggleEmailError(true)
                 }
             } catch (e) {
                 console.error(e);
                 alert("Invalid Username or Password, Please Try Again.")
             }
         }
-
-        const userId = Auth.getUser().user.id
-        getUserEvents(userId)
-
-        // clear form values
-        setUserState({
-            name: '',
-            email: '',
-            password: '',
-        });
-
-        setModalVisibility(!modalVisibility)
     };
 
     const getUserEvents = async (id) => {
@@ -116,7 +125,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
 
                     <p className="login-error" id="hidden">Incorrect username/password</p>
                     <p className="form-error" id="hidden">Please fill out the empty field(s)</p>
-                    <p className="signup-error" id="hidden">Email already exists, please login</p>
+                    {toggleEmailError ? (<p id="signup-error" style={errorStyling}>Email already exists, please login</p>) : null}
 
                     <button type='submit'>{modalDisplay}</button>
 
