@@ -56,106 +56,112 @@ const Create = () => {
 
       <div className='create-page'>
         <div className="create-page-content">
-          <form>
-            <h2>Create an Event</h2>
+          <div className='form'>
+            <form>
+              <h2>Create an Event</h2>
 
-            <div>
-              <label>Date</label>
-              <DatePicker selected={date} onChange={(date) => setDate(date)} />
-            </div>
+              <div>
+                <label>Date</label>
+                <DatePicker selected={date} onChange={(date) => setDate(date)} />
+              </div>
 
-            <div>
-              <label>Sport</label>
-              <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
-                <option>Select</option>
-                <option>Volleyball</option>
-                <option>Basketball</option>
-                <option>Pickleball</option>
-                <option>Tennis</option>
-              </select>
-            </div>
+              <div>
+                <label>Sport</label>
+                <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
+                  <option>Select</option>
+                  <option>Volleyball</option>
+                  <option>Basketball</option>
+                  <option>Pickleball</option>
+                  <option>Tennis</option>
+                </select>
+              </div>
 
-            <div>
-              <label>Facility</label>
-              <input placeholder='ex. Clay Madsen Rec'
-              name='facility'
-              value={facility}
-              onChange={(input) => setFacility(input.target.value)} />
-            </div>
+              <div>
+                <label>Facility</label>
+                <input placeholder='ex. Clay Madsen Rec'
+                name='facility'
+                value={facility}
+                onChange={(input) => setFacility(input.target.value)} />
+              </div>
 
-            <div>
-              <label>Location</label>
-              <input placeholder='ex. Round Rock, TX'
-              name='location'
-              value={location}
-              onChange={(input) => setLocation(input.target.value)} />
-            </div>
+              <div>
+                <label>Location</label>
+                <input placeholder='ex. Round Rock, TX'
+                name='location'
+                value={location}
+                onChange={(input) => setLocation(input.target.value)} />
+              </div>
 
-            <div>
-              <label>Notes</label>
-              <textarea placeholder='ex. Entry fees, age restriction, level of play, etc.'
-              name='notes'
-              value={notes}
-              onChange={(input) => setNotes(input.target.value)}></textarea>
-            </div>
+              <div>
+                <label>Notes</label>
+                <textarea placeholder='ex. Entry fees, age restriction, level of play, etc.'
+                name='notes'
+                value={notes}
+                onChange={(input) => setNotes(input.target.value)}></textarea>
+              </div>
 
-            {eventErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
+              {eventErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
 
-            <p id='form-submit' onClick={() => createEvent('event')}>Create</p>
-          </form>
-          
+              <p id='form-submit' onClick={() => createEvent('event')}>Create</p>
+            </form>
+          </div>
+
           <div className='divider'>
             <div id='divider'></div>
             <h1>OR</h1>
           </div>
-          
-          <form>
-            <h2>Create a Tourney</h2>
 
-            <div>
-              <label>Date:</label>
-              <DatePicker selected={date} onChange={(date) => setDate(date)} />
-            </div>
+          <div className='form' inert='true'>
+            <h1 id='disabled-text'>Upcoming Feature</h1>
 
-            <div>
-              <label>Sport:</label>
-              <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
-                <option>Select</option>
-                <option>Volleyball</option>
-                <option>Basketball</option>
-                <option>Pickleball</option>
-                <option>Tennis</option>
-              </select>
-            </div>
+            <form id='disabled'>
+              <h2>Create a Tourney</h2>
 
-            <div>
-              <label>Facility:</label>
-              <input placeholder='ex. Clay Madsen Rec'
-              name='facility'
-              value={facility}
-              onChange={(input) => setFacility(input.target.value)} />
-            </div>
+              <div>
+                <label>Date:</label>
+                <DatePicker selected={date} onChange={(date) => setDate(date)} />
+              </div>
 
-            <div>
-              <label>Location:</label>
-              <input placeholder='ex. Round Rock, TX'
-              name='location'
-              value={location}
-              onChange={(input) => setLocation(input.target.value)} />
-            </div>
+              <div>
+                <label>Sport:</label>
+                <select onChange={(option) => setSport(option.target.selectedOptions[0].innerHTML)}>
+                  <option>Select</option>
+                  <option>Volleyball</option>
+                  <option>Basketball</option>
+                  <option>Pickleball</option>
+                  <option>Tennis</option>
+                </select>
+              </div>
 
-            <div>
-              <label>Notes</label>
-              <textarea placeholder='ex. Entry fees, age restriction, level of play, etc.'
-              name='notes'
-              value={notes}
-              onChange={(input) => setNotes(input.target.value)}></textarea>
-            </div>
+              <div>
+                <label>Facility:</label>
+                <input placeholder='ex. Clay Madsen Rec'
+                name='facility'
+                value={facility}
+                onChange={(input) => setFacility(input.target.value)} />
+              </div>
 
-            {tourneyErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
+              <div>
+                <label>Location:</label>
+                <input placeholder='ex. Round Rock, TX'
+                name='location'
+                value={location}
+                onChange={(input) => setLocation(input.target.value)} />
+              </div>
 
-            <p id='form-submit' onClick={() => createEvent('tourney')}>Create</p>
-          </form>
+              <div>
+                <label>Notes</label>
+                <textarea placeholder='ex. Entry fees, age restriction, level of play, etc.'
+                name='notes'
+                value={notes}
+                onChange={(input) => setNotes(input.target.value)}></textarea>
+              </div>
+
+              {tourneyErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
+
+              <p id='form-submit' onClick={() => createEvent('tourney')}>Create</p>
+            </form>
+          </div>
         </div>
       </div>
     </>
