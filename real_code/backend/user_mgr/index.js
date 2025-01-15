@@ -109,15 +109,11 @@ async function db_Handler(method, user){
             if (response) {
                 let comparePassword
 
-                bcrypt.compare(user.password, response.password, (err, data) => {
+                bcrypt.compare(user.password, response.password, (err, result) => {
                     if (err) {
                         console.error(err)
                     }
-                    if (data) {
-                        comparePassword = true
-                    } else {
-                        comparePassword = false
-                    }
+                    comparePassword = result
                 })
 
                 console.log('comparePassword', comparePassword)
