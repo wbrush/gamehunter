@@ -8,6 +8,7 @@ import './modal.css';
 const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisplay }) => {
     const [userState, setUserState] = useState({ name: '', email: '', password: '' });
     const [toggleEmailError, setToggleEmailError] = useState(false)
+    const [toggleLoginError, setToggleLoginError] = useState(false)
 
     const errorStyling = {
         'color': 'red',
@@ -45,11 +46,24 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
         if (modalDisplay === 'Login') {
             try {
                 const result = await postFetchRequest('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/login', userState)
+                Auth.login(result.data)
 
-                if (result.data) {
-                    Auth.login(result.data);
+                if (Auth.getUser()) {
+                    setToggleLoginError(false)
+
+                    const userId = Auth.getUser().user.id
+                    getUserEvents(userId)
+
+                    // clear form values
+                    setUserState({
+                        name: '',
+                        email: '',
+                        password: '',
+                    })
+
+                    setModalVisibility(!modalVisibility)
                 } else {
-                    console.log('error')
+                    setToggleLoginError(true)
                 }
             } catch (e) {
                 console.error(e);
@@ -123,7 +137,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
                         onChange={handleChange}
                     />
 
-                    <p className="login-error" id="hidden">Incorrect username/password</p>
+                    {toggleLoginError ? (<p id="login-error" style={errorStyling}>Incorrect username/password</p>) : null}
                     <p className="form-error" id="hidden">Please fill out the empty field(s)</p>
                     {toggleEmailError ? (<p id="signup-error" style={errorStyling}>Email already exists, please login</p>) : null}
 
