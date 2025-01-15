@@ -68,17 +68,25 @@ app.post("/api/v1/login", async (req,res) => {
         const response = await db_Handler('login', user)
         console.log(response)
 
+        // check if input password matches saved password
         if (response) {
-            const token = signToken(response)
-            res.status(200).json({ data: token })
+            bcrypt.compare(user.password, response.password, (err, result) => {
+                if (err) {
+                    console.error(err)
+                }
+                if (result) {
+                    const token = signToken(response)
+                    res.status(200).json({ data: token })
+                } else {
+                    res.status(400).json({ data: null })
+                }
+            })
+        } else if (acceptHeader.includes('plain')) {
+            res.set('Content-Type', 'text/html')
+            res.status(200).send(databaseSeeds)
         } else {
-            res.status(400).json({ data: null })
+            res.status(412).json({error : "Invalid Accept Header"})
         }
-    } else if (acceptHeader.includes('plain')) {
-        res.set('Content-Type', 'text/html')
-        res.status(200).send(databaseSeeds)
-    } else {
-        res.status(412).json({error : "Invalid Accept Header"})
     }
 })
 
@@ -105,25 +113,11 @@ async function db_Handler(method, user){
             response = await Read(pool, user)
             console.log('login response', response)
 
-            // check if input password matches saved password
-            if (response) {
-                let comparePassword
-
-                bcrypt.compare(user.password, response.password, (err, result) => {
-                    if (err) {
-                        console.error(err)
-                    }
-                    comparePassword = result
-                })
-
-                console.log('comparePassword', comparePassword)
-                if (comparePassword) {
-                    return response
-                }
-            }
+            return response
         } else if (method == 'signup') {
             response = await Create(pool, user)
             console.log('signup response', response)
+
             return response
         }
 
