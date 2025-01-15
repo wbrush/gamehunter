@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -6,6 +6,7 @@ import Header from '../components/header/header'
 import Modal from '../components/userModal/modal'
 
 import { postCreateEventRequest } from '../utils/functions'
+import Auth from '../utils/auth'
 
 import '../pagescss/create.css'
 
@@ -21,6 +22,12 @@ const Create = () => {
   const [location, setLocation] = useState('')
   const [facility, setFacility] = useState('')
   const [notes, setNotes] = useState('')
+
+  let [loggedIn, setLoggedIn] = useState(Auth.loggedIn())
+
+  useEffect(() => {
+    setLoggedIn(Auth.loggedIn())
+  }, [loggedIn])
 
   const createEvent = (method) => {
     const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/${method}/`
@@ -55,9 +62,10 @@ const Create = () => {
       <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalDisplay={modalDisplay} setModalDisplay={setModalDisplay} />
 
       <div className='create-page'>
+        {loggedIn ? null : <h4 id='login-text'>Please login to post an event.</h4>}
         <div className="create-page-content">
           <div className='form'>
-            <form>
+            <form inert={loggedIn.toString()}>
               <h2>Create an Event</h2>
 
               <div>

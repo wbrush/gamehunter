@@ -4,6 +4,14 @@
     position: relative;
 }
 
+#login-text {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+}
+
 .create-page-content {
     display: flex;
     justify-content: space-between;
