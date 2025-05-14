@@ -33,7 +33,7 @@
 
 .calendar .fc-daygrid-day-number:hover {
     text-decoration: none;
-    color: #1b89bc;
+    color: white;
     cursor: default;
 }
 
