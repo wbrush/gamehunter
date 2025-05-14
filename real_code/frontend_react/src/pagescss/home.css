@@ -1,0 +1,13 @@
+.homepage {
+    height: 100%;
+}
+
+.homepage-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.homepage-content .calendar {
+    height: 40%;
+    margin: 0 auto;
+}

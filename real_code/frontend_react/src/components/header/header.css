@@ -17,13 +17,13 @@ header nav .links,
 header nav .user {
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
 header nav p,
 header nav a,
 header nav button {
     margin: 0;
-    margin-right: 40px;
     text-decoration: none;
     color: white;
     font-size: 16px;
@@ -36,4 +36,18 @@ header nav button:hover {
     cursor: pointer;
     text-decoration: underline;
     color: rgb(67, 67, 255);
+}
+
+@media screen and (max-width: 500px) {
+    header nav .links,
+    header nav .user {
+        gap: 10px;
+    }
+
+    header nav p,
+    header nav a,
+    header nav button {
+        margin: 0;
+        font-size: 12px;
+    }
 }

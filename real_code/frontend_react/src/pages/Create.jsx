@@ -110,7 +110,7 @@ const Create = () => {
                   onChange={(input) => setNotes(input.target.value)}></textarea>
                 </div>
 
-                {eventErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
+                {eventErrorMessage ? (<p className='form-error'>Please fill out the empty field(s)</p>) : null}
 
                 <p id='form-submit' onClick={() => createEvent('event')}>Create</p>
               </form>
@@ -158,7 +158,7 @@ const Create = () => {
                   onChange={(input) => setNotes(input.target.value)}></textarea>
                 </div>
 
-                {eventErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
+                {eventErrorMessage ? (<p className='form-error'>Please fill out the empty field(s)</p>) : null}
 
                 <p id='form-submit' onClick={() => createEvent('event')}>Create</p>
               </form>
@@ -216,7 +216,7 @@ const Create = () => {
                 onChange={(input) => setNotes(input.target.value)}></textarea>
               </div>
 
-              {tourneyErrorMessage ? (<p className="form-error">Please fill out the empty field(s)</p>) : null}
+              {tourneyErrorMessage ? (<p className='form-error'>Please fill out the empty field(s)</p>) : null}
 
               <p id='form-submit' onClick={() => createEvent('tourney')}>Create</p>
             </form>

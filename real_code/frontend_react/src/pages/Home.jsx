@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 
-import Header from '../components/header/header'
-import Modal from '../components/userModal/modal'
-import Carousel from '../components/carousel/carousel';
+import Header from '../components/header/header';
+import Modal from '../components/userModal/modal';
+import Hero from '../components/hero/hero';
+import Calendar from '../components/calendar/calendar';
 
 import { filterData, getFetchRequest } from '../utils/functions';
+
+import '../pagescss/home.css'
 
 const Home = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
@@ -29,10 +32,14 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className='homepage'>
       <Header modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} setModalDisplay={setModalDisplay} />
       <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalDisplay={modalDisplay} setModalDisplay={setModalDisplay} />
-      <Carousel events={dataReturned} />
+      
+      <div className='homepage-content'>
+        <Hero />
+        <Calendar />
+      </div>
     </div>
   )
 }

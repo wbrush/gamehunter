@@ -32,6 +32,10 @@
     font-size: 12px;
 }
 
+.user-modal button:hover {
+    cursor: pointer;
+}
+
 .label {
     margin: 0;
     padding-top: 15px;
