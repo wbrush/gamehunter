@@ -6,26 +6,21 @@
     padding-bottom: 20px;
 }
 
-.calendar .fc-toolbar-title {
-    color: white;
-}
-
 .calendar .fc-col-header-cell,
 .calendar .fc-timegrid-slot-label {
     font-size: 12px;
 }
 
-.calendar .fc-col-header-cell-cushion {
+.calendar .fc-col-header-cell-cushion,
+.calendar .fc-timegrid-slot-label-cushion,
+.calendar .fc-toolbar-title,
+.calendar .fc-daygrid-day-number {
     color: white;
 }
 
 .calendar .fc-col-header-cell-cushion:hover {
     text-decoration: none;
     cursor: default;
-}
-
-.calendar .fc-timegrid-slot-label-cushion {
-    color: white;
 }
 
 .calendar .fc-timegrid-slot-label-cushion:hover {
