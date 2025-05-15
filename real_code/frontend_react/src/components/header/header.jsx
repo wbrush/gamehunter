@@ -18,7 +18,7 @@ const Header = ({ modalVisibility, setModalVisibility, setModalDisplay }) => {
         <header>
             <nav>
                 <div className="links">
-                    <Link to="/" id="header-title">GameHunter</Link>
+                    <Link to="/" id="header-title">Home</Link>
 
                     <Link to="/create">Create</Link>
                 </div>

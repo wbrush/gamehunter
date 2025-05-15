@@ -4,7 +4,10 @@ const Hero = () => {
     return (
         <div className='hero'>
             <img src='/images/volleyball.jpg' />
-            <h1>Find your next game</h1>
+            <div className="hero-text">
+                <h1>Gamehunter</h1>
+                <h4>Find your next game</h4>
+            </div>
         </div>
     )
 }

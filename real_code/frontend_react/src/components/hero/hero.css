@@ -16,18 +16,25 @@
     transform: translateX(-50%) translateY(-50%);
 }
 
-.hero h1 {
+.hero .hero-text {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+}
+
+.hero .hero-text h1 {
     font-size: 64px;
     text-shadow: 0px 7px 5px black;
 }
 
 @media screen and (max-width: 500px) {
-    .hero h1 {
+    .hero .hero-text h1 {
         font-size: 48px;
+    }
+     .hero .hero-text h4 {
+        font-size: 20px;
     }
 }
 
@@ -40,7 +47,11 @@
         height: 300px;
     }
 
-    .hero h1 {
+    .hero .hero-text h1 {
         font-size: 36px;
+    }
+    
+    .hero .hero-text h4 {
+        font-size: 18px;
     }
 }
