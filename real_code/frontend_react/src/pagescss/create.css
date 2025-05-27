@@ -1,58 +1,70 @@
-.create-page {
-    margin-top: -50px;
-    height: calc(100vh);
-    position: relative;
-}
-
 #login-text {
-    position: absolute;
-    top: 15%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     color: red;
+    text-align: center;
+    margin: 20px 0;
 }
 
 .create-page-content {
     display: flex;
     justify-content: space-between;
-    width: 1140px;
-    max-width: 80%;
-    margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 0 10px;
 }
 
-.create-page .create-page-content .form {
+.create-page .create-page-content .event-form {
     position: relative;
     width: 40%;
 }
 
-.create-page .create-page-content form {
+.create-page .create-page-content .event-form form {
     background-color: rgb(10, 10, 10);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     border-radius: 20px;
     padding: 20px;
     color: white;
+    min-width: max-content;
 }
 
-.create-page .create-page-content form .section {
+.create-page .create-page-content .event-form form h2 {
+    text-align: center;
+}
+
+.create-page .create-page-content .event-form form .section {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
+    gap: 10px;
 }
 
-.create-page .create-page-content form .section label {
+.create-page .create-page-content .event-form form .section .section-input {
+    display: flex;
+    gap: 10px;
+}
+
+.create-page .create-page-content .event-form form .section .section-input input {
+    width: fit-content;
+}
+
+.create-page .create-page-content .event-form form .section .time-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.create-page .create-page-content .event-form form .section .time-selector select {
+    width: fit-content;
+    padding-right: 20px;
+    text-align: right;
+}
+
+.create-page .create-page-content .event-form form .section label {
     margin: 0;
 }
 
-.create-page .create-page-content form .section select,
-.create-page .create-page-content form .section textarea,
-.create-page .create-page-content form .section input {
+.create-page .create-page-content .event-form form .section select,
+.create-page .create-page-content .event-form form .section textarea,
+.create-page .create-page-content .event-form form .section input {
     margin: 0;
     padding: 5px;
     padding-left: 5px;
@@ -61,7 +73,7 @@
     border: none;
 }
 
-.create-page .create-page-content form #form-submit {
+.create-page .create-page-content .event-form form #form-submit {
     background-color: blue;
     color: white;
     width: fit-content;
@@ -69,16 +81,15 @@
     border-radius: 5px;
     padding: 5px;
     margin: auto;
-    margin-top: 20px;
 }
 
-.create-page .create-page-content form #form-submit:hover {
+.create-page .create-page-content .event-form form #form-submit:hover {
     cursor: pointer;
 }
 
 .create-page .create-page-content .divider {
-    width: fit-content;
     position: relative;
+    padding: 0 35px;
 }
 
 .create-page .divider #divider {
@@ -95,6 +106,7 @@
     background-color: black;
     color: orangered;
     padding: 10px;
+    margin: 0;
 }
 
 .form-error {
@@ -104,16 +116,19 @@
     text-align: center;
 }
 
-#disabled {
-    opacity: .3;
-}
+@media screen and (max-width: 750px) {
+    .create-page-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 35px;
+    }
 
-#disabled-text {
-    position: absolute;
-    z-index: 10;
-    color: white;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    .create-page .create-page-content .divider {
+        position: initial;
+    }
+
+    .create-page .divider h1 {
+        position: unset;
+        transform: none;
+    }
 }
