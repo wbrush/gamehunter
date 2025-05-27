@@ -53,7 +53,7 @@ const Calendar = () => {
   }, [])
 
   const fetchRequest = async () => {
-    const response = await getFetchRequest('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport')
+    const response = await getFetchRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/events/')
     
     const temp = [
       {
