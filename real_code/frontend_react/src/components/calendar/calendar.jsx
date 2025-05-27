@@ -13,40 +13,12 @@ import './calendar.css';
 const Calendar = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
+
   const [calendarModalVisibility, setCalendarModalVisibility ] = useState(false);
   const [clickedEventInfo, setClickedEventInfo] = useState({});
   const [events, setEvents] = useState()
 
   const calendarRef = useRef(null)
-
-  const tempData = [
-    {
-      title: 'Open Gym',
-      start: '2025-05-30T07:00:00',
-      end: '2025-05-30T11:00:00',
-      extendedProps: {
-        players: 10,
-        title: 'Open Gym',
-        startDate: '2025-05-15',
-        endDate: '2025-05-15',
-        startTime: '18:00:00',
-        endTime: '21:00:00'
-      }
-    },
-    {
-      title: 'Reserved Court',
-      start: '2025-05-27T18:00:00',
-      end: '2025-05-27T21:00:00',
-      extendedProps: {
-        players: 8,
-        title: 'Reserved Court',
-        startDate: '2025-05-15',
-        endDate: '2025-05-15',
-        startTime: '18:00:00',
-        endTime: '21:00:00'
-      }
-    },
-  ]
   
   useEffect(() => {
     fetchRequest()
@@ -54,29 +26,9 @@ const Calendar = () => {
 
   const fetchRequest = async () => {
     const response = await getFetchRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/events/')
+    const filtered = filterData(response)
     
-    const temp = [
-      {
-        eventType: 'Open',
-        startDate: new Date('2025-05-27T18:00:00'),
-        endDate: new Date('2025-05-27T21:00:00')
-      },
-      {
-        eventType: 'Reserve',
-        startDate: new Date('2025-05-30T07:00:00'),
-        endDate: new Date('2025-05-30T11:00:00')
-      },
-      {
-        eventType: 'Open',
-        startDate: new Date('2025-05-28T11:00:00'),
-        endDate: new Date('2025-05-28T15:00:00')
-      }
-    ]
-    const filtered = filterData(temp)
-    console.log(filtered)
-    
-    // const filtered = filterData(response)
-    // setEvents(filtered)
+    setEvents(filtered)
   }
 
   const handleEventClick = (info) => {
@@ -106,10 +58,10 @@ const Calendar = () => {
           }}
           slotDuration={'01:00'}
           contentHeight='auto'
-          events={tempData}
-          // events={events}
+          events={events}
           eventClick={(eventInfo) => handleEventClick(eventInfo.event)}
           ref={calendarRef}
+          timeZone='UTC'
         />
       </div>
 

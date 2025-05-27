@@ -1,10 +1,10 @@
 const filterData = (events) => {
     const temp = []
-
+    
     events.forEach((event) => {
         let title = ''
 
-        if (event.eventType === 'Open') {
+        if (event.event_type === 'Open') {
             title = 'Open Gym'
         } else {
             title = 'Reserved Court'
@@ -12,15 +12,15 @@ const filterData = (events) => {
 
         temp.push({
             title: title,
-            start: event.startDate,
-            end: event.endDate,
+            start: event.start_date,
+            end: event.end_date,
             extendedProps: {
                 players: event.players,
                 title: title,
-                startDate: formatDate(event.startDate.toISOString()),
-                endDate: formatDate(event.endDate.toISOString()),
-                startTime: formatTime(event.startDate.toISOString()),
-                endTime: formatTime(event.endDate.toISOString())
+                startDate: formatDate(event.start_date),
+                endDate: formatDate(event.end_date),
+                startTime: formatTime(event.start_date),
+                endTime: formatTime(event.end_date)
             }
         })
     })
@@ -60,6 +60,23 @@ const filterUserEvents = (data) => {
 
 const formatTime = (time) => {
     return time.split('T')[1].split('.')[0]
+}
+
+const formatISOTime = (time) => {
+    console.log(time)
+    time = time.split(':')
+    time.pop()
+
+    if (time[0] > 12) {
+        time[0] = Number(time[0]) - 12
+        time[1] += ' PM'
+    } else if (time[0] == 12 && time[1] > 0) {
+        time[1] += ' PM'
+    } else {
+        time [1] += ' AM'
+    }
+    
+    return time.join(':')
 }
 
 const formatDate = (date) => {
@@ -144,4 +161,4 @@ const postCreateEventRequest = async (url, data) => {
     return apiJson
 }
 
-export { filterData, getFetchRequest, getEventRequest, postFetchRequest, postEventRequest, postCreateEventRequest, filterUserEvents, formatTime, formatDate }
+export { filterData, getFetchRequest, getEventRequest, postFetchRequest, postEventRequest, postCreateEventRequest, filterUserEvents, formatTime, formatISOTime, formatDate }

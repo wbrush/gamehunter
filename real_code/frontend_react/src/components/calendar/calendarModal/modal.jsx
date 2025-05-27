@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Auth from '../../../utils/auth';
-import { postFetchRequest, getEventRequest, formatTime } from '../../../utils/functions';
+import { postFetchRequest, getEventRequest, formatISOTime } from '../../../utils/functions';
 
 import './modal.css';
 
@@ -42,8 +42,8 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
         dateString = new Date(info.startDate).toDateString().split(' ')
         dateString = `${dateString[1]} ${dateString[2]}`
 
-        startTimeString = formatTime(info.startTime)
-        endTimeString = formatTime(info.endTime)
+        startTimeString = formatISOTime(info.startTime)
+        endTimeString = formatISOTime(info.endTime)
     }
     
     return modalVisibility ? 
