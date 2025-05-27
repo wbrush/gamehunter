@@ -4,8 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx';
 import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound';
-import Search from './pages/Search.jsx';
 import Profile from './pages/Profile.jsx';
+import Create from './pages/Create.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,12 +18,12 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: '/search',
-        element: <Search />
-      },
-      {
         path: '/profile',
         element: <Profile />
+      },
+      {
+        path: '/create',
+        element: <Create />
       }
     ],
   },

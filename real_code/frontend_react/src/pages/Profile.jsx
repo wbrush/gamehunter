@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useOutletContext } from 'react-router-dom';
 
 import Header from '../components/header/header'
 import Modal from '../components/userModal/modal'
 import EventList from '../components/eventList/list'
-import SearchContainer from '../components/searchContainer/searchContainer';
+import ProfileContainer from '../components/profileContainer/profileContainer';
 
 import Auth from '../utils/auth'
-import { filterData, getFetchRequest } from '../utils/functions';
+import { filterUserEvents, getFetchRequest } from '../utils/functions';
 
 import '../pagescss/profile.css'
 
@@ -15,8 +14,8 @@ const Profile = () => {
     const [modalVisibility, setModalVisibility ] = useState(true);
     const [modalDisplay, setModalDisplay] = useState('Login');
 
-    let response = useOutletContext()
-    const [filteredResponse, setFilteredResponse] = useState([])
+    const [upcomingEvents, setUpcomingEvents] = useState([])
+    const [pastEvents, setPastEvents] = useState([])
 
     const [userData, setUserData] = useState()
     const [disableEmail, setDisableEmail] = useState('disabled')
@@ -24,23 +23,27 @@ const Profile = () => {
     const [tempPassword, setTempPassword] = useState('')
 
     useEffect(() => {
-        if (response.length > 0) {
-            setFilteredResponse(response)
-        } else {
-            fetchRequest()
-        }
-
         const user = Auth.getUser()?.user
+
+        fetchRequest(user)
+
         setUserData(user)
         setTempEmail(user.email)
         setTempPassword(user.password)
     }, [modalVisibility])
 
-    const fetchRequest = async () => {
-        const response = await getFetchRequest('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport')
-        const filtered = filterData(response)
+    const fetchRequest = async (user) => {
+        const url = 'https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/user/' + user.id
+        const response = await getFetchRequest(url)
 
-        setFilteredResponse(filtered)
+        let filtered
+        if (response.name != 'error') {
+            filtered = filterUserEvents(response)
+
+            setUpcomingEvents(filtered.upcoming)
+            setPastEvents(filtered.past)
+        }
+
     }
 
     const handleChange = (e) => {
@@ -72,7 +75,7 @@ const Profile = () => {
                     <>
                         <div className='user'>
                             <div className="user-content">
-                                <h1>{userData.name}</h1>
+                                <h1>{userData.name}'s Profile</h1>
 
                                 <div className="user-info">
                                     <div>
@@ -108,7 +111,7 @@ const Profile = () => {
                             <h2>Upcoming Events</h2>
                             <div className="upcoming-slider">
                                 <div className="list">
-                                    <SearchContainer response={filteredResponse} updatedResponse={[]} />
+                                    <ProfileContainer response={upcomingEvents} setUpcomingEvents={setUpcomingEvents} />
                                 </div>
                             </div>
                         </div>
@@ -117,7 +120,7 @@ const Profile = () => {
                             <h2>Previous Events</h2>
                             <div className="previous-slider">
                                 <div className="list">
-                                    <EventList array={filteredResponse} reduced={true} />
+                                    <EventList array={pastEvents} reduced={true} />
                                 </div>
                             </div>
                         </div>

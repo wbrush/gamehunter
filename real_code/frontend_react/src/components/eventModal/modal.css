@@ -48,3 +48,29 @@
 .event-modal .modal-form span:hover {
     cursor: pointer;
 }
+
+.event-modal .modal-form button {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 5px;
+    margin: 20px 0 10px 0;
+}
+
+.event-modal .modal-form button:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.event-modal .modal-form .error-msg {
+    color: red;
+    font-size: 14px;
+}
+
+.event-modal .modal-form #added {
+    background-color: grey;
+    color: black;
+    border: none;
+    border-radius: 5px;
+}

@@ -17,18 +17,25 @@ const Header = ({ modalVisibility, setModalVisibility, setModalDisplay }) => {
     return (
         <header>
             <nav>
-                <Link to="/" id="header-title">GameHunter</Link>
-                {Auth.loggedIn() ? (
-                    <>
-                        <Link to="/profile">Profile</Link>
-                        <button onClick={logout}>Logout</button>
-                    </>
-                ) : (
-                    <>
-                        <button onClick={displayModal}>Login</button>
-                        <button onClick={displayModal}>Signup</button>
-                    </>
-                )}
+                <div className="links">
+                    <Link to="/" id="header-title">Home</Link>
+
+                    <Link to="/create">Create</Link>
+                </div>
+
+                <div className="user">
+                    {Auth.loggedIn() ? (
+                        <>
+                            <Link to="/profile">Profile</Link>
+                            <button onClick={logout}>Logout</button>
+                        </>
+                    ) : (
+                        <>
+                            <button onClick={displayModal}>Login</button>
+                            <button onClick={displayModal}>Signup</button>
+                        </>
+                    )}
+                </div>
             </nav>
         </header>
     )

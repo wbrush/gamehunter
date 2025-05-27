@@ -1,12 +1,21 @@
 import { useState } from 'react';
 
 import Auth from '../../utils/auth'
-import { postFetchRequest } from '../../utils/functions';
+import { postFetchRequest, getEventRequest } from '../../utils/functions';
 
 import './modal.css';
 
 const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisplay }) => {
     const [userState, setUserState] = useState({ name: '', email: '', password: '' });
+    const [toggleEmailError, setToggleEmailError] = useState(false)
+    const [toggleLoginError, setToggleLoginError] = useState(false)
+
+    const errorStyling = {
+        'color': 'red',
+        'margin': 0,
+        'paddingTop': '5px',
+        'fontSize': '14px'
+    }
 
     const toggleModal = (event) => {
         if (event.target.className === 'user-modal') {
@@ -37,11 +46,24 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
         if (modalDisplay === 'Login') {
             try {
                 const result = await postFetchRequest('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/login', userState)
+                
+                if (result.success) {
+                    setToggleLoginError(false)
+                    Auth.login(result.message)
 
-                if (result.data) {
-                    Auth.login(result.data);
+                    const userId = Auth.getUser().user.id
+                    getUserEvents(userId)
+
+                    // clear form values
+                    setUserState({
+                        name: '',
+                        email: '',
+                        password: '',
+                    })
+
+                    setModalVisibility(!modalVisibility)
                 } else {
-                    console.log('error')
+                    setToggleLoginError(true)
                 }
             } catch (e) {
                 console.error(e);
@@ -51,26 +73,38 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
             try {
                 const result = await postFetchRequest('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/signup', userState)
 
-                if (result.data) {
-                    Auth.login(result.data);
+                if (Auth.getUser()) {
+                    setToggleEmailError(false)
+                    Auth.login(result.data)
+
+                    const userId = Auth.getUser().user.id
+                    getUserEvents(userId)
+
+                    // clear form values
+                    setUserState({
+                        name: '',
+                        email: '',
+                        password: '',
+                    })
+
+                    setModalVisibility(!modalVisibility)
                 } else {
-                    console.log('error')
+                    setToggleEmailError(true)
                 }
             } catch (e) {
                 console.error(e);
                 alert("Invalid Username or Password, Please Try Again.")
             }
         }
-
-        // clear form values
-        setUserState({
-            name: '',
-            email: '',
-            password: '',
-        });
-
-        setModalVisibility(!modalVisibility)
     };
+
+    const getUserEvents = async (id) => {
+        const response = await getEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/getUserEvents/' + `${id}`)
+
+        if (response) {
+            localStorage.setItem('user_events', response)
+        }
+    }
 
     return modalVisibility ? 
         (
@@ -103,9 +137,9 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
                         onChange={handleChange}
                     />
 
-                    <p className="login-error" id="hidden">Incorrect username/password</p>
+                    {toggleLoginError ? (<p id="login-error" style={errorStyling}>Incorrect username/password</p>) : null}
                     <p className="form-error" id="hidden">Please fill out the empty field(s)</p>
-                    <p className="signup-error" id="hidden">Email already exists, please login</p>
+                    {toggleEmailError ? (<p id="signup-error" style={errorStyling}>Email already exists, please login</p>) : null}
 
                     <button type='submit'>{modalDisplay}</button>
 

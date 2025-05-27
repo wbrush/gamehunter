@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fullcalendar/bootstrap": "^6.1.17",
+    "@fullcalendar/react": "^6.1.17",
+    "fullcalendar": "^6.1.17",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-datepicker": "^7.5.0",

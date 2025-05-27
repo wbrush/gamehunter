@@ -32,6 +32,10 @@
     font-size: 12px;
 }
 
+.user-modal button:hover {
+    cursor: pointer;
+}
+
 .label {
     margin: 0;
     padding-top: 15px;
@@ -49,14 +53,6 @@
     align-items: center;
     overflow: hidden;
     position: relative;
-}
-
-.login-error,
-.form-error
-.signup-error {
-    margin: 0;
-    padding-top: 5px;
-    color: red;
 }
 
 #modal-switch {

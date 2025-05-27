@@ -1,0 +1,134 @@
+#login-text {
+    color: red;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.create-page-content {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+.create-page .create-page-content .event-form {
+    position: relative;
+    width: 40%;
+}
+
+.create-page .create-page-content .event-form form {
+    background-color: rgb(10, 10, 10);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+    min-width: max-content;
+}
+
+.create-page .create-page-content .event-form form h2 {
+    text-align: center;
+}
+
+.create-page .create-page-content .event-form form .section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.create-page .create-page-content .event-form form .section .section-input {
+    display: flex;
+    gap: 10px;
+}
+
+.create-page .create-page-content .event-form form .section .section-input input {
+    width: fit-content;
+}
+
+.create-page .create-page-content .event-form form .section .time-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.create-page .create-page-content .event-form form .section .time-selector select {
+    width: fit-content;
+    padding-right: 20px;
+    text-align: right;
+}
+
+.create-page .create-page-content .event-form form .section label {
+    margin: 0;
+}
+
+.create-page .create-page-content .event-form form .section select,
+.create-page .create-page-content .event-form form .section textarea,
+.create-page .create-page-content .event-form form .section input {
+    margin: 0;
+    padding: 5px;
+    padding-left: 5px;
+    width: 189px;
+    border-radius: 0;
+    border: none;
+}
+
+.create-page .create-page-content .event-form form #form-submit {
+    background-color: blue;
+    color: white;
+    width: fit-content;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: auto;
+}
+
+.create-page .create-page-content .event-form form #form-submit:hover {
+    cursor: pointer;
+}
+
+.create-page .create-page-content .divider {
+    position: relative;
+    padding: 0 35px;
+}
+
+.create-page .divider #divider {
+    width: 2px;
+    height: 100%;
+    background-color: orangered;
+}
+
+.create-page .divider h1 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: orangered;
+    padding: 10px;
+    margin: 0;
+}
+
+.form-error {
+    margin: 0;
+    padding-top: 5px;
+    color: red;
+    text-align: center;
+}
+
+@media screen and (max-width: 750px) {
+    .create-page-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 35px;
+    }
+
+    .create-page .create-page-content .divider {
+        position: initial;
+    }
+
+    .create-page .divider h1 {
+        position: unset;
+        transform: none;
+    }
+}
