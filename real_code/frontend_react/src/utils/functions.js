@@ -1,19 +1,31 @@
-const filterData = (data) => {
-    const currentTimestamp = new Date(Date.now()).valueOf()
+const filterData = (events) => {
+    const temp = []
 
-    data.forEach(element => {
-        const elementDate = new Date(element.date).valueOf()
+    events.forEach((event) => {
+        let title = ''
 
-        element.date = element.date.split('T')
+        if (event.eventType === 'Open') {
+            title = 'Open Gym'
+        } else {
+            title = 'Reserved Court'
+        }
 
-        if (currentTimestamp < elementDate) {
-        element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
-        element.time = formatTime(element.date[1])
-        element.date = formatDate(element.date[0])
-      } //else {deleteQuery()} deletes past events
+        temp.push({
+            title: title,
+            start: event.startDate,
+            end: event.endDate,
+            extendedProps: {
+                players: event.players,
+                title: title,
+                startDate: formatDate(event.startDate.toISOString()),
+                endDate: formatDate(event.endDate.toISOString()),
+                startTime: formatTime(event.startDate.toISOString()),
+                endTime: formatTime(event.endDate.toISOString())
+            }
+        })
     })
 
-    return data
+    return temp
 }
 
 const filterUserEvents = (data) => {
@@ -47,25 +59,11 @@ const filterUserEvents = (data) => {
 }
 
 const formatTime = (time) => {
-    time = time.split(':')
-    time.pop()
-
-    if (time[0] > 12) {
-        time[0] = Number(time[0]) - 12
-        time[1] += ' PM'
-    } else if (time[0] == 12 && time[1] > 0) {
-        time[1] += ' PM'
-    } else {
-        time [1] += ' AM'
-    }
-    
-    return time.join(':')
+    return time.split('T')[1].split('.')[0]
 }
 
 const formatDate = (date) => {
-    date = date.split('-')
-    date = date[1] + '/' + date[2] + '/' + date[0]
-    return date
+    return date.split('T')[0]
 }
 
 // GET Request

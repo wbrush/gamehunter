@@ -15,14 +15,15 @@ const Calendar = () => {
   const [modalDisplay, setModalDisplay] = useState('Login');
   const [calendarModalVisibility, setCalendarModalVisibility ] = useState(false);
   const [clickedEventInfo, setClickedEventInfo] = useState({});
+  const [events, setEvents] = useState()
 
   const calendarRef = useRef(null)
 
   const tempData = [
     {
       title: 'Open Gym',
-      start: '2025-05-15T18:00:00',
-      end: '2025-05-15T21:00:00',
+      start: '2025-05-30T07:00:00',
+      end: '2025-05-30T11:00:00',
       extendedProps: {
         players: 10,
         title: 'Open Gym',
@@ -34,8 +35,8 @@ const Calendar = () => {
     },
     {
       title: 'Reserved Court',
-      start: '2025-05-18T18:00:00',
-      end: '2025-05-18T21:00:00',
+      start: '2025-05-27T18:00:00',
+      end: '2025-05-27T21:00:00',
       extendedProps: {
         players: 8,
         title: 'Reserved Court',
@@ -53,8 +54,29 @@ const Calendar = () => {
 
   const fetchRequest = async () => {
     const response = await getFetchRequest('https://gh-sport-mgr-rz6q3h2zna-uc.a.run.app/api/v1/sport')
-    const filtered = filterData(response)
-    // console.log(filtered)
+    
+    const temp = [
+      {
+        eventType: 'Open',
+        startDate: new Date('2025-05-27T18:00:00'),
+        endDate: new Date('2025-05-27T21:00:00')
+      },
+      {
+        eventType: 'Reserve',
+        startDate: new Date('2025-05-30T07:00:00'),
+        endDate: new Date('2025-05-30T11:00:00')
+      },
+      {
+        eventType: 'Open',
+        startDate: new Date('2025-05-28T11:00:00'),
+        endDate: new Date('2025-05-28T15:00:00')
+      }
+    ]
+    const filtered = filterData(temp)
+    console.log(filtered)
+    
+    // const filtered = filterData(response)
+    // setEvents(filtered)
   }
 
   const handleEventClick = (info) => {
@@ -62,14 +84,6 @@ const Calendar = () => {
     setCalendarModalVisibility(true)
     setClickedEventInfo(info._def.extendedProps)
   }
-
-  // const handleViewChange = (method) => {
-  //   if (method === 'week') {
-  //     calendarRef.current.getApi().changeView('timeGridWeek')
-  //   } else {
-  //     calendarRef.current.getApi().changeView('dayGridMonth')
-  //   }
-  // }
 
   return (
     <>
@@ -83,16 +97,6 @@ const Calendar = () => {
             center: 'title',
             end: 'today prev next'
           }}
-          // customButtons={{
-          //   monthly: {
-          //     text: 'month',
-          //     click: () => handleViewChange('month')
-          //   },
-          //   weekly: {
-          //     text: 'week',
-          //     click: () => handleViewChange('week')
-          //   }
-          // }}
           views={['dayGridMonth', 'timeGridWeek']}
           initialView='dayGridMonth'
           firstDay={1}
@@ -103,6 +107,7 @@ const Calendar = () => {
           slotDuration={'01:00'}
           contentHeight='auto'
           events={tempData}
+          // events={events}
           eventClick={(eventInfo) => handleEventClick(eventInfo.event)}
           ref={calendarRef}
         />
