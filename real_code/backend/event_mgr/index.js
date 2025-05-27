@@ -20,7 +20,28 @@ app.listen(port,()=>{
 
 app.get("/",(req,res)=>{
     console.log("got / request")
-    return res.status(200).json({service : "gh-sport-mgr"})
+    return res.status(200).json({service : "gh-event-mgr"})
+})
+
+// Api request to get events
+app.get("/api/v1/events", async (req,res) => {
+    console.log("got db request - processing")
+    acceptHeader = req.header('Accept')
+
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler('read')
+        
+        if (response) {
+            res.status(200).json(response)
+        } else {
+            res.status(400).json({ result: false })
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
 })
 
 // Api request to request a users events
@@ -122,7 +143,7 @@ async function db_Handler(method, data){
         if (method == 'add') {
             response = await Create(pool, data)
         } else if (method == 'read') {
-            response = await Read(pool, data)
+            response = await Read(pool)
         } else if (method == 'remove') {
             response = await Delete(pool, data)
         }
