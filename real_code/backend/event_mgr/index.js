@@ -51,6 +51,7 @@ app.post("/api/v1/event", async (req,res) => {
 
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('create', req.body)
+        console.log(response)
         
         if (response) {
             res.status(200).json({ result: true })
