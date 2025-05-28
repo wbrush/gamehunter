@@ -10,7 +10,7 @@ const filterData = (events) => {
             title = 'Reserved Court'
         }
         
-        console.log('event', event)
+        // console.log('event', event)
         const tempStart = new Date(event.start_date)
         const tempEnd = new Date(event.end_date)
 

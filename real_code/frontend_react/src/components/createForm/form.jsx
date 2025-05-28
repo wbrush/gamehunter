@@ -25,16 +25,16 @@ const Form = ({ form }) => {
         } else {
             date.setHours(Number(startHour), Number(startMinute))
         }
-        const tempStart = `${date}`
-        setStartDate(`${date}`)
+        const tempStart = `${date.toUTCString()}`
+        setStartDate(tempStart)
         
         if (endCycle === 'PM') {
             date.setHours(Number(endHour) + 12, Number(endMinute))
         } else {
             date.setHours(Number(endHour), Number(endMinute))
         }
-        const tempEnd = `${date}`
-        setEndDate(`${date}`)
+        const tempEnd = `${date.toUTCString()}`
+        setEndDate(tempEnd)
         
         const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/event/`
         const eventDetails = {
