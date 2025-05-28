@@ -1,15 +1,14 @@
 module.exports = { Create, Read, Delete }
 
-async function Create(database, link, table) {
+async function Create(database, data) {
     let query = {
-        sql: `INSERT INTO ${table} (user_id, event_id) VALUES (${link.user_id}, ${link.event_id})`
+        sql: `INSERT INTO events (start_date, end_date, event_type, players) VALUES (${data.start_date}, ${data.end_date}, ${data.event_type}, ${data.players})`
     }
 
-    // Queries rows from the Albums table
     try {
         console.log(query.sql)
         const response = await database.query(query.sql)
-        console.log('event saved')
+        console.log('event created')
         return response
     } catch (err) {
         console.error(err);
@@ -17,12 +16,11 @@ async function Create(database, link, table) {
     }
 }
 
-async function Read(database, user, table) {
+async function Read(database) {
     let query = {
-        sql: `SELECT * FROM ${table} WHERE email ILIKE '${user.email}' AND password ILIKE '${user.password}'`,
+        sql: `SELECT * FROM events ORDER BY start_date`
     }
 
-    // Queries rows from the Albums table
     try {
         console.log(query.sql)
         const { rows } = await database.query(query.sql)
@@ -33,10 +31,18 @@ async function Read(database, user, table) {
     }
 }
 
-async function Delete() {
+async function Delete(database, data) {
     let query = {
-        sql: `DELETE FROM ${table}`
+        sql: `DELETE FROM signedevents WHERE user_id = ${data.user} AND event_id = ${data.event}`
     }
 
-    return
+    try {
+        console.log(query.sql)
+        const response = await database.query(query.sql)
+        console.log('event removed')
+        return response
+    } catch (err) {
+        console.error(err);
+        return err
+    }
 }
