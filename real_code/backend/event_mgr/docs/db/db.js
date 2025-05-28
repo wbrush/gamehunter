@@ -2,7 +2,7 @@ module.exports = { Create, Read, Delete }
 
 async function Create(database, data) {
     let query = {
-        sql: `INSERT INTO events (start_date, end_date, event_type, players) VALUES (${data.start_date}, ${data.end_date}, ${data.event_type}, ${data.players})`
+        sql: `INSERT INTO events (start_date, end_date, event_type, players) VALUES ('${data.start_date}', '${data.end_date}', '${data.event_type}', ${data.players})`
     }
 
     try {
