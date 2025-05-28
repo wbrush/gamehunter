@@ -2,13 +2,13 @@ module.exports = { Create, Read, Delete }
 
 async function Create(database, data) {
     let query = {
-        sql: `INSERT INTO signedevents (user_id, event_id) VALUES (${data.user}, ${data.event})`
+        sql: `INSERT INTO events (start_date, end_date, event_type, players) VALUES (${data.start_date}, ${data.end_date}, ${data.event_type}, ${data.players})`
     }
 
     try {
         console.log(query.sql)
         const response = await database.query(query.sql)
-        console.log('event saved')
+        console.log('event created')
         return response
     } catch (err) {
         console.error(err);

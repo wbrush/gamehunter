@@ -44,6 +44,27 @@ app.get("/api/v1/events", async (req,res) => {
     }
 })
 
+// Api request to create an event
+app.post("/api/v1/event", async (req,res) => {
+    console.log("got db request - processing")
+    acceptHeader = req.header('Accept')
+
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler('create', req.body)
+        
+        if (response) {
+            res.status(200).json({ result: true })
+        } else {
+            res.status(400).json({ result: false })
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
+})
+
 // Api request to request a users events
 app.get("/api/v1/user/:id", async (req,res) => {
     const ids = {
