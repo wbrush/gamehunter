@@ -115,20 +115,16 @@ const Form = ({ form }) => {
     }
 
     const createEvent = () => {
-        const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/${form}/`
+        const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/event/`
         const eventDetails = {
-        type: form,
-        start: startDate,
-        end: endDate,
+        event_type: form,
+        start_date: startDate,
+        end_date: endDate,
+        players: 1
         }
-
-        if (form === 'open') {
-        // console.log('submit open gym form', eventDetails)
+        
+        console.log('submitted form', eventDetails)
         postCreateEventRequest(url, eventDetails)
-        } else if (form === 'reserve') {
-        // console.log('submit reserve a court form', eventDetails)
-        postCreateEventRequest(url, eventDetails)
-        }
     }
 
     return (
