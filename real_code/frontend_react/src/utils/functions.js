@@ -4,11 +4,15 @@ const filterData = (events) => {
     events.forEach((event) => {
         let title = ''
 
-        if (event.event_type === 'Open') {
+        if (event.event_type.toLowerCase() === 'open') {
             title = 'Open Gym'
         } else {
             title = 'Reserved Court'
         }
+        
+        console.log('event', event)
+        const tempStart = new Date(event.start_date)
+        const tempEnd = new Date(event.end_date)
 
         temp.push({
             title: title,
@@ -17,10 +21,8 @@ const filterData = (events) => {
             extendedProps: {
                 players: event.players,
                 title: title,
-                startDate: formatDate(event.start_date),
-                endDate: formatDate(event.end_date),
-                startTime: formatTime(event.start_date),
-                endTime: formatTime(event.end_date)
+                startDate: tempStart,
+                endDate: tempEnd
             }
         })
     })
@@ -63,7 +65,6 @@ const formatTime = (time) => {
 }
 
 const formatISOTime = (time) => {
-    console.log(time)
     time = time.split(':')
     time.pop()
 

@@ -42,8 +42,10 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
         dateString = new Date(info.startDate).toDateString().split(' ')
         dateString = `${dateString[1]} ${dateString[2]}`
 
-        startTimeString = formatISOTime(info.startTime)
-        endTimeString = formatISOTime(info.endTime)
+        // const tempStart = new Date(info.startDate + 'T' + info.startTime + 'Z')
+        // const tempEnd = new Date(info.endDate + 'T' + info.endTime + 'Z')
+        // startTimeString = formatISOTime(tempStart.toTimeString())
+        // endTimeString = formatISOTime(tempEnd.toTimeString())
     }
     
     return modalVisibility ? 

@@ -61,7 +61,6 @@ const Calendar = () => {
           events={events}
           eventClick={(eventInfo) => handleEventClick(eventInfo.event)}
           ref={calendarRef}
-          timeZone='UTC'
         />
       </div>
 
