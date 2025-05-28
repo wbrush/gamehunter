@@ -162,7 +162,7 @@ async function db_Handler(method, data){
         
         console.log('sending query')
         let response
-        if (method == 'add') {
+        if (method == 'create') {
             response = await Create(pool, data)
         } else if (method == 'read') {
             response = await Read(pool)
