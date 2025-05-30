@@ -93,6 +93,7 @@ app.get("/api/v1/user/:id", async (req,res) => {
 // Api request to signup for events
 app.post("/api/v1/add", async (req,res) => {
     const ids = {
+        method: 'signup',
         user: `${req.body.userId}`,
         event: `${req.body.eventId}`
     }
@@ -101,7 +102,7 @@ app.post("/api/v1/add", async (req,res) => {
     acceptHeader = req.header('Accept')
 
     if (acceptHeader.includes('json')) {
-        const response = await db_Handler('add', ids)
+        const response = await db_Handler('create', ids)
         console.log(response)
         
         if (response.rowCount > 0) {
@@ -221,6 +222,8 @@ async function db_Handler(method, data){
             response = await Update(pool, data)
         } else if (method == 'remove') {
             response = await Delete(pool, data)
+        } else if (method == 'add') {
+            response = await Create(pool, data)
         }
 
         Close(pool)
