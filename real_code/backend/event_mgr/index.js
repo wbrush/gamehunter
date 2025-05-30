@@ -103,7 +103,6 @@ app.post("/api/v1/add", async (req,res) => {
 
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('create', ids)
-        console.log(response)
         
         if (response.rowCount > 0) {
             res.status(200).json({ result: true })
@@ -129,7 +128,6 @@ app.post("/api/v1/remove", async (req,res) => {
     acceptHeader = req.header('Accept')
     if (acceptHeader.includes('json')) {
         const response = await db_Handler('remove', ids)
-        console.log(response)
 
         if (response.rowCount > 0) {
             res.status(200).json({ result: true })
