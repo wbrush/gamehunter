@@ -19,6 +19,7 @@ const filterData = (events) => {
             start: event.start_date,
             end: event.end_date,
             extendedProps: {
+                id: event.id,
                 players: event.players,
                 title: title,
                 startDate: tempStart,

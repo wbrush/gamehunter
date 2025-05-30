@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Auth from '../../../utils/auth';
-import { postFetchRequest, getEventRequest, formatISOTime } from '../../../utils/functions';
+import { postEventRequest, formatISOTime } from '../../../utils/functions';
 
 import './modal.css';
 
@@ -30,11 +30,20 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
         }
     }
     
-    const eventSignup = () => {
+    const eventSignup = async () => {
+        const userData = Auth.getUser()
+        const data = {
+            user: userData.user.id,
+            event: info.id
+        }
+
         if (!Auth.loggedIn()) {
             setErrorMsg(errorStyling)
         } else {
-            console.log('slick')
+            const response = await postEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/add/', data)
+            if (response) {
+                setModalVisibility(false)
+            }
         }
     }
 
