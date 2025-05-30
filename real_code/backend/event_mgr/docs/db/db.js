@@ -3,7 +3,7 @@ module.exports = { Create, Read, Update, Delete }
 async function Create(database, data) {
     let query
     if (data.method == 'signup') {
-        query = `INSERT INTO signedevents (user_id, event_id) VALUES (${data.user}, ${data.event}`
+        query = `INSERT INTO signedevents (user_id, event_id) VALUES (${data.user}, ${data.event})`
     } else {
         query = `INSERT INTO events (start_date, end_date, event_type, players) VALUES ('${data.start_date}', '${data.end_date}', '${data.event_type}', ${data.players})`
     }
