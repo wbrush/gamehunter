@@ -151,6 +151,8 @@ app.post("/api/v1/inc/", async (req,res) => {
         id: req.body.id
     }
 
+    console.log(data)
+
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
 
@@ -176,6 +178,8 @@ app.post("/api/v1/dec/", async (req,res) => {
         method: '-',
         id: req.body.id
     }
+    
+    console.log(data)
 
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
