@@ -33,7 +33,7 @@ async function Read(database) {
 
 async function Update(database, data) {
     let query = {
-        sql: `UPDATE events SET players = players ${method} 1 WHERE id = ${data.id}`
+        sql: `UPDATE events SET players = players ${data.method} 1 WHERE id = ${data.id}`
     }
 
     try {
