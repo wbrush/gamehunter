@@ -151,8 +151,6 @@ app.post("/api/v1/inc/", async (req,res) => {
         id: req.body.id
     }
 
-    console.log(data)
-
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
 
@@ -178,8 +176,6 @@ app.post("/api/v1/dec/", async (req,res) => {
         method: '-',
         id: req.body.id
     }
-    
-    console.log(data)
 
     console.log("got db request - processing")
     acceptHeader = req.header('Accept')
@@ -221,6 +217,8 @@ async function db_Handler(method, data){
             response = await Create(pool, data)
         } else if (method == 'read') {
             response = await Read(pool)
+        } else if (method == 'update') {
+            response = await Update(pool, data)
         } else if (method == 'remove') {
             response = await Delete(pool, data)
         }
