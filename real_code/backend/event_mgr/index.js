@@ -117,7 +117,7 @@ app.post("/api/v1/add", async (req,res) => {
     }
 })
 
-// Api request to remove saved event
+// Api request to withdraw from event
 app.post("/api/v1/remove", async (req,res) => {
     const ids = {
         user: `${req.body.userId}`,
