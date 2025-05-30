@@ -144,8 +144,60 @@ app.post("/api/v1/remove", async (req,res) => {
     return
 })
 
+// Api request to increment event player count
+app.post("/api/v1/inc/", async (req,res) => {
+    const data = {
+        method: '+',
+        id: req.body.id
+    }
+
+    console.log("got db request - processing")
+    acceptHeader = req.header('Accept')
+
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler('update', data)
+        
+        if (response) {
+            res.status(200).json(response)
+        } else {
+            res.status(400).json({ result: false })
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
+})
+
+// Api request to decrement event player count
+app.post("/api/v1/dec/", async (req,res) => {
+    const data = {
+        method: '-',
+        id: req.body.id
+    }
+
+    console.log("got db request - processing")
+    acceptHeader = req.header('Accept')
+
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler('update', data)
+        
+        if (response) {
+            res.status(200).json(response)
+        } else {
+            res.status(400).json({ result: false })
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
+})
+
 const { Open, Close } = require('./docs/db/connection')
-const { Create, Read, Delete } = require('./docs/db/db')
+const { Create, Read, Update, Delete } = require('./docs/db/db')
 
 async function db_Handler(method, data){
     db_host = process.env.db_host

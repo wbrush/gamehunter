@@ -1,4 +1,4 @@
-module.exports = { Create, Read, Delete }
+module.exports = { Create, Read, Update, Delete }
 
 async function Create(database, data) {
     let query = {
@@ -25,6 +25,21 @@ async function Read(database) {
         console.log(query.sql)
         const { rows } = await database.query(query.sql)
         return rows
+    } catch (err) {
+        console.error('ERROR:', err);
+        return err
+    }
+}
+
+async function Update(database, data) {
+    let query = {
+        sql: `UPDATE events SET players = players ${method} 1 WHERE id = ${data.id}`
+    }
+
+    try {
+        console.log(query.sql)
+        const response = await database.query(query.sql)
+        return response
     } catch (err) {
         console.error('ERROR:', err);
         return err
