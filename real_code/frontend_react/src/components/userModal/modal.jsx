@@ -119,7 +119,6 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
                                 name='name'
                                 value={userState.name}
                                 onChange={handleChange}
-                                placeholder='John Smith'
                             />
                         </>
                         ) : (<></>)}
@@ -129,7 +128,6 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
                         name='email'
                         value={userState.email}
                         onChange={handleChange}
-                        placeholder='smith@email.com'
                     />
 
                     <p className="label">Password</p>
