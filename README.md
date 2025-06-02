@@ -27,3 +27,11 @@ These credentials are used by the Google code library. When running locally, the
 # Development Notes
 
 TBD
+
+## Screenshots
+
+### Current Design
+![homepage](/readme_images/current/currentHomepage.png)
+![create page](/readme_images/current/createPage.png)
+
+### Previous Design
