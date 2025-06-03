@@ -99,7 +99,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
     };
 
     const getUserEvents = async (id) => {
-        const response = await getEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/getUserEvents/' + `${id}`)
+        const response = await getEventRequest('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/user/' + `${id}`)
 
         if (response) {
             localStorage.setItem('user_events', response)

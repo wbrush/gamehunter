@@ -33,8 +33,9 @@ const Profile = () => {
     }, [modalVisibility])
 
     const fetchRequest = async (user) => {
-        const url = 'https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/user/' + user.id
+        const url = 'https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/user/' + user.id
         const response = await getFetchRequest(url)
+        console.log(response)
 
         let filtered
         if (response.name != 'error') {
