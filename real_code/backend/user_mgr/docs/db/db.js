@@ -25,7 +25,7 @@ async function Read(database, data) {
         }
     } else if (data.method === 'read') {
         query = {
-            sql: `SELECT * FROM signedevents WHERE user_id = ${data.user.id}`,
+            sql: `select events.id, events.players, events.event_type, events.start_date, events.end_date from signedevents left join events on signedevents.event_id = events.id where signedevents.user_id = ${data.user.id}`,
         }
     }
     
