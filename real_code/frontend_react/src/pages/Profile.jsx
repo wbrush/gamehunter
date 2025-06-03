@@ -35,10 +35,9 @@ const Profile = () => {
     const fetchRequest = async (user) => {
         const url = 'https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/user/' + user.id
         const response = await getFetchRequest(url)
-        console.log(response)
 
         let filtered
-        if (response.name != 'error') {
+        if (response.length > 0) {
             filtered = filterUserEvents(response)
 
             setUpcomingEvents(filtered.upcoming)
@@ -121,7 +120,7 @@ const Profile = () => {
                             <h2>Previous Events</h2>
                             <div className="previous-slider">
                                 <div className="list">
-                                    <EventList array={pastEvents} reduced={true} />
+                                    <EventList array={pastEvents} />
                                 </div>
                             </div>
                         </div>

@@ -20,7 +20,7 @@ const RemoveButton = ({ events, update, id }) => {
     }
 
     return (
-        <button data-key={id} onClick={removeEvent}>Remove</button>
+        <button data-key={id} onClick={removeEvent}>Withdraw</button>
     )
 }
 

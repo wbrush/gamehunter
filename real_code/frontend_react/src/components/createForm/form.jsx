@@ -44,7 +44,7 @@ const Form = ({ form }) => {
         players: 1
         }
         
-        console.log('submitted form', eventDetails)
+        // console.log('submitted form', eventDetails)
         postCreateEventRequest(url, eventDetails)
     }
 

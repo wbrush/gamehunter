@@ -1,28 +1,26 @@
-const EventList = ({ array, dateFormat, reduced }) => {
+const EventList = ({ array }) => {
     return array?.map((event) => {
-        let temp = event.date.split('/')
-        temp = temp[0] + '/' + temp[1]
+        let date = event.start_date.split('T')[0].split('-')
+        date = date[1] + '/' + date[2]
+
+        let time = new Date(event.start_date)
+        let hour = time.getHours()
+        let min = time.getMinutes()
+        let cycle = 'AM'
+
+        if (hour > 12) {
+            hour = hour - 12
+            cycle = 'PM'
+        }
+
+        if (min == 0) {
+            min = '00'
+        }
         
         return (
             <div className="event" key={event.id}>
-                {!reduced ? (
-                    <>
-                        <h1>{temp}</h1>
-                        <p>Time: {event.time}</p>
-                    </>
-                ) : (
-                    <>
-                        <p>Date: {temp}</p>
-                        <p>Sport: {event.sport}</p>
-                    </>
-                )}
-
-                <p>Location: {event.city}, {event.state}</p>
-                <p id="last">Facility: {event.location}</p>
-                
-                {dateFormat ? (
-                    <button data-key={event.id} onClick={dateFormat}>See more</button>
-                ) : (<></>)}
+                <h1>{date}</h1>
+                <p>Time: {hour}:{min} {cycle}</p>
             </div>
         )
     })

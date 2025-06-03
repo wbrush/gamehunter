@@ -39,22 +39,12 @@ const filterUserEvents = (data) => {
     }
 
     data.forEach(element => {
-        const elementDate = new Date(element.date).valueOf()
-
-        element.date = element.date.split('T')
+        const elementDate = new Date(element.start_date).valueOf()
 
         if (currentTimestamp < elementDate) {
-        element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
-        element.time = formatTime(element.date[1])
-        element.date = formatDate(element.date[0])
-
-        events.upcoming.push(element)
+            events.upcoming.push(element)
         } else {
-        element.sport = element.sport.charAt(0).toUpperCase() + element.sport.slice(1)
-        element.time = formatTime(element.date[1])
-        element.date = formatDate(element.date[0])
-
-        events.past.push(element)
+            events.past.push(element)
         }
     })
 
