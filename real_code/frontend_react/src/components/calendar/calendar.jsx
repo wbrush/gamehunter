@@ -32,9 +32,15 @@ const Calendar = () => {
   }
 
   const handleEventClick = (info) => {
-    window.scrollTo({top:0})
-    setCalendarModalVisibility(true)
-    setClickedEventInfo(info._def.extendedProps)
+    const currentDate = Date.now().valueOf()
+    const eventDate = info._def.extendedProps.startDate.valueOf()
+
+    if (currentDate < eventDate) {
+      window.scrollTo({top:0})
+      setCalendarModalVisibility(true)
+      setClickedEventInfo(info._def.extendedProps)
+    }
+
   }
 
   return (

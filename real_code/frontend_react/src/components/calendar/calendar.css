@@ -41,6 +41,14 @@
     cursor: pointer;
 }
 
+.calendar .fc-event-past div {
+    color: grey
+}
+
+.calendar .fc-event-past .fc-daygrid-event-dot {
+    border: calc(var(--fc-daygrid-event-dot-width) / 2) solid grey;
+}
+
 @media screen and (max-width: 600px) {
     .calendar .fc-toolbar-title {
         font-size: 18px;
