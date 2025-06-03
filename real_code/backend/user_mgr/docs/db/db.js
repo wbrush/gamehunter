@@ -16,17 +16,31 @@ async function Create(database, user) {
     }
 }
 
-async function Read(database, user) {
-    let query = {
-        sql: `SELECT * FROM users WHERE email ILIKE '${user.email}'`,
-    }
+async function Read(database, data) {
+    let query
 
+    if (data.method === 'login') {
+        query = {
+            sql: `SELECT * FROM users WHERE email ILIKE '${data.user.email}'`,
+        }
+    } else if (data.method === 'read') {
+        query = {
+            sql: `SELECT * FROM signedevents WHERE user_id = ${data.user.id}`,
+        }
+    }
+    
     // Queries rows from the Albums table
     try {
         console.log(query.sql)
         const { rows } = await database.query(query.sql)
-        console.log('User found:', rows[0])
-        return rows[0]
+        
+        if (data.method === 'login') {
+            console.log('User found:', rows[0])
+            return rows[0]
+        } else if (data.method === 'read') {
+            console.log('Events found', rows)
+            return rows
+        }
     } catch (err) {
         console.error(err);
         return err

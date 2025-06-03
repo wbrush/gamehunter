@@ -90,6 +90,31 @@ app.post("/api/v1/login", async (req,res) => {
     }
 })
 
+// Api request to request a users events
+app.get("/api/v1/user/:id", async (req,res) => {
+    const user = {
+        id: `${req.params.id}`
+    }
+    
+    console.log("got db request - processing")
+    acceptHeader = req.header('Accept')
+
+    if (acceptHeader.includes('json')) {
+        const response = await db_Handler('read', user)
+        
+        if (response) {
+            res.status(200).json(response)
+        } else {
+            res.status(400).json({ result: false })
+        }
+    } else if (acceptHeader.includes('plain')) {
+        res.set('Content-Type', 'text/html')
+        res.status(200).send(databaseSeeds)
+    } else {
+        res.status(412).json({error : "Invalid Accept Header"})
+    }
+})
+
 const { Open, Close } = require('./docs/db/connection')
 const { Create, Read, Update, Delete } = require('./docs/db/db')
 
@@ -100,6 +125,11 @@ async function db_Handler(method, user){
     db_user = process.env.db_user
     db_pwd = process.env.db_pwd
 
+    const data = {
+        user: user,
+        method: method
+    }
+
     console.log(`opening DB connection to ${db_name} under username ${db_user}`)
     try {
         //  connect to postgres DB here
@@ -108,15 +138,19 @@ async function db_Handler(method, user){
         console.log('sending query for user', user)
 
         let response
-        if (method == 'login') {
-            // query for user matching email
-            response = await Read(pool, user)
+        if (data.method === 'login') {
+            response = await Read(pool, data)
             console.log('login response', response)
-
+            
             return response
-        } else if (method == 'signup') {
+        } else if (method === 'signup') {
             response = await Create(pool, user)
             console.log('signup response', response)
+            
+            return response
+        } else if (data.method === 'read') {
+            response = await Read(pool, data)
+            console.log('read response', response)
 
             return response
         }
