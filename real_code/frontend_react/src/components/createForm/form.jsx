@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-import { postCreateEventRequest } from '../../utils/functions'
+import Auth from '../../utils/auth'
+import { postCreateEventRequest, postEventRequest } from '../../utils/functions'
+
+import './form.css'
 
 const Form = ({ form }) => {
     const [date, setDate] = useState(new Date())
@@ -14,12 +17,15 @@ const Form = ({ form }) => {
     const [endHour, setEndHour] = useState(1)
     const [endMinute, setEndMinute] = useState(0)
     const [endCycle, setEndCycle] = useState('AM')
+    const [creationFailure, setCreationFailure] = useState(false)
+    const [signupModal, setSignupModal] = useState(true)
+    const [eventId, setEventId] = useState(null)
 
     useEffect(() => {
         date.setHours(startHour, startMinute, 0, 0)
     }, [])
 
-    const createEvent = () => {
+    const createEvent = async () => {
         if (startCycle === 'PM') {
             date.setHours(Number(startHour) + 12, Number(startMinute))
         } else {
@@ -41,11 +47,43 @@ const Form = ({ form }) => {
         event_type: form,
         start_date: tempStart,
         end_date: tempEnd,
-        players: 1
+        players: 0
         }
         
-        // console.log('submitted form', eventDetails)
-        postCreateEventRequest(url, eventDetails)
+        const result = await postCreateEventRequest(url, eventDetails)
+        if (result.result) {
+            setCreationFailure(false)
+            setSignupModal(true)
+            setEventId(result.id)
+        } else {
+            setCreationFailure(true)
+        }
+    }
+    
+    const eventSignup = async () => {
+        console.log(eventId)
+
+        const userData = Auth.getUser()
+        const data = {
+            user: userData.user.id,
+            event: eventId
+        }
+        const userEvents = JSON.parse(localStorage.getItem('user_events'))
+
+        if (Auth.loggedIn()) {
+            const response = await postEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/add/', data)
+            if (response) {
+                if (userEvents) {
+                    localStorage.setItem('user_events', JSON.stringify([...userEvents, info]))
+                } else {
+                    localStorage.setItem('user_events', JSON.stringify([info]))
+                }
+                setSignupModal(false)
+
+                // increment player count
+                url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/inc/`
+            }
+        }
     }
 
     return (
@@ -125,7 +163,19 @@ const Form = ({ form }) => {
                 </div>
     
                 <p id='form-submit' onClick={() => createEvent()}>Create</p>
+                {signupModal ? (
+                    <div className='create-modal'>
+                        <h2>Event Created</h2>
+                        <h4>Signup?</h4>
+                        <div className="modal-buttons">
+                            <p onClick={eventSignup}>Yes</p>
+                            <p onClick={() => setSignupModal(false)}>No</p>
+                        </div>
+                    </div>
+                ) : null}
             </form>
+
+            {creationFailure ? <p id='error'>Failed to create event</p> : null}
         </div>
     )
 }
