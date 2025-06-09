@@ -1,0 +1,117 @@
+.create-page .create-page-content .event-form {
+    position: relative;
+    width: 40%;
+}
+
+.create-page .create-page-content .event-form form {
+    background-color: rgb(10, 10, 10);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+    min-width: max-content;
+}
+
+.create-page .create-page-content .event-form form h2 {
+    text-align: center;
+}
+
+.create-page .create-page-content .event-form form .section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.create-page .create-page-content .event-form form .section .section-input {
+    display: flex;
+    gap: 10px;
+}
+
+.create-page .create-page-content .event-form form .section .section-input input {
+    width: fit-content;
+}
+
+.create-page .create-page-content .event-form form .section .time-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.create-page .create-page-content .event-form form .section .time-selector select {
+    width: fit-content;
+    padding-right: 20px;
+    text-align: right;
+}
+
+.create-page .create-page-content .event-form form .section label {
+    margin: 0;
+}
+
+.create-page .create-page-content .event-form form .section select,
+.create-page .create-page-content .event-form form .section textarea,
+.create-page .create-page-content .event-form form .section input {
+    margin: 0;
+    padding: 5px;
+    padding-left: 5px;
+    width: 189px;
+    border-radius: 0;
+    border: none;
+}
+
+.create-page .create-page-content .event-form form #form-submit {
+    background-color: blue;
+    color: white;
+    width: fit-content;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: auto;
+}
+
+.create-page .create-page-content .event-form form #form-submit:hover {
+    cursor: pointer;
+}
+
+.event-form #error {
+    color: red;
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.event-form .create-modal {
+    text-align: center;
+}
+
+.event-form .create-modal h2 {
+    margin: 0;
+}
+
+.event-form .create-modal h4 {
+    padding-bottom: 10px;
+}
+
+.event-form .create-modal .modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.event-form .create-modal .modal-buttons p {
+    background-color: blue;
+    color: white;
+    width: fit-content;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0;
+}
+
+.event-form .create-modal .modal-buttons p:hover {
+    cursor: pointer;
+}
