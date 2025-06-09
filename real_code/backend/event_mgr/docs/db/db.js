@@ -5,7 +5,7 @@ async function Create(database, data) {
     if (data.method == 'signup') {
         query = `INSERT INTO signedevents (user_id, event_id) VALUES (${data.user}, ${data.event})`
     } else {
-        query = `INSERT INTO events (start_date, end_date, event_type, players) VALUES ('${data.start_date}', '${data.end_date}', '${data.event_type}', ${data.players})`
+        query = `INSERT INTO events (start_date, end_date, event_type, players) VALUES ('${data.start_date}', '${data.end_date}', '${data.event_type}', ${data.players}) RETURNING id`
     }
 
     try {

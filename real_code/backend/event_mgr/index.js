@@ -53,7 +53,7 @@ app.post("/api/v1/event", async (req,res) => {
         const response = await db_Handler('create', req.body)
         
         if (response) {
-            res.status(200).json({ result: true })
+            res.status(200).json({ result: true, response: response })
         } else {
             res.status(400).json({ result: false })
         }
