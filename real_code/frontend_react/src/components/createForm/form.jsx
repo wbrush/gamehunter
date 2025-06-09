@@ -18,7 +18,7 @@ const Form = ({ form }) => {
     const [endMinute, setEndMinute] = useState(0)
     const [endCycle, setEndCycle] = useState('AM')
     const [creationFailure, setCreationFailure] = useState(false)
-    const [signupModal, setSignupModal] = useState(true)
+    const [signupModal, setSignupModal] = useState(false)
     const [eventId, setEventId] = useState(null)
 
     useEffect(() => {
