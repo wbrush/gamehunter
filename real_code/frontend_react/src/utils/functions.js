@@ -148,9 +148,26 @@ const postCreateEventRequest = async (url, data) => {
         },
         body: JSON.stringify(data)
     })
+    
+    const apiJson = await api.json()
+    return apiJson
+}
+
+// Update player count POST Request
+const postPlayerCountRequest = async (url, eventId) => {
+    const api = await fetch (url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'id': eventId,
+        })
+    })
 
     const apiJson = await api.json()
     return apiJson
 }
 
-export { filterData, getFetchRequest, getEventRequest, postFetchRequest, postEventRequest, postCreateEventRequest, filterUserEvents, formatTime, formatISOTime, formatDate }
+export { filterData, getFetchRequest, getEventRequest, postFetchRequest, postEventRequest, postCreateEventRequest, postPlayerCountRequest, filterUserEvents, formatTime, formatISOTime, formatDate }
