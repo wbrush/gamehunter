@@ -102,7 +102,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
         const response = await getEventRequest('https://gh-user-mgr-462896897923.us-central1.run.app/api/v1/user/' + `${id}`)
 
         if (response) {
-            localStorage.setItem('user_events', response)
+            localStorage.setItem('user_events', JSON.stringify(response))
         }
     }
 
