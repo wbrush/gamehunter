@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Auth from '../../../utils/auth';
-import { postEventRequest, formatISOTime } from '../../../utils/functions';
+import { postEventRequest, postPlayerCountRequest, formatISOTime } from '../../../utils/functions';
 
 import './modal.css';
 
@@ -44,12 +44,16 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
         } else {
             const response = await postEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/add/', data)
             if (response) {
-                console.log(userEvents)
                 if (userEvents) {
                     localStorage.setItem('user_events', JSON.stringify([...userEvents, info]))
                 } else {
                     localStorage.setItem('user_events', JSON.stringify([info]))
                 }
+
+                // increment player count
+                const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/inc/`
+                await postPlayerCountRequest(url, info.id)
+
                 setModalVisibility(false)
             }
         }
@@ -70,6 +74,11 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
             const response = await postEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/remove/', data)
             if (response) {
                 localStorage.setItem('user_events', JSON.stringify(userEvents.filter(event => event.id !== info.id)))
+
+                // decrement player count
+                const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/dec/`
+                await postPlayerCountRequest(url, info.id)
+
                 setModalVisibility(false)
             }
         }

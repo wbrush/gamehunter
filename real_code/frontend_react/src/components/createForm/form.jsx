@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import Auth from '../../utils/auth'
-import { postCreateEventRequest, postEventRequest } from '../../utils/functions'
+import { postCreateEventRequest, postEventRequest, postPlayerCountRequest } from '../../utils/functions'
 
 import './form.css'
 
@@ -19,7 +19,13 @@ const Form = ({ form }) => {
     const [endCycle, setEndCycle] = useState('AM')
     const [creationFailure, setCreationFailure] = useState(false)
     const [signupModal, setSignupModal] = useState(false)
-    const [eventId, setEventId] = useState(null)
+    const [eventInfo, setEventInfo] = useState({
+        id: 0,
+        endDate: '',
+        startDate: '',
+        title: '',
+        players: 0
+    })
 
     useEffect(() => {
         date.setHours(startHour, startMinute, 0, 0)
@@ -54,19 +60,30 @@ const Form = ({ form }) => {
         if (result.result) {
             setCreationFailure(false)
             setSignupModal(true)
-            setEventId(result.id)
+            
+            let eventTitle
+            if (form === 'open') {
+                eventTitle = 'Open Gym'
+            } else {
+                eventTitle = 'Reserved Court'
+            }
+            setEventInfo({
+                id: result.response.rows[0].id,
+                startDate: tempStart,
+                endDate: tempEnd,
+                title: eventTitle,
+                players: 0
+            })
         } else {
             setCreationFailure(true)
         }
     }
     
     const eventSignup = async () => {
-        console.log(eventId)
-
         const userData = Auth.getUser()
         const data = {
             user: userData.user.id,
-            event: eventId
+            event: eventInfo.id
         }
         const userEvents = JSON.parse(localStorage.getItem('user_events'))
 
@@ -74,14 +91,15 @@ const Form = ({ form }) => {
             const response = await postEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/add/', data)
             if (response) {
                 if (userEvents) {
-                    localStorage.setItem('user_events', JSON.stringify([...userEvents, info]))
+                    localStorage.setItem('user_events', JSON.stringify([...userEvents, eventInfo]))
                 } else {
-                    localStorage.setItem('user_events', JSON.stringify([info]))
+                    localStorage.setItem('user_events', JSON.stringify([eventInfo]))
                 }
                 setSignupModal(false)
 
                 // increment player count
-                url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/inc/`
+                const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/inc/`
+                await postPlayerCountRequest(url, eventInfo.id)
             }
         }
     }
