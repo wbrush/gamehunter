@@ -1,29 +1,54 @@
-const EventList = ({ array }) => {
-    return array?.map((event) => {
-        let date = event.start_date.split('T')[0].split('-')
-        date = date[1] + '/' + date[2]
+import SignupBtn from './signupBtn'
 
-        let time = new Date(event.start_date)
-        let hour = time.getHours()
-        let min = time.getMinutes()
-        let cycle = 'AM'
+import { formatISOTime } from "../../utils/functions"
 
-        if (hour > 12) {
-            hour = hour - 12
-            cycle = 'PM'
-        }
+import './list.css'
 
-        if (min == 0) {
-            min = '00'
-        }
+const EventList = ({ eventList, length }) => {
+    let userEvents = JSON.parse(localStorage.getItem('user_events'))
+
+    const temp = []
+    const currentDate = Date.now().valueOf()
+
+    eventList?.map((event) => {
+        const eventDate = event.extendedProps.startDate.valueOf()
         
-        return (
-            <div className="event" key={event.id}>
-                <h1>{date}</h1>
-                <p>Time: {hour}:{min} {cycle}</p>
-            </div>
-        )
+        if (currentDate < eventDate && temp.length < length) {
+            temp.push(event)
+        }
     })
+    
+    return (
+        <div className='upcoming-events'>
+            {temp.map((event, i) => {
+                let dateString = new Date(event.start).toDateString().split(' ')
+                if (dateString[2][0] === '0') {
+                    dateString[2] = dateString[2][1]
+                }
+                dateString = `${dateString[1]} ${dateString[2]}, ${dateString[3]}`
+                
+                const startTimeString = formatISOTime(event.extendedProps.startDate.toTimeString())
+                const endTimeString = formatISOTime(event.extendedProps.endDate.toTimeString())
+                
+                return  (
+                    <div className="event" key={i}>
+                        <h1>{event.title}</h1>
+
+                        <div className="event-details">
+                            <p>{dateString}</p>
+                            <p>Start Time: {startTimeString}</p>
+                            <p>End Time: {endTimeString}</p>
+                            <p>Players: {event.extendedProps.players}</p>
+                        </div>
+
+                        <div className="signup">
+                            <SignupBtn userEvents={userEvents} eventInfo={temp[i]} />
+                        </div>
+                    </div>
+                )
+            })}
+        </div>
+    )
 }
 
 export default EventList

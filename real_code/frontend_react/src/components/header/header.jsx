@@ -17,13 +17,14 @@ const Header = ({ modalVisibility, setModalVisibility, setModalDisplay }) => {
     return (
         <header>
             <nav>
-                <div className="links">
-                    <Link to="/" id="header-title">Home</Link>
-
-                    <Link to="/create">Create</Link>
+                <div className="logo">
+                    <img src='/icons/volleyball-solid.svg' id='logo' />
+                    <h4>GameHunter</h4>
                 </div>
 
-                <div className="user">
+                <div className="links">
+                    <Link to="/">Home</Link>
+
                     {Auth.loggedIn() ? (
                         <>
                             <Link to="/profile">Profile</Link>

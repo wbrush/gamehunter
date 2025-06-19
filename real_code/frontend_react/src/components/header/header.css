@@ -1,53 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+header {
+    background-color: rgb(8, 18, 37);
+}
+
 header nav {
-    width: 1140px;
-    max-width: 80%;
-    margin: auto;
-    height: 50px;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+    height: 75px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
-    z-index: 100;
-    font-family: Poppins;
+    padding: 0 40px;
 }
 
-header nav .links,
-header nav .user {
+.logo {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
+    color: white;
 }
 
-header nav p,
-header nav a,
-header nav button {
+#logo {
+    height: 50px;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.links a,
+.links button {
+    flex: 1;
     margin: 0;
     text-decoration: none;
     color: white;
     font-size: 16px;
     background-color: transparent;
     border: none;
+    padding: 15px 20px;
 }
 
-header nav a:hover,
-header nav button:hover {
+.links a,
+.links button {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.links a:hover,
+.links button:hover {
     cursor: pointer;
-    text-decoration: underline;
-    color: rgb(67, 67, 255);
-}
-
-@media screen and (max-width: 500px) {
-    header nav .links,
-    header nav .user {
-        gap: 10px;
-    }
-
-    header nav p,
-    header nav a,
-    header nav button {
-        margin: 0;
-        font-size: 12px;
-    }
+    background-color: rgb(13, 24, 44);
 }

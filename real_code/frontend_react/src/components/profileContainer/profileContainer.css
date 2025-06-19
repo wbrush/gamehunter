@@ -1,0 +1,45 @@
+.profile-page .list .event {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    padding: 10px;
+    background-color: rgb(30, 44, 70);
+    color: white;
+    border-radius: 20px;
+}
+
+.profile-page .list .event h1 {
+    text-align: center;
+    border-bottom: 1px solid grey;
+}
+
+.profile-page .list .event #last {
+    margin-bottom: 15px;
+}
+
+.profile-page .list .event button {
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: fit-content;
+    color: black;
+    padding: 5px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.profile-page .list .event button:hover {
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+}
+
+.profile-page .list .event * {
+    margin: 0;
+}
+
+.profile-page .list .event:nth-child(even) {
+    background-color: rgb(8, 18, 37);
+}

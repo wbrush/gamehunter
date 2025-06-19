@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Auth from '../../../utils/auth';
 import { postEventRequest, postPlayerCountRequest, formatISOTime } from '../../../utils/functions';
@@ -7,6 +7,7 @@ import './modal.css';
 
 const Modal = ({ modalVisibility, setModalVisibility, info }) => {
     let userEvents = JSON.parse(localStorage.getItem('user_events'))
+    
     let dateString
     let startTimeString
     let endTimeString
@@ -34,7 +35,7 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
     const eventSignup = async () => {
         const userData = Auth.getUser()
         const data = {
-            user: userData.user.id,
+            user: userData?.user.id,
             event: info.id
         }
         userEvents = JSON.parse(localStorage.getItem('user_events'))
@@ -62,7 +63,7 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
     const eventWithdraw = async () => {
         const userData = Auth.getUser()
         const data = {
-            user: userData.user.id,
+            user: userData?.user.id,
             event: info.id
         }
 
@@ -86,6 +87,9 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
 
     if (info.startDate) {
         dateString = new Date(info.startDate).toDateString().split(' ')
+        if (dateString[2][0] === '0') {
+            dateString[2] = dateString[2][1]
+        }
         dateString = `${dateString[1]} ${dateString[2]}`
         
         startTimeString = formatISOTime(info.startDate.toTimeString())
@@ -112,7 +116,6 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
 
                     <p style={errorMsg}>Please login to sign up for events</p>
                     {userEvents?.find(eventSearch) ? <button onClick={eventWithdraw}>Withdraw</button> : <button onClick={eventSignup}>Signup</button>}
-                    
                 </div>
             </div>
         ) : null

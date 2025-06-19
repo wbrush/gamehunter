@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 
 import Header from '../components/header/header'
 import Modal from '../components/userModal/modal'
-import EventList from '../components/eventList/list'
 import ProfileContainer from '../components/profileContainer/profileContainer';
 
 import Auth from '../utils/auth'
@@ -108,19 +107,24 @@ const Profile = () => {
                         </div>
 
                         <div className="upcoming-events">
-                            <h2>Upcoming Events</h2>
+                            <div className="section-header">
+                                <h2>Upcoming Events</h2>
+                            </div>
+
                             <div className="upcoming-slider">
                                 <div className="list">
-                                    <ProfileContainer response={upcomingEvents} setUpcomingEvents={setUpcomingEvents} />
+                                    <ProfileContainer eventList={upcomingEvents} length={4} />
                                 </div>
                             </div>
                         </div>
 
                         <div className="previous-events">
-                            <h2>Previous Events</h2>
+                            <div className="section-header">
+                                <h2>Previous Events</h2>
+                            </div>
                             <div className="previous-slider">
                                 <div className="list">
-                                    <EventList array={pastEvents} />
+                                    <ProfileContainer eventList={pastEvents} length={4} past={true} />
                                 </div>
                             </div>
                         </div>

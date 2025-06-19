@@ -1,5 +1,6 @@
 .homepage {
     height: 100%;
+    background-color: white;
 }
 
 .homepage-content {
@@ -10,4 +11,70 @@
 .homepage-content .calendar {
     height: 40%;
     margin: 0 auto;
+}
+
+.create-event {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(8, 18, 37);
+    color: white;
+    position: relative;
+}
+
+#divider {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 400px;
+    background-color: white;
+}
+
+.upcoming-event-section {
+    width: 100%;
+    padding: 0 7.5%;
+    background-color: rgb(8, 18, 37);
+}
+
+.upcoming-event-section .section-header {
+    color: white;
+}
+
+.upcoming-cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.upcoming-cta-buttons button {
+    background-color: rgb(8, 18, 37);
+    border: 1px solid white;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.upcoming-cta-buttons button:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(8, 18, 37);
+}
+
+.about-section {
+    width: 85%;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+.about-section .section-header {
+    background-color: rgb(8, 18, 37);
+}
+
+.about-section .section-header h1 {
+    background-color: white;
+    width: fit-content;
+    padding-right: 20px;
 }

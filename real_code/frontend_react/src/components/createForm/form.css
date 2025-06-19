@@ -1,10 +1,8 @@
-.create-page .create-page-content .event-form {
-    position: relative;
-    width: 40%;
+.event-form {
+    height: 450px;
 }
 
-.create-page .create-page-content .event-form form {
-    background-color: rgb(10, 10, 10);
+.event-form form {
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -14,11 +12,11 @@
     min-width: max-content;
 }
 
-.create-page .create-page-content .event-form form h2 {
+.event-form form h2 {
     text-align: center;
 }
 
-.create-page .create-page-content .event-form form .section {
+.event-form form .section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,33 +24,33 @@
     gap: 10px;
 }
 
-.create-page .create-page-content .event-form form .section .section-input {
+.event-form form .section .section-input {
     display: flex;
     gap: 10px;
 }
 
-.create-page .create-page-content .event-form form .section .section-input input {
+.event-form form .section .section-input input {
     width: fit-content;
 }
 
-.create-page .create-page-content .event-form form .section .time-selector {
+.event-form form .section .time-selector {
     display: flex;
     gap: 10px;
 }
 
-.create-page .create-page-content .event-form form .section .time-selector select {
+.event-form form .section .time-selector select {
     width: fit-content;
     padding-right: 20px;
     text-align: right;
 }
 
-.create-page .create-page-content .event-form form .section label {
+.event-form form .section label {
     margin: 0;
 }
 
-.create-page .create-page-content .event-form form .section select,
-.create-page .create-page-content .event-form form .section textarea,
-.create-page .create-page-content .event-form form .section input {
+.event-form form .section select,
+.event-form form .section textarea,
+.event-form form .section input {
     margin: 0;
     padding: 5px;
     padding-left: 5px;
@@ -61,18 +59,22 @@
     border: none;
 }
 
-.create-page .create-page-content .event-form form #form-submit {
-    background-color: blue;
-    color: white;
+.event-form form #form-submit {
+    background-color: white;
+    color: black;
     width: fit-content;
-    border: none;
+    border: 1px solid rgb(8, 18, 37);
+    font-weight: 500;
     border-radius: 5px;
     padding: 5px;
     margin: auto;
 }
 
-.create-page .create-page-content .event-form form #form-submit:hover {
+.event-form form #form-submit:hover {
     cursor: pointer;
+    background-color: rgb(8, 18, 37);
+    border: 1px solid white;
+    color: white;
 }
 
 .event-form #error {
@@ -114,4 +116,13 @@
 
 .event-form .create-modal .modal-buttons p:hover {
     cursor: pointer;
+}
+
+.event-form #error {
+    color: red;
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 14px;
+    text-align: center;
 }

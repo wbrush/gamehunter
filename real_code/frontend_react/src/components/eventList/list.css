@@ -1,0 +1,40 @@
+.upcoming-events {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        gap: 10px;
+}
+
+.event {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 20%;
+}
+
+.event-details {
+    margin: 10px 0;
+}
+
+.signup {
+    text-align: center;
+}
+
+#event-button {
+    background-color: rgb(8, 18, 37);
+    color: white;
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#event-button:hover {
+    cursor: pointer;
+    background-color: white;
+    color: rgb(8, 18, 37);
+    border: 1px solid rgb(8, 18, 37);
+}

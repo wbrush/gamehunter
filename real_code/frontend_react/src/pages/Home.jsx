@@ -1,15 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { filterData, getFetchRequest } from '../utils/functions';
 
 import Header from '../components/header/header';
 import Modal from '../components/userModal/modal';
 import Hero from '../components/hero/hero';
 import Calendar from '../components/calendar/calendar';
+import EventList from '../components/eventList/list';
+import Footer from '../components/footer/footer';
 
 import '../pagescss/home.css'
+import Form from '../components/createForm/form';
 
 const Home = () => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
+  
+  const [calendarVisibility, setCalendarVisibility ] = useState(false);
+  const [events, setEvents] = useState();
+  const [eventsLength, setEventsLength] = useState(4);
+
+  const [createFormVisibility, setCreateFormVisibility] = useState(false)
+
+  useEffect(() => {
+    fetchRequest()
+  }, [])
+
+  const fetchRequest = async () => {
+    const response = await getFetchRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/events/')
+    const filtered = filterData(response)
+    
+    setEvents(filtered)
+  }
 
   return (
     <div className='homepage'>
@@ -17,8 +38,49 @@ const Home = () => {
       <Modal modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} modalDisplay={modalDisplay} setModalDisplay={setModalDisplay} />
       
       <div className='homepage-content'>
-        <Hero />
-        <Calendar />
+        <Hero formVisibility={createFormVisibility} setFormVisibility={setCreateFormVisibility} />
+
+        <div style={{backgroundColor: 'rgb(8, 18, 37)', height: '95px', position: 'relative'}}>
+          <div style={{backgroundColor: 'white', height: '190px', width: '190px', borderRadius: '50%', position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)'}}></div>
+        </div>
+
+        <div className="create-event">
+          {createFormVisibility ? (
+            <>
+              <Form form='open' />
+              <div id="divider" />
+              <Form form='reserve' />
+            </>
+          ) : null}
+        </div>
+
+        <div className='upcoming-event-section'>
+          <div className="section-header">
+            <h1>Upcoming Events</h1>
+          </div>
+
+          <EventList eventList={events} length={eventsLength} />
+
+          <div className="upcoming-cta-buttons">
+            <button onClick={() => setEventsLength(eventsLength + 4)}>See more events</button>
+            {calendarVisibility ? <button onClick={() => setCalendarVisibility(!calendarVisibility)}>Hide full calendar</button> : <button onClick={() => setCalendarVisibility(!calendarVisibility)}>See full calendar</button>}
+          </div>
+        </div>
+
+        {calendarVisibility ? <Calendar eventList={events} /> : null}
+
+        <div className='about-section'>
+          <div className="section-header">
+            <h1>About Us</h1>
+          </div>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum sit, at doloribus est voluptas odit architecto ad ipsa provident distinctio, error unde, id consequuntur. Assumenda culpa voluptate libero repellat debitis.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum sit, at doloribus est voluptas odit architecto ad ipsa provident distinctio, error unde, id consequuntur. Assumenda culpa voluptate libero repellat debitis.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum sit, at doloribus est voluptas odit architecto ad ipsa provident distinctio, error unde, id consequuntur. Assumenda culpa voluptate libero repellat debitis.</p>
+        </div>
+
+        <Footer />
+
       </div>
     </div>
   )

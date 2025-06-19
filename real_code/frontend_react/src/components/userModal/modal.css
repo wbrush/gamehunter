@@ -9,49 +9,54 @@
     display: flex;
     color: white;
     font-family: Poppins;
-    margin-top: -50px;
+    margin-top: -75px;
 }
 
 .user-modal h2 {
-    background-color: blue;
+    background-color: rgb(8, 18, 37);
     color: white;
     width: 100%;
     text-align: center;
     padding: 10px;
     margin: 0;
     font-size: 1.5em;
+    border-radius: 5px 5px 0 0;
 }
 
 .user-modal button {
-    background-color: blue;
+    background-color: rgb(8, 18, 37);
     color: white;
     padding: 10px;
     margin: 15px;
-    border: none;
+    border: 1px solid white;
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .user-modal button:hover {
     cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(8, 18, 37);
 }
 
 .label {
     margin: 0;
     padding-top: 15px;
     padding-bottom: 5px;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .user-modal form {
     width: 30%;
     margin: auto;
-    background-color: black;
-    border-radius: 5px;
+    background-color: white;
+    color: black;
+    border-radius: 7px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
     position: relative;
 }
 
@@ -61,16 +66,19 @@
     right: 0;
     padding: 1rem;
     margin: 0;
-    color: blue;
+    color: black;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
     text-decoration: underline;
-    background-color: black;
+    background-color: white;
     border: none;
+    border-radius: 5px 0 5px 0;
 }
 
 #modal-switch:hover {
     cursor: pointer;
+    background-color: rgb(199, 199, 199);
+    border-radius: 5px 0 5px 0;
 }
 
 #hidden {

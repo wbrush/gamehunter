@@ -1,4 +1,5 @@
 .calendar {
+    position: relative;
     padding: 10px;
     width: 100%;
     max-width: 1200px;
@@ -15,7 +16,7 @@
 .calendar .fc-timegrid-slot-label-cushion,
 .calendar .fc-toolbar-title,
 .calendar .fc-daygrid-day-number {
-    color: white;
+    color: black;
 }
 
 .calendar .fc-col-header-cell-cushion:hover {
@@ -28,17 +29,21 @@
 }
 
 .calendar .fc-theme-standard td {
-    border: 1px solid grey
+    border: 1px solid black
 }
 
 .calendar .fc-daygrid-day-number:hover {
     text-decoration: none;
-    color: white;
     cursor: default;
 }
 
 .calendar .fc-event:hover {
     cursor: pointer;
+}
+
+.calendar .fc-event-past:hover {
+    background-color: white;
+    cursor: default;
 }
 
 .calendar .fc-event-past div {

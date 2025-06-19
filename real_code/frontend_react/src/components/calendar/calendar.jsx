@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -6,41 +6,25 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import UserModal from '../userModal/modal';
 import CalendarModal from './calendarModal/modal';
 
-import { filterData, getFetchRequest } from '../../utils/functions';
-
 import './calendar.css';
 
-const Calendar = () => {
+const Calendar = ({ eventList }) => {
   const [modalVisibility, setModalVisibility ] = useState(false);
   const [modalDisplay, setModalDisplay] = useState('Login');
 
   const [calendarModalVisibility, setCalendarModalVisibility ] = useState(false);
   const [clickedEventInfo, setClickedEventInfo] = useState({});
-  const [events, setEvents] = useState()
 
   const calendarRef = useRef(null)
-  
-  useEffect(() => {
-    fetchRequest()
-  }, [])
-
-  const fetchRequest = async () => {
-    const response = await getFetchRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/events/')
-    const filtered = filterData(response)
-    
-    setEvents(filtered)
-  }
 
   const handleEventClick = (info) => {
     const currentDate = Date.now().valueOf()
     const eventDate = info._def.extendedProps.startDate.valueOf()
 
     if (currentDate < eventDate) {
-      window.scrollTo({top:0})
       setCalendarModalVisibility(true)
       setClickedEventInfo(info._def.extendedProps)
     }
-
   }
 
   return (
@@ -64,13 +48,14 @@ const Calendar = () => {
           }}
           slotDuration={'01:00'}
           contentHeight='auto'
-          events={events}
+          events={eventList}
           eventClick={(eventInfo) => handleEventClick(eventInfo.event)}
           ref={calendarRef}
         />
+        
+        <CalendarModal modalVisibility={calendarModalVisibility} setModalVisibility={setCalendarModalVisibility} info={clickedEventInfo} />
       </div>
 
-      <CalendarModal modalVisibility={calendarModalVisibility} setModalVisibility={setCalendarModalVisibility} info={clickedEventInfo} />
     </>
   )
 }

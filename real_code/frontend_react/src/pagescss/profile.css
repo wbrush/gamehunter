@@ -1,14 +1,5 @@
 body {
-    background-color: black;
-}
-
-.profile-page h2 {
-    color: orangered;
-}
-
-.profile-page .user {
-    color: white;
-    border-bottom: 1px solid white;
+    background-color: white;
 }
 
 .profile-page .user .user-content {
@@ -19,7 +10,7 @@ body {
 .profile-page .user h1 {
     margin-bottom: 30px;
     text-align: center;
-    color: orangered;
+    color: black;
 }
 
 .profile-page .user-info {
@@ -28,101 +19,42 @@ body {
     gap: 30%;
 }
 
-.profile-page .upcoming-events {
+.profile-page .upcoming-events,
+.profile-page .previous-events {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-bottom: 20px;
     border-bottom: 1px solid white;
     overflow: hidden;
+    color: rgb(8, 18, 37);
+    width: 80%;
+    margin: 0 auto;
 }
 
-.profile-page .upcoming-events .upcoming-slider {
-    min-height: 150px;
+.profile-page .upcoming-events .upcoming-slider,
+.profile-page .previous-events .previous-slider {
+    width: 100%;
 }
 
-.profile-page .upcoming-events .upcoming-slider .list {
-    display: flex;
+.profile-page .upcoming-events .upcoming-slider .list,
+.profile-page .previous-events .previous-slider .list {
+    display: grid;
+    grid-template-columns: 23% 23% 23% 23%;
     gap: 5px;
     height: 100%;
     margin-top: 10px;
 }
 
-.profile-page .upcoming-events .upcoming-slider .list .event {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    padding: 10px;
+.section-header {
+    background-color: rgb(8, 18, 37);
+    width: 100%;
+}
+
+.section-header h2 {
     background-color: white;
-    color: black;
-    border-radius: 20px;
-    width: 300px;
-}
-
-.profile-page .upcoming-events .upcoming-slider .list .event h1 {
-    text-align: center;
-    border-bottom: 1px solid grey;
-}
-
-.profile-page .upcoming-events .upcoming-slider .list .event #last {
-    margin-bottom: 15px;
-}
-
-.profile-page .upcoming-events .upcoming-slider .list .event button {
-    background-color: transparent;
-    border: none;
+    color: rgb(8, 18, 37);
     width: fit-content;
-    color: blue;
-    padding-bottom: 5px;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.profile-page .upcoming-events .upcoming-slider .list .event button:hover {
-    cursor: pointer;
-}
-
-.profile-page .upcoming-events .upcoming-slider .list .event * {
     margin: 0;
-}
-
-.profile-page .upcoming-events .upcoming-slider .list .event:nth-child(even) {
-    background-color: rgb(237, 237, 237);
-}
-
-.profile-page .previous-events {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-.profile-page .previous-events .previous-slider .list {
-    width: 80%;
-    margin: 0 auto;
-    padding-bottom: 10px;
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
-    text-align: left;
-}
-
-.profile-page .previous-events .previous-slider .list .event {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    position: inherit;
-    padding: 10px;
-    background-color: black;
-    color: white;
-    border: 1px solid rgb(50, 50, 50);
-    box-shadow: 2px 2px 5px rgb(50, 50, 50);
-}
-
-.profile-page .previous-events .previous-slider .list .event * {
-    margin: 0;
+    padding-right: 30px;
 }
