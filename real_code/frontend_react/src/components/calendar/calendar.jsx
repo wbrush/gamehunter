@@ -19,7 +19,7 @@ const Calendar = ({ eventList }) => {
 
   const handleEventClick = (info) => {
     const currentDate = Date.now().valueOf()
-    const eventDate = info._def.extendedProps.startDate.valueOf()
+    const eventDate = info._def.extendedProps.start_date.valueOf()
 
     if (currentDate < eventDate) {
       setCalendarModalVisibility(true)

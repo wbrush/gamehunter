@@ -29,7 +29,7 @@ const ProfileContainer = ({ eventList, length, past }) => {
             let index = temp.map(element => element.id).indexOf(ids.event)
             temp.splice(index, 1)
 
-            localStorage.setItem('user_events', JSON.stringify([...eventList]))
+            localStorage.setItem('user_events', JSON.stringify([...temp]))
 
             // decrement player count
             const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/dec/`

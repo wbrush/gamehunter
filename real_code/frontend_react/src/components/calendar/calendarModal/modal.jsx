@@ -55,7 +55,7 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
                 const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/inc/`
                 await postPlayerCountRequest(url, info.id)
 
-                setModalVisibility(false)
+                location.reload()
             }
         }
     }
@@ -80,20 +80,20 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
                 const url = `https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/dec/`
                 await postPlayerCountRequest(url, info.id)
 
-                setModalVisibility(false)
+                location.reload()
             }
         }
     }
 
-    if (info.startDate) {
-        dateString = new Date(info.startDate).toDateString().split(' ')
+    if (info.start_date) {
+        dateString = new Date(info.start_date).toDateString().split(' ')
         if (dateString[2][0] === '0') {
             dateString[2] = dateString[2][1]
         }
         dateString = `${dateString[1]} ${dateString[2]}`
         
-        startTimeString = formatISOTime(info.startDate.toTimeString())
-        endTimeString = formatISOTime(info.endDate.toTimeString())
+        startTimeString = formatISOTime(info.start_date.toTimeString())
+        endTimeString = formatISOTime(info.end_date.toTimeString())
     }
 
     const eventSearch = (event) => {
@@ -104,7 +104,7 @@ const Modal = ({ modalVisibility, setModalVisibility, info }) => {
         (
             <div className="calendar-modal" onClick={toggleModal}>
                 <div className="content">
-                    <h1>{info.title}</h1>
+                    {info.event_type === 'open' ? <h1>Open Gym</h1> : <h1>Reserved Court</h1>}
                     <button onClick={toggleModal} id='close'>X</button>
 
                     <div className="event-info">

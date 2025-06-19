@@ -103,6 +103,7 @@ const Modal = ({ modalVisibility, setModalVisibility, modalDisplay, setModalDisp
 
         if (response) {
             localStorage.setItem('user_events', JSON.stringify(response))
+            location.reload()
         }
     }
 

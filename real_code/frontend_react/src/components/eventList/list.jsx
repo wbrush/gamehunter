@@ -11,7 +11,7 @@ const EventList = ({ eventList, length }) => {
     const currentDate = Date.now().valueOf()
 
     eventList?.map((event) => {
-        const eventDate = event.extendedProps.startDate.valueOf()
+        const eventDate = new Date(event.extendedProps.start_date).valueOf()
         
         if (currentDate < eventDate && temp.length < length) {
             temp.push(event)
@@ -27,8 +27,8 @@ const EventList = ({ eventList, length }) => {
                 }
                 dateString = `${dateString[1]} ${dateString[2]}, ${dateString[3]}`
                 
-                const startTimeString = formatISOTime(event.extendedProps.startDate.toTimeString())
-                const endTimeString = formatISOTime(event.extendedProps.endDate.toTimeString())
+                const startTimeString = formatISOTime(event.extendedProps.start_date.toTimeString())
+                const endTimeString = formatISOTime(event.extendedProps.end_date.toTimeString())
                 
                 return  (
                     <div className="event" key={i}>

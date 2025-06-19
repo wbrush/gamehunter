@@ -57,7 +57,7 @@ const SignupBtn = ({userEvents, eventInfo}) => {
 
         if (Auth.loggedIn()) {
             const response = await postEventRequest('https://gh-event-mgr-462896897923.us-central1.run.app/api/v1/remove/', data)
-            if (response) {
+            if (response.result) {
                 localStorage.setItem('user_events', JSON.stringify(userEvents.filter(clickedEvent => clickedEvent.id !== eventInfo.extendedProps.id)))
 
                 // decrement player count
