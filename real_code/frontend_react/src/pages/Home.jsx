@@ -74,9 +74,8 @@ const Home = () => {
             <h1>About Us</h1>
           </div>
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum sit, at doloribus est voluptas odit architecto ad ipsa provident distinctio, error unde, id consequuntur. Assumenda culpa voluptate libero repellat debitis.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum sit, at doloribus est voluptas odit architecto ad ipsa provident distinctio, error unde, id consequuntur. Assumenda culpa voluptate libero repellat debitis.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum sit, at doloribus est voluptas odit architecto ad ipsa provident distinctio, error unde, id consequuntur. Assumenda culpa voluptate libero repellat debitis.</p>
+          <p><span id='whitespace'>span</span>At GameHunter, we believe that sports and fitness have the power to transform lives. Since 2025, we've been dedicated to creating dynamic, inclusive, and high-performance environments where athletes of all levels can train, compete, and thrive.</p>
+          <p><span id='whitespace'>span</span>Whether you're a professional athlete, a weekend warrior, or just starting your fitness journey, our state-of-the-art facilities and expert staff are here to support your goals. With both indoor/outdoor courts and youth programs, we offer everything you need to perform at your best.</p>
         </div>
 
         <Footer />

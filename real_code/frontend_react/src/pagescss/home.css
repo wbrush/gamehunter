@@ -79,3 +79,11 @@
     padding-right: 20px;
     color: rgb(8, 18, 37);
 }
+
+.about-section p {
+    margin-top: 15px;
+}
+
+#whitespace {
+    color: white;
+}
