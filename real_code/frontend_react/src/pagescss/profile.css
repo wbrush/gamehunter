@@ -28,7 +28,7 @@ body {
     border-bottom: 1px solid white;
     overflow: hidden;
     color: rgb(8, 18, 37);
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -58,6 +58,11 @@ body {
     padding-right: 30px;
 }
 
+.profile-page .list .event {
+    max-width: 200px;
+    min-width: 120px;
+}
+
 @media screen and (max-width: 550px) {
     .profile-page .user-info {
         flex-direction: column;
@@ -73,10 +78,6 @@ body {
     .profile-page .upcoming-events .upcoming-slider,
     .profile-page .previous-events .previous-slider {
         overflow-x: scroll;
-    }
-
-    .profile-page .list .event {
-        min-width: 120px;
     }
 
     .section-header h2 {
