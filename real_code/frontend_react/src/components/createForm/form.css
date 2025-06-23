@@ -1,3 +1,7 @@
+.create-event {
+    position: relative;
+}
+
 .event-form {
     height: 450px;
 }
@@ -88,6 +92,15 @@
 
 .event-form .create-modal {
     text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 10;
 }
 
 .event-form .create-modal h2 {
@@ -105,17 +118,20 @@
 }
 
 .event-form .create-modal .modal-buttons p {
-    background-color: blue;
+    background-color: rgb(8, 18, 37);
     color: white;
     width: fit-content;
-    border: none;
+    border: 1px solid white;
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px 10px;
     margin: 0;
 }
 
 .event-form .create-modal .modal-buttons p:hover {
     cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(8, 18, 37);
 }
 
 .event-form #error {
