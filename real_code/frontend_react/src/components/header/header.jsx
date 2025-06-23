@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../../utils/auth'
 import './header.css';
 
 const Header = ({ modalVisibility, setModalVisibility, setModalDisplay }) => {
+    const [toggleHamburger, setToggleHamburger] = useState(false)
+
     const displayModal = (event) => {
         if (!modalVisibility) {
             setModalVisibility(!modalVisibility)
@@ -37,6 +40,26 @@ const Header = ({ modalVisibility, setModalVisibility, setModalDisplay }) => {
                         </>
                     )}
                 </div>
+                
+                <img onClick={() => setToggleHamburger(!toggleHamburger)} src='/icons/bars-solid.svg' id='hamburger' />
+
+                {toggleHamburger ? 
+                    <div className="hamburger-links">
+                        <Link to="/">Home</Link>
+
+                        {Auth.loggedIn() ? (
+                            <>
+                                <Link to="/profile">Profile</Link>
+                                <button onClick={logout}>Logout</button>
+                            </>
+                        ) : (
+                            <>
+                                <button onClick={displayModal}>Login</button>
+                                <button onClick={displayModal}>Signup</button>
+                            </>
+                        )}
+                    </div>
+                : null}
             </nav>
         </header>
     )

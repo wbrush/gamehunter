@@ -46,3 +46,59 @@
     border: 1px solid rgb(8, 18, 37);
     text-decoration: none;
 }
+
+.hero-divider {
+    background-color: rgb(8, 18, 37);
+    height: 95px;
+    position: relative;
+}
+
+.hero-divider #divider-circle {
+    background-color: white;
+    height: 190px;
+    width: 190px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 550px) {
+    .hero-action h4 {
+        font-size: 16px;
+    }
+
+    .hero-divider #divider-circle {
+        height: 150px;
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .hero-action h4 {
+        font-size: 14px;
+    }
+
+    .hero-divider #divider-circle {
+        height: 120px;
+        width: 120px;
+    }
+
+    .hero-action {
+        margin-bottom: -25px;
+    }
+
+    #cta-button {
+        padding: 5px;
+        border-radius: 5px;
+        color: white;
+        font-weight: 700;
+        margin-top: 10px;
+    }
+}
+@media screen and (max-width: 375px) {
+    .hero-action h4 {
+        font-size: 12px;
+    }
+}

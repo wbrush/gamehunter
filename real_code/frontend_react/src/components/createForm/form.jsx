@@ -123,67 +123,69 @@ const Form = ({ form }) => {
                     }} />
                 </div>
                 
-                <div className='section'>
-                    <label>Start Time</label>
-                    <div className="time-selector">
-                    <select onChange={(option) => setStartHour(Number(option.target.selectedOptions[0].innerHTML))}>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                    </select>
-    
-                    <select onChange={(option) => setStartMinute(Number(option.target.selectedOptions[0].innerHTML))}>
-                        <option>00</option>
-                        <option>15</option>
-                        <option>30</option>
-                        <option>45</option>
-                    </select>
-    
-                    <select onChange={(option) => setStartCycle(option.target.selectedOptions[0].innerHTML)}>
-                        <option>AM</option>
-                        <option>PM</option>
-                    </select>
+                <div className="time-sections">
+                    <div className='section'>
+                        <label>Start Time</label>
+                        <div className="time-selector">
+                        <select onChange={(option) => setStartHour(Number(option.target.selectedOptions[0].innerHTML))}>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                        </select>
+        
+                        <select onChange={(option) => setStartMinute(Number(option.target.selectedOptions[0].innerHTML))}>
+                            <option>00</option>
+                            <option>15</option>
+                            <option>30</option>
+                            <option>45</option>
+                        </select>
+        
+                        <select onChange={(option) => setStartCycle(option.target.selectedOptions[0].innerHTML)}>
+                            <option>AM</option>
+                            <option>PM</option>
+                        </select>
+                        </div>
                     </div>
-                </div>
-                
-                <div className='section'>
-                    <label>End Time</label>
-                    <div className="time-selector">
-                    <select onChange={(option) => setEndHour(Number(option.target.selectedOptions[0].innerHTML))}>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                    </select>
-    
-                    <select onChange={(option) => setEndMinute(Number(option.target.selectedOptions[0].innerHTML))}>
-                        <option>00</option>
-                        <option>15</option>
-                        <option>30</option>
-                        <option>45</option>
-                    </select>
-    
-                    <select onChange={(option) => setEndCycle(option.target.selectedOptions[0].innerHTML)}>
-                        <option>AM</option>
-                        <option>PM</option>
-                    </select>
+                    
+                    <div className='section'>
+                        <label>End Time</label>
+                        <div className="time-selector">
+                        <select onChange={(option) => setEndHour(Number(option.target.selectedOptions[0].innerHTML))}>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                        </select>
+        
+                        <select onChange={(option) => setEndMinute(Number(option.target.selectedOptions[0].innerHTML))}>
+                            <option>00</option>
+                            <option>15</option>
+                            <option>30</option>
+                            <option>45</option>
+                        </select>
+        
+                        <select onChange={(option) => setEndCycle(option.target.selectedOptions[0].innerHTML)}>
+                            <option>AM</option>
+                            <option>PM</option>
+                        </select>
+                        </div>
                     </div>
                 </div>
     

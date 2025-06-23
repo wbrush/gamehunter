@@ -40,10 +40,6 @@ const Home = () => {
       <div className='homepage-content'>
         <Hero formVisibility={createFormVisibility} setFormVisibility={setCreateFormVisibility} />
 
-        <div style={{backgroundColor: 'rgb(8, 18, 37)', height: '95px', position: 'relative'}}>
-          <div style={{backgroundColor: 'white', height: '190px', width: '190px', borderRadius: '50%', position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)'}}></div>
-        </div>
-
         <div className="create-event">
           {createFormVisibility ? (
             <>

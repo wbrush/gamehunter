@@ -14,8 +14,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    
 }
 
 p {
@@ -26,7 +24,44 @@ p {
     width: 30px;
 }
 
+.email p,
+.location p,
+.phone p,
+.socials p {
+    padding: 0 10px;
+    text-align: center;
+}
+
 .socials .social-icons {
     display: flex;
     gap: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .footer {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        background-color: rgb(4, 10, 20);
+        height: fit-content;
+    }
+
+    .footer > * {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .footer p {
+        font-size: 14px;
+    }
+
+    #icon {
+        width: 25px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .footer p {
+        font-size: 12px;
+    }
 }

@@ -38,3 +38,15 @@
     color: rgb(8, 18, 37);
     border: 1px solid rgb(8, 18, 37);
 }
+
+@media screen and (max-width: 850px) {
+    .upcoming-events {
+        grid-template-columns: 48% 48%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .upcoming-events {
+        grid-template-columns: 98%;
+    }
+}

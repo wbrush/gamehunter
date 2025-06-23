@@ -87,3 +87,11 @@
 #whitespace {
     color: white;
 }
+
+@media screen and (max-width: 500px) {
+    #divider {
+        height: 2px;
+        width: 95%;
+        margin: 0 auto;
+    }
+}

@@ -20,6 +20,12 @@
     text-align: center;
 }
 
+.event-form form .time-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .event-form form .section {
     display: flex;
     flex-direction: column;
@@ -141,4 +147,43 @@
     padding-bottom: 5px;
     font-size: 14px;
     text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+    .event-form form h2 {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .create-event {
+        flex-direction: column;
+    }
+
+    .event-form {
+        height: fit-content;
+    }
+
+    .event-form form {
+        gap: 20px;
+    }
+
+    .event-form form .time-sections {
+        flex-direction: row;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .event-form form label,
+    .event-form form #form-submit {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .event-form form .time-sections {
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+    }
 }
