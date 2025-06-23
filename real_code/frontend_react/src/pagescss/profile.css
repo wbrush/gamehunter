@@ -39,8 +39,7 @@ body {
 
 .profile-page .upcoming-events .upcoming-slider .list,
 .profile-page .previous-events .previous-slider .list {
-    display: grid;
-    grid-template-columns: 23% 23% 23% 23%;
+    display: flex;
     gap: 5px;
     height: 100%;
     margin-top: 10px;
@@ -57,4 +56,34 @@ body {
     width: fit-content;
     margin: 0;
     padding-right: 30px;
+}
+
+@media screen and (max-width: 550px) {
+    .profile-page .user-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .profile-page .upcoming-events,
+    .profile-page .previous-events {
+        width: 95%;
+    }
+
+    .profile-page .upcoming-events .upcoming-slider,
+    .profile-page .previous-events .previous-slider {
+        overflow-x: scroll;
+    }
+
+    .profile-page .list .event {
+        min-width: 120px;
+    }
+
+    .section-header h2 {
+        font-size: 26px;
+    }
+
+    .list h1 {
+        font-size: 24px;
+    }
 }
